@@ -1,4 +1,7 @@
 # ingenieriaSoftware1
 
-INSTALAR
+# Instalar
+
 pip install flask
+
+# Requerimientos
