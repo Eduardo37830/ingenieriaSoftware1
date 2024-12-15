@@ -1,7 +1,10 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template
 
 app = Flask(__name__)
-
+app.register_blueprint(transaction_blueprint)
+app.register_blueprint(admission_blueprint)
+app.register_blueprint(personalAdmistraccion)
+app.register_blueprint(proveedoresAdmistraccion)  
 @app.route("/")
 def home():
     return render_template("index.html")

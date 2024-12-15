@@ -1,14 +1,20 @@
-{% extends "base.html" %}
-
-{% block title %}Inicio Cliente{% endblock %}
-
-{% block content %}
-<head>
-    <title>Página de Inicio</title>
-</head>
-<h1>Inicio Cliente</h1>
-<a href="{{ url_for('inicio_cliente') }}" class="btn btn-primary">
-    Ir a Inicio Cliente
-</a>
-
-{% endblock %}
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Página de Inicio</title>
+        <link rel="stylesheet"
+            href="{{ url_for('static', filename='styles/global.css') }}">
+            <style>
+                /* Estilos básicos para la transición */
+                .fade-out {
+                    opacity: 0;
+                    transition: opacity 1s ease-out;
+                }
+            </style>    
+    </head>
+    <body>
+        <h1>Página Index</h1>
+    </body>
+</html>

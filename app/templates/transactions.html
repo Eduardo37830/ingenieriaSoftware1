@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transacciones</title>
+</head>
+<body>
+    <h1>Transacciones</h1>
+    <ul>
+        {% for transaction in transactions %}
+            <li>{{ transaction.id }}: {{ transaction.description }} - ${{ transaction.amount }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
