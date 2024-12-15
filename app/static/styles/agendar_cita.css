@@ -1,0 +1,70 @@
+/* Contenedor del formulario */
+.form-container {
+	max-width: 500px;
+	margin: 50px auto;
+	padding: 20px;
+	background-color: var(--fondo-secundario);
+	border: 2px solid var(--encabezado);
+	border-radius: 10px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Título del formulario */
+.form-title {
+	text-align: center;
+	font-size: 24px;
+	color: var(--encabezado);
+	margin-bottom: 20px;
+}
+
+/* Grupos del formulario */
+.form-group {
+	margin-bottom: 15px;
+}
+
+/* Etiquetas del formulario */
+.form-label {
+	display: block;
+	font-size: 16px;
+	font-weight: bold;
+	color: var(--texto);
+	margin-bottom: 5px;
+}
+
+/* Inputs del formulario */
+.form-input {
+	width: 100%;
+	padding: 10px;
+	font-size: 14px;
+	color: var(--texto);
+	border: 2px solid var(--fondo-principal);
+	border-radius: 5px;
+	box-sizing: border-box;
+	background-color: var(--fondo-principal);
+	transition: border-color 0.3s;
+}
+
+.form-input:focus {
+	border-color: var(--encabezado);
+	outline: none;
+}
+
+/* Botón del formulario */
+.custom-button {
+	display: inline-block;
+	width: 100%;
+	padding: 10px;
+	font-size: 16px;
+	font-weight: bold;
+	color: #ffffff;
+	background-color: var(--boton);
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.form-button-container {
+	text-align: center;
+	margin-top: 10px;
+}

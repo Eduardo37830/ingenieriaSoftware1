@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -10,9 +10,24 @@ def home():
 def inicio_cliente():
     return render_template('inicio_cliente.html')
 
-@app.route('/agendar_cita')
+@app.route('/agendar_cita', methods=["GET", "POST"])
 def agendar_cita():
+    if request.method == "POST":
+        # Capturar los datos del formulario
+        fecha = request.form.get("fecha")
+        hora = request.form.get("hora")
+        tipo = request.form.get("tipo")
+        medico = request.form.get("medico")
+        
+        print(f"Fecha: {fecha}, Hora: {hora}, Tipo: {tipo}, Médico: {medico}")
+        
+        # Mensaje de confirmación (puedes redirigir a otra página o mostrar un mensaje)
+        mensaje = f"Cita agendada con éxito: Fecha: {fecha}, Hora: {hora}, Tipo: {tipo}, Médico: {medico}"
+        return render_template("agendar_cita.html", mensaje=mensaje)
+    
+    # Si es un GET, simplemente renderiza el formulario
     return render_template('agendar_cita.html')
+
 
 @app.route('/citas_agendadas')
 def citas_agendadas():
