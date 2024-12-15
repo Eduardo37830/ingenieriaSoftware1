@@ -9,5 +9,32 @@
     <title>Cirugias</title>
 </head>
 <h1>Cirugias</h1>
-
+<div class="contenedor-cirugias">
+    <table class="tabla-cirugias">
+        <thead>
+            <tr>
+                <th>Nombre del Paciente</th>
+                <th>Hora</th>
+                <th>Fecha</th>
+                <th>Habitación</th>
+                <th>Tipo</th>
+                <th>Lista Personal Médico</th>
+                <th>Lista Equipo Médico</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cirugia in cirugias %}
+            <tr>
+                <td>{{ cirugia.nombre_paciente }}</td>
+                <td>{{ cirugia.hora }}</td>
+                <td>{{ cirugia.fecha }}</td>
+                <td>{{ cirugia.habitacion }}</td>
+                <td>{{ cirugia.tipo }}</td>
+                <td>{{ cirugia.personal_medico }}</td>
+                <td>{{ cirugia.equipo_medico }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}
