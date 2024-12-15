@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from controllers.transaction_controller import transaction_blueprint, admission_blueprint, personalAdmistraccion, proveedoresAdmistraccion
 
 app = Flask(__name__)
@@ -9,11 +9,11 @@ app.register_blueprint(proveedoresAdmistraccion)
 @app.route("/")
 def home():
     return render_template("index.html")
-
+# ---------------------------------------------------------------------Inicio Cliente
 @app.route('/inicio_cliente')
 def inicio_cliente():
     return render_template('inicio_cliente.html')
-
+# ---------------------------------------------------------------------AGENDAR CITA
 @app.route('/agendar_cita', methods=["GET", "POST"])
 def agendar_cita():
     if request.method == "POST":
@@ -32,18 +32,44 @@ def agendar_cita():
     # Si es un GET, simplemente renderiza el formulario
     return render_template('agendar_cita.html')
 
+# ----------------------------------------------------------------------Citas Agendadas
+# Datos de ejemplo (esto se puede conectar a una base de datos en producción)
+citas = [
+    {"id": 1, "fecha": "2024-12-15", "hora": "10:00", "tipo": "Consulta", "medico": "Dr. López"},
+    {"id": 2, "fecha": "2024-12-16", "hora": "14:00", "tipo": "Revisión", "medico": "Dra. Gómez"},
+    {"id": 3, "fecha": "2024-12-17", "hora": "09:30", "tipo": "Examen", "medico": "Dr. Pérez"}
+]
 
-@app.route('/citas_agendadas')
+# Ruta para mostrar las citas agendadas
+@app.route('/citas_agendadas', methods=["GET", "POST"])
 def citas_agendadas():
-    return render_template('citas_agendadas.html')
+    if request.method == "POST":
+        # Obtener el ID de la cita seleccionada para cancelar
+        selected_id = request.form.get("seleccionar_cita")
+        if selected_id:
+            # Aquí manejarías la cancelación real (ej. eliminar de la base de datos)
+            print(f"Cita cancelada con ID: {selected_id}")
+        return redirect(url_for('citas_agendadas'))
+    
+    # Renderizar la plantilla con las citas
+    return render_template('citas_agendadas.html', citas=citas)
 
+@app.route('/cancelar_cita', methods=["POST"])
+def cancelar_cita():
+    selected_id = request.form.get("seleccionar_cita")
+    if selected_id:
+        print(f"Cita cancelada con ID: {selected_id}")
+        # Aquí pondrías la lógica real para eliminar la cita de la base de datos
+    return redirect(url_for('citas_agendadas'))
+
+# ---------------------------------------------------------------------Historial Médico
 @app.route('/historial_medico')
 def historial_medico():
     return render_template('historial_medico.html')
-
+# ---------------------------------------------------------------------Medicamentos
 @app.route('/medicamentos')
 def medicamentos():
     return render_template('medicamentos.html')
-
+# ---------------------------------------------------------------------Main
 if __name__ == "__main__":
     app.run(debug=True)
