@@ -9,5 +9,27 @@
     <title>Historial Medico</title>
 </head>
 <h1>Historial Medico</h1>
+<div class="contenedor-historial">
+    <table class="tabla-historial">
+        <thead>
+            <tr>
+                <th class="columna-fecha">Fecha</th>
+                <th class="columna-diagnostico">Diagnóstico</th>
+                <th class="columna-tratamiento">Tratamiento</th>
+                <th class="columna-medico">Médico</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for registro in historial %}
+            <tr>
+                <td>{{ registro.fecha }}</td>
+                <td>{{ registro.diagnostico }}</td>
+                <td>{{ registro.tratamiento }}</td>
+                <td>{{ registro.medico }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 
 {% endblock %}

@@ -65,7 +65,13 @@ def cancelar_cita():
 # ---------------------------------------------------------------------Historial Médico
 @app.route('/historial_medico')
 def historial_medico():
-    return render_template('historial_medico.html')
+    # Datos de ejemplo para el historial médico
+    historial = [
+        {"fecha": "2024-06-01", "diagnostico": "Gripe", "tratamiento": "Reposo y líquidos", "medico": "Dr. Ramírez"},
+        {"fecha": "2024-06-10", "diagnostico": "Faringitis", "tratamiento": "Antibióticos", "medico": "Dra. González"},
+        {"fecha": "2024-06-20", "diagnostico": "Dolor de cabeza", "tratamiento": "Analgésicos", "medico": "Dr. Pérez"},
+    ]
+    return render_template('historial_medico.html', historial=historial)
 # ---------------------------------------------------------------------Medicamentos
 @app.route('/medicamentos')
 def medicamentos():
