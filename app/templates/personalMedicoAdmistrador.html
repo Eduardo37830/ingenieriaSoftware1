@@ -3,44 +3,48 @@
 {% block title %}Personal Medico{% endblock %}
 
 {% block content %}
-    <div class="main">
-        <h2>Personal Médico</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Departamento</th>
-                    <th>Profesión</th>
-                    <th>Horario Entrada</th>
-                    <th>Horario Salida</th>
-                    <th>Disponibilidad</th>
-                    <th>Seleccionar</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-
-        <div class="buttons">
-            <button onclick="agregar()">Agregar</button>
-            <button onclick="editar()">Editar</button>
-            <button onclick="eliminar()">Eliminar</button>
-        </div>
+<head>
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='styles/tablas.css') }}">
+    <title>Inicio Admistrador</title>
+</head>
+<div class="main">
+    <h2>Personal Médico</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Departamento</th>
+                <th>Profesión</th>
+                <th>Horario Entrada</th>
+                <th>Horario Salida</th>
+                <th>Disponibilidad</th>
+                <th>Seleccionar</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <div class="button-container">
+        <div class="button-container" ><bottom onclick="eliminar()" class="custom-btn custom-btn-1">eliminar</bottom></div>
+        <div class="button-container"><bottom onclick="editar()"class="custom-btn custom-btn-2">Editar</bottom></div>
+        <div class="button-container"><bottom onclick="agregar()" class="custom-btn custom-btn-3">agregar</bottom></div>
     </div>
+</div>
 
-    <script>
-        function agregar() {
-            alert('Función Agregar en desarrollo');
-        }
+<script>
+    function agregar() {
+        alert('Función Agregar en desarrollo');
+    }
 
-        function editar() {
-            alert('Función Editar en desarrollo');
-        }
+    function editar() {
+        alert('Función Editar en desarrollo');
+    }
 
-        function eliminar() {
-            alert('Función Eliminar en desarrollo');
-        }
-    </script>
+    function eliminar() {
+        alert('Función Eliminar en desarrollo');
+    }
+</script>
 
 {% endblock %}
 
