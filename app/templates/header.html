@@ -1,7 +1,9 @@
 <nav class="navbar">
     <!-- Izquierda: Nombre del hospital -->
     <div class="navbar-left">
-        <div class="navbar-hospital">NOMBRE DEL HOSPITAL</div>
+        <a href="{{ url_for('home') }}" class="navbar-link">
+            <div class="navbar-hospital">NOMBRE DEL HOSPITAL</div>
+        </a>
     </div>
 
     <!-- Centro: Logo y enlaces -->

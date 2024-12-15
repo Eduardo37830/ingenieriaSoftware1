@@ -1,20 +1,20 @@
-<!DOCTYPE html>
-<html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Página de Inicio</title>
-        <link rel="stylesheet"
-            href="{{ url_for('static', filename='styles/global.css') }}">
-            <style>
-                /* Estilos básicos para la transición */
-                .fade-out {
-                    opacity: 0;
-                    transition: opacity 1s ease-out;
-                }
-            </style>    
-    </head>
-    <body>
-        <h1>Página Index</h1>
-    </body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Citas Agendadas{% endblock %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Inicio</title>
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='styles/global.css') }}">
+
+</head>
+
+<a href="{{ url_for('inicio_cliente') }}"
+    class="custom-btn custom-btn-cliente">
+    Inicio Cliente
+</a>
+
+{% endblock %}

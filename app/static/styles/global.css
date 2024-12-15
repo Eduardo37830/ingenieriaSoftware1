@@ -147,3 +147,14 @@ button:hover {
 .navbar-user:hover {
 	background-color: var(--notificaciones); 
 }
+/* Estilos básicos para la transición */
+.fade-out {
+	opacity: 0;
+	transition: opacity 1s ease-out;
+}
+
+.navbar-link {
+    text-decoration: none; /* Quita el subrayado */
+    color: inherit; /* Hereda el color del texto padre */
+    display: block; /* Hace que el enlace ocupe todo el espacio del contenedor */
+}
