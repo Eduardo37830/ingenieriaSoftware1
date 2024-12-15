@@ -1,96 +1,8 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Médico</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+{% extends "base.html" %}
 
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
+{% block title %}Personal Medico{% endblock %}
 
-        .header div {
-            margin: 0 10px;
-        }
-
-        .main {
-            margin-top: 100px;
-            padding: 20px;
-            flex: 1;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: center;
-        }
-
-        th {
-            background-color: #f4f4f4;
-            font-weight: bold;
-        }
-
-        .buttons {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .buttons button {
-            padding: 10px 20px;
-            border: none;
-            background-color: #007BFF;
-            color: white;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        .buttons button:hover {
-            background-color: #0056b3;
-        }
-
-        .footer {
-            background-color: #f4f4f4;
-            text-align: center;
-            padding: 10px;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-        }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <div>Nombre del Hospital</div>
-        <div>LOGO</div>
-        <div>Inicio | Soporte | Información</div>
-        <div>Cuenta Usuario</div>
-    </div>
-
+{% block content %}
     <div class="main">
         <h2>Personal Médico</h2>
         <table>
@@ -106,25 +18,6 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Ejemplo de datos de tabla -->
-                <tr>
-                    <td>Dr. Juan Pérez</td>
-                    <td>Cardiología</td>
-                    <td>Cardiólogo</td>
-                    <td>08:00</td>
-                    <td>16:00</td>
-                    <td>Disponible</td>
-                    <td><input type="checkbox"></td>
-                </tr>
-                <tr>
-                    <td>Dra. Ana Gómez</td>
-                    <td>Pediatría</td>
-                    <td>Pediatra</td>
-                    <td>09:00</td>
-                    <td>17:00</td>
-                    <td>No Disponible</td>
-                    <td><input type="checkbox"></td>
-                </tr>
             </tbody>
         </table>
 
@@ -133,10 +26,6 @@
             <button onclick="editar()">Editar</button>
             <button onclick="eliminar()">Eliminar</button>
         </div>
-    </div>
-
-    <div class="footer">
-        Contactos y Servicio al Cliente
     </div>
 
     <script>
@@ -152,5 +41,6 @@
             alert('Función Eliminar en desarrollo');
         }
     </script>
-</body>
-</html>
+
+{% endblock %}
+
