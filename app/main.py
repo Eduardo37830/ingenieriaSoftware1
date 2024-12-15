@@ -87,6 +87,26 @@ medicamentos = [
 @app.route('/medicamentos')
 def medicamentos_view():
     return render_template('medicamentos.html', medicamentos=medicamentos)
+
+# ---------------------------------------------------------------------Inicio Medico
+@app.route('/inicio_medico')
+def inicio_medico():
+    return render_template('inicio_medico.html')
+# ---------------------------------------------------------------------Citas Medicas
+@app.route('/citas_medicas')
+def citas_medicas():
+    return render_template('citas_medicas.html')
+# ---------------------------------------------------------------------Cirugias
+# Datos de ejemplo para cirugías
+cirugias = [
+    {"nombre_paciente": "Juan Pérez", "hora": "08:00", "fecha": "2024-06-15", "habitacion": "101", "tipo": "Cardíaca", "personal_medico": "Dr. Gómez, Dra. López", "equipo_medico": "Anestesiólogo, Enfermero"},
+    {"nombre_paciente": "María López", "hora": "10:00", "fecha": "2024-06-16", "habitacion": "102", "tipo": "Ortopédica", "personal_medico": "Dr. Martínez, Dra. Ruiz", "equipo_medico": "Asistente, Enfermero"},
+    {"nombre_paciente": "Carlos Ramírez", "hora": "12:00", "fecha": "2024-06-17", "habitacion": "103", "tipo": "Neurológica", "personal_medico": "Dr. Pérez, Dra. Torres", "equipo_medico": "Instrumentista, Anestesiólogo"},
+]
+
+@app.route('/cirugias')
+def cirugias_view():
+    return render_template('cirugias.html', cirugias=cirugias)
 # ---------------------------------------------------------------------Main
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio Medico{% endblock %}
+
+{% block content %}
+<head>
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='styles/inicio_medico.css') }}">
+    <title>Inicio Medico</title>
+</head>
+<h1>Inicio Medico</h1>
+<div class="button-container">
+    <a href="{{ url_for('citas_medicas') }}"
+        class="custom-btn custom-btn-cliente">
+        Citas Medicas
+    </a>
+    <a href="{{ url_for('cirugias_view') }}"
+        class="custom-btn custom-btn-cita">
+        Cirugias
+    </a>
+
+</div>
+{% endblock %}
