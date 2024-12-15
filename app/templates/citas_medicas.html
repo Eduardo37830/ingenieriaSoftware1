@@ -1,13 +1,39 @@
 {% extends "base.html" %}
 
-{% block title %}Citas Medicas{% endblock %}
+{% block title %}Citas Médicas{% endblock %}
 
 {% block content %}
-<head>
-    <link rel="stylesheet"
-        href="{{ url_for('static', filename='styles/citas_medicas.css') }}">
-    <title>itas Medicas</title>
-</head>
-<h1>Citas Medicas</h1>
+<link rel="stylesheet"
+    href="{{ url_for('static', filename='styles/citas_medicas.css') }}">
 
+<h1 class="citas-titulo">Citas Médicas</h1>
+
+<div class="citas-container">
+    <table class="tabla-citas">
+        <thead>
+            <tr class="tabla-encabezado">
+                <th>Nombre del Paciente</th>
+                <th>Hora Consulta</th>
+                <th>Fecha Consulta</th>
+                <th>Motivo de Consulta</th>
+                <th>Seleccionar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cita in citas %}
+            <tr class="tabla-fila">
+                <td>{{ cita.nombre }}</td>
+                <td>{{ cita.hora }}</td>
+                <td>{{ cita.fecha }}</td>
+                <td>{{ cita.motivo }}</td>
+                <td>
+                    <button class="boton-seleccionar" type="button">
+                        Seleccionar
+                    </button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

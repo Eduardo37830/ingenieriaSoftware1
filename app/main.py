@@ -97,9 +97,15 @@ def medicamentos_view():
 def inicio_medico():
     return render_template('inicio_medico.html')
 # ---------------------------------------------------------------------Citas Medicas
+# Ejemplo de datos de citas (se podría conectar a una base de datos)
+citas = [
+    {"id": 1, "nombre": "Juan Pérez", "hora": "10:00", "fecha": "2024-12-15", "motivo": "Consulta General"},
+    {"id": 2, "nombre": "María Gómez", "hora": "14:00", "fecha": "2024-12-16", "motivo": "Revisión Médica"},
+    {"id": 3, "nombre": "Carlos López", "hora": "09:30", "fecha": "2024-12-17", "motivo": "Examen Especial"}
+]
 @app.route('/citas_medicas')
 def citas_medicas():
-    return render_template('citas_medicas.html')
+    return render_template('citas_medicas.html', citas=citas)
 # ---------------------------------------------------------------------Cirugias
 # Datos de ejemplo para cirugías
 cirugias = [
