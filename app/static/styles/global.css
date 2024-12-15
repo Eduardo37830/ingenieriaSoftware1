@@ -1,9 +1,149 @@
+/* Body */
 :root {
 	--fondo-principal: #e7e7e7;
 	--fondo-secundario: #f4f4f4;
-	--encabezado: #4a90e2;
-	--boton: #a2d9b1;
+	--encabezado: #2e7ad1;
+	--boton: #71ab81;
 	--texto: #4a4a4a;
 	--alerta: #e57373;
-	--notificaciones: #f4f4f4;
+	--notificaciones: #beb459;
+}
+
+/* Body */
+body {
+	font-family: 'Verdana', sans-serif;
+	background-color: var(--fondo-principal);
+	margin: 0;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+/* h1 */
+h1 {
+	color: var(--encabezado);
+	margin-top: 20px;
+	font-size: 60px;
+	text-align: center;
+	margin-bottom: 40px;
+}
+
+/* Header */
+
+header {
+	width: 100%;
+	background-color: var(--encabezado);
+}
+
+main {
+	flex-grow: 1;
+	box-sizing: border-box;
+	padding-top: 30px;
+	padding-bottom: 40px;
+}
+
+
+/* Estilos para el footer */
+footer {
+    background-color: var(--encabezado);
+    color: white;
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid white;
+	width: 100%;
+}
+
+/* Contenedor del footer */
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+	padding:30px;
+}
+
+/* Estilo para la parte izquierda (texto de derechos reservados) */
+.footer-left p {
+    margin: 0;
+}
+
+/* Estilo para la parte derecha (botón) */
+.footer-right {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Estilo del botón */
+.btn-contacto {
+    background-color: var(--boton); 
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+/* Efecto hover del botón */
+.btn-contacto:hover {
+    background-color: var(--notificaciones); 
+}
+
+/* Estilo del botón */
+button {
+	background-color: var(--boton);
+	color: white;
+	padding: 10px 100px;
+	border: none;
+	border-radius: 10px;
+	font-size: 1.3rem;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	width: 100%;
+}
+
+button:hover {
+	background-color: white;
+	color: var(--notificaciones);
+}
+
+/* Barra de navegación */
+.navbar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: color: var(--encabezado);
+	padding: 15px 20px;
+	color: white;
+}
+
+/* Contenedores dentro de la barra */
+.navbar-left,
+.navbar-center,
+.navbar-right {
+	display: flex;
+	align-items: center;
+}
+
+
+/* Botones o enlaces */
+.navbar-links a,
+.navbar-user {
+	color: white;
+	text-decoration: none;
+	margin: 0 10px;
+	padding: 5px 10px;
+	border: 1px solid white;
+	text-align: center;
+}
+
+.navbar-links a:hover,
+.navbar-user:hover {
+	background-color: var(--notificaciones); 
 }
