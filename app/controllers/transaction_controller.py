@@ -10,6 +10,8 @@ transaction_blueprint = Blueprint('transactions', __name__)
 admission_blueprint = Blueprint('admissions', __name__)
 personalAdmistraccion = Blueprint('personalAdmistraccion', __name__)
 proveedoresAdmistraccion = Blueprint('proveedoresAdmistraccion', __name__)
+almacenAdmistraccion = Blueprint('almacenAdmistraccion', __name__)
+
 
 # Crea una instancia de TransactionMapper, que se utilizará para obtener las transacciones.
 mapper = TransactionMapper()
@@ -33,4 +35,7 @@ def show_personal():
 @proveedoresAdmistraccion.route('/Administrador/proveedores')
 def show_proveedores():
     return render_template('proveedoresAdmistrador.html')
+@almacenAdmistraccion.route('/Administrador/almacen')
+def show_almacen():
+    return render_template('almacenAdmistrador.html')
 

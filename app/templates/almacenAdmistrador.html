@@ -1,0 +1,34 @@
+
+{% extends "base.html" %}
+
+{% block title %}Almacen{% endblock %}
+
+{% block content %}
+<head>
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='styles/admistrador.css') }}">
+    <title>Almacen</title>
+</head>
+<main>
+    <div class="button-container">
+        <div class="button-container" ><bottom id="medicamentos" class="custom-btn custom-btn-1">Citas y Cirugias</bottom></div>
+        <div class="button-container"><bottom id="equipoMedico"class="custom-btn custom-btn-2">Personal Medico</bottom></div>
+    </div>
+    <script>
+        document.getElementById("medicamentos").addEventListener("click", function () {
+            const body = document.body;
+            body.classList.add("fade-out");
+            setTimeout(() => {
+                window.location.href = "/Administrador/almacen/medicamentos";
+            }, 1000);
+        });
+        document.getElementById("equipoMedico").addEventListener("click", function () {
+            const body = document.body;
+            body.classList.add("fade-out");
+            setTimeout(() => {
+                window.location.href = "/Administrador/almacen/Equipo_medico";
+            }, 1000);
+        });
+    </script>
+</main>
+{% endblock %}
