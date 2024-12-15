@@ -1,23 +1,21 @@
 {% extends "base.html" %}
 
-{% block title %}Personal Medico{% endblock %}
+{% block title %}Habitaciones{% endblock %}
 
 {% block content %}
 <head>
     <link rel="stylesheet"
         href="{{ url_for('static', filename='styles/tablas.css') }}">
-    <title>Personal Medico</title>
+    <title>Habitaciones</title>
 </head>
 <div class="main">
-    <h2>Personal Medico</h2>
+    <h2>Habitaciones</h2>
     <table>
         <thead>
             <tr>
                 <th>Nombre</th>
-                <th>Departamento</th>
-                <th>Profesión</th>
-                <th>Horario Entrada</th>
-                <th>Horario Salida</th>
+                <th>Capacidad</th>
+                <th>tipo Habitacion</th>
                 <th>Disponibilidad</th>
                 <th>Seleccionar</th>
             </tr>
@@ -26,9 +24,9 @@
         </tbody>
     </table>
     <div class="button-container">
-        <div class="button-container" ><bottom onclick="eliminar()" class="custom-btn custom-btn-1">eliminar</bottom></div>
+        <div class="button-container" ><bottom onclick="eliminar()" class="custom-btn custom-btn-3">eliminar</bottom></div>
         <div class="button-container"><bottom onclick="editar()"class="custom-btn custom-btn-2">Editar</bottom></div>
-        <div class="button-container"><bottom onclick="agregar()" class="custom-btn custom-btn-3">agregar</bottom></div>
+        <div class="button-container"><bottom onclick="agregar()" class="custom-btn custom-btn-1">agregar</bottom></div>
     </div>
 </div>
 

@@ -1,0 +1,34 @@
+
+{% extends "base.html" %}
+
+{% block title %}Citas Y Cirugias{% endblock %}
+
+{% block content %}
+<head>
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='styles/admistrador.css') }}">
+    <title>Citas Y Cirugias</title>
+</head>
+<main>
+    <div class="button-container">
+        <div class="button-container"><bottom id="citas" class="custom-btn custom-btn-1">Citas</bottom></div>
+        <div class="button-container"><bottom id="cirugia" class="custom-btn custom-btn-2">Cirugias</bottom></div>
+    </div>
+    <script>
+        document.getElementById("citas").addEventListener("click", function () {
+            const body = document.body;
+            body.classList.add("fade-out");
+            setTimeout(() => {
+                window.location.href = "/Administrador/citas";
+            }, 1000);
+        });
+        document.getElementById("cirugia").addEventListener("click", function () {
+            const body = document.body;
+            body.classList.add("fade-out");
+            setTimeout(() => {
+                window.location.href = "/Administrador/cirugias";
+            }, 1000);
+        });
+    </script>
+</main>
+{% endblock %}

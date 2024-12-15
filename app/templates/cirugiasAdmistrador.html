@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Cirugias{% endblock %}
+
+{% block content %}
+<head>
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='styles/tablas.css') }}">
+    <title>Cirugias</title>
+</head>
+<div class="main">
+    <h2>Cirugias</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre del paciente</th>
+                <th>Hora</th>
+                <th>Fecha</th>
+                <th>Habitacion</th>
+                <th>tipo</th>
+                <th>lista personal medico</th>
+                <th>lista equipo medico</th>
+                <th>Seleccionar</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <div class="button-container">
+        <div class="button-container" ><bottom onclick="eliminar()" class="custom-btn custom-btn-3">cancelar cirugia</bottom></div>
+        <div class="button-container"><bottom onclick="editar()"class="custom-btn custom-btn-2">agregar personal medico</bottom></div>
+        <div class="button-container"><bottom onclick="agregar()" class="custom-btn custom-btn-1">agregar cirugia</bottom></div>
+    </div>
+</div>
+
+<script>
+    function agregar() {
+        alert('Función Agregar en desarrollo');
+    }
+
+    function editar() {
+        alert('Función Editar en desarrollo');
+    }
+
+    function eliminar() {
+        alert('Función Eliminar en desarrollo');
+    }
+</script>
+
+{% endblock %}
+

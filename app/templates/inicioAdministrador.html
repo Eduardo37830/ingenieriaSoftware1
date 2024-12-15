@@ -11,7 +11,8 @@
 </head>
 <main>
     <div class="button-container">
-        <div class="button-container" ><bottom id="citasycirugias" class="custom-btn custom-btn-1">Citas y Cirugias</bottom></div>
+        <div class="button-container"><bottom id="citas" class="custom-btn custom-btn-1">Citas</bottom></div>
+        <div class="button-container"><bottom id="cirugia" class="custom-btn custom-btn-2">Cirugias</bottom></div>
         <div class="button-container"><bottom id="personalmedico"class="custom-btn custom-btn-2">Personal Medico</bottom></div>
         <div class="button-container"><bottom id="proveedores"class="custom-btn custom-btn-3">Proveedores</bottom></div>
     </div>
@@ -22,13 +23,6 @@
         <div class="button-container"><bottom id="departamentos"class="custom-btn custom-btn-3">Departamentos</bottom></div>   
     </div>
     <script>
-        document.getElementById("citasycirugias").addEventListener("click", function () {
-            const body = document.body;
-            body.classList.add("fade-out");
-            setTimeout(() => {
-                window.location.href = "/Administrador/citasycirugias";
-            }, 1000);
-        });
         document.getElementById("personalmedico").addEventListener("click", function () {
             const body = document.body;
             body.classList.add("fade-out");
@@ -69,6 +63,20 @@
             body.classList.add("fade-out");
             setTimeout(() => {
                 window.location.href = "/Administrador/departamentos";
+            }, 1000);
+        });
+        document.getElementById("citas").addEventListener("click", function () {
+            const body = document.body;
+            body.classList.add("fade-out");
+            setTimeout(() => {
+                window.location.href = "/Administrador/citas";
+            }, 1000);
+        });
+        document.getElementById("cirugia").addEventListener("click", function () {
+            const body = document.body;
+            body.classList.add("fade-out");
+            setTimeout(() => {
+                window.location.href = "/Administrador/cirugias";
             }, 1000);
         });
     </script>

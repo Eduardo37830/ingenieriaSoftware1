@@ -13,6 +13,9 @@ proveedoresAdmistraccion = Blueprint('proveedoresAdmistraccion', __name__)
 almacenAdmistraccion = Blueprint('almacenAdmistraccion', __name__)
 medicamentoAdmistraccion = Blueprint('medicamentoAdmistraccion', __name__)
 equipoMedicoAdmistraccion = Blueprint('equipoMedicoAdmistraccion', __name__)
+pacientesAdmistraccion = Blueprint('pacientesAdmistraccion', __name__)
+habitacionesAdmistraccion = Blueprint('habitacionesAdmistraccion', __name__)
+cirugiaAdmistraccion = Blueprint('cirugiaAdmistraccion', __name__)
 
 
 
@@ -44,7 +47,18 @@ def show_almacen():
 @medicamentoAdmistraccion.route('/Administrador/almacen/medicamentos')
 def show_medicamento():
     return render_template('medicamentosAdmistrador.html')
-@equipoMedicoAdmistraccion.route('/Administrador/almacen/equipomedico')
+@equipoMedicoAdmistraccion.route('/Administrador/almacen/Equipo_medico')
 def show_equipomedico():
     return render_template('equipoMedicoAdmistrador.html')
+@pacientesAdmistraccion.route('/Administrador/pacientes')
+def show_pacientes():
+    return render_template('pacientesAdmistrador.html')
+@habitacionesAdmistraccion.route('/Administrador/habitaciones')
+def show_habitaciones():
+    return render_template('habitacionesAdmistrador.html')
+@cirugiaAdmistraccion.route('/Administrador/cirugias')
+def show_cirugias():
+    return render_template('cirugiasAdmistrador.html')
+
+
 

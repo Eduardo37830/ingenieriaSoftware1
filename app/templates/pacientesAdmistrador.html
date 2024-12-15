@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Paciente{% endblock %}
+
+{% block content %}
+<head>
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='styles/tablas.css') }}">
+    <title>Paciente</title>
+</head>
+<div class="main">
+    <h2>Paciente</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Telefono</th>
+                <th>Direccion</th>
+                <th>Historial medico</th>
+                <th>Seleccionar</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <div class="button-container">
+        <div class="button-container" ><bottom onclick="eliminar()" class="custom-btn custom-btn-3">expulsar</bottom></div>
+    </div>
+</div>
+
+<script>
+    function eliminar() {
+        alert('Función Eliminar en desarrollo');
+    }
+</script>
+
+{% endblock %}
+
