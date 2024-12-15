@@ -107,13 +107,66 @@
 
     <main>
         <div class="grid-container">
-            <div class="grid-item">CITAS Y CIRUGIAS</div>
-            <div class="grid-item">PERSONAL MEDICO</div>
-            <div class="grid-item">PROVEEDORES</div>
-            <div class="grid-item">ALMACEN</div>
-            <div class="grid-item">PACIENTES</div>
-            <div class="grid-item">HABITACIONES</div>
-            <div class="grid-item">DEPARTAMENTOS</div>
+            <div class="grid-item"><bottom id="citasycirugias">Citas y Cirugias</bottom></div>
+            <div class="grid-item"><bottom id="personalmedico">Personal Medico</bottom></div>
+            <div class="grid-item"><bottom id="proveedores">Proveedores</bottom></div>
+            <div class="grid-item"><bottom id="almacen">Almacen</bottom></div>
+            <div class="grid-item"><bottom id="pacientes">Pacientes</bottom></div>
+            <div class="grid-item"><bottom id="habitaciones">Habitaciones</bottom></div>
+            <div class="grid-item"><bottom id="departamentos">Departamentos</bottom></div>
+            
+        <script>
+            document.getElementById("citasycirugias").addEventListener("click", function () {
+                const body = document.body;
+                body.classList.add("fade-out");
+                setTimeout(() => {
+                    window.location.href = "/Administrador/citasycirugias";
+                }, 1000);
+            });
+            document.getElementById("personalmedico").addEventListener("click", function () {
+                const body = document.body;
+                body.classList.add("fade-out");
+                setTimeout(() => {
+                    window.location.href = "/Administrador/personalmedico";
+                }, 1000);
+            });
+            document.getElementById("proveedores").addEventListener("click", function () {
+                const body = document.body;
+                body.classList.add("fade-out");
+                setTimeout(() => {
+                    window.location.href = "/Administrador/proveedores";
+                }, 1000);
+            });
+            document.getElementById("almacen").addEventListener("click", function () {
+                const body = document.body;
+                body.classList.add("fade-out");
+                setTimeout(() => {
+                    window.location.href = "/Administrador/almacen";
+                }, 1000);
+            });
+            document.getElementById("pacientes").addEventListener("click", function () {
+                const body = document.body;
+                body.classList.add("fade-out");
+                setTimeout(() => {
+                    window.location.href = "/Administrador/pacientes";
+                }, 1000);
+            });
+            document.getElementById("habitaciones").addEventListener("click", function () {
+                const body = document.body;
+                body.classList.add("fade-out");
+                setTimeout(() => {
+                    window.location.href = "/Administrador/habitaciones";
+                }, 1000);
+            });
+            document.getElementById("departamentos").addEventListener("click", function () {
+                const body = document.body;
+                body.classList.add("fade-out");
+                setTimeout(() => {
+                    window.location.href = "/Administrador/departamentos";
+                }, 1000);
+            });
+
+        </script>
         </div>
     </main>
 

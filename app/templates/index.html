@@ -4,10 +4,52 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Página de Inicio</title>
+        <style>
+            /* Estilos básicos para la transición */
+            .fade-out {
+                opacity: 0;
+                transition: opacity 1s ease-out;
+            }
+        </style>
         <link rel="stylesheet"
             href="{{ url_for('static', filename='styles/global.css') }}">
     </head>
     <body>
         <h1>Página Index</h1>
+        <img
+            src="{{ url_for('static', filename='resources/img/america.jpeg') }}"
+            alt="Logo">
+
+        <button id="navigate-button">Ir a Transacciones</button>
+        <button id="inicio">INICIO ADMISTRADOR</button>
+
+        <script>
+            document.getElementById("navigate-button").addEventListener("click", function () {
+                // Obtener el cuerpo de la página
+                const body = document.body;
+
+                // Añadir la clase de transición para hacer un "fade out"
+                body.classList.add("fade-out");
+
+                // Esperar a que termine la transición antes de navegar
+                setTimeout(() => {
+                    // Navegar a la página de transacciones
+                    window.location.href = "/transactions";
+                }, 1000); // La duración debe coincidir con la transición en CSS (1s)
+            });
+            document.getElementById("inicio").addEventListener("click", function () {
+                // Obtener el cuerpo de la página
+                const body = document.body;
+
+                // Añadir la clase de transición para hacer un "fade out"
+                body.classList.add("fade-out");
+
+                // Esperar a que termine la transición antes de navegar
+                setTimeout(() => {
+                    // Navegar a la página de transacciones
+                    window.location.href = "/Administrador";
+                }, 1000); // La duración debe coincidir con la transición en CSS (1s)
+            });
+        </script>
     </body>
 </html>
