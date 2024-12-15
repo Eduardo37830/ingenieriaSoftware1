@@ -73,9 +73,15 @@ def historial_medico():
     ]
     return render_template('historial_medico.html', historial=historial)
 # ---------------------------------------------------------------------Medicamentos
+medicamentos = [
+    {"fecha": "2024-06-01", "cantidad": 2, "nombre": "Paracetamol", "dosis": "500mg cada 8 horas"},
+    {"fecha": "2024-06-05", "cantidad": 1, "nombre": "Ibuprofeno", "dosis": "400mg cada 6 horas"},
+    {"fecha": "2024-06-10", "cantidad": 3, "nombre": "Amoxicilina", "dosis": "500mg cada 12 horas"},
+]
+
 @app.route('/medicamentos')
-def medicamentos():
-    return render_template('medicamentos.html')
+def medicamentos_view():
+    return render_template('medicamentos.html', medicamentos=medicamentos)
 # ---------------------------------------------------------------------Main
 if __name__ == "__main__":
     app.run(debug=True)
