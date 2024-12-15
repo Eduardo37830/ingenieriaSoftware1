@@ -49,22 +49,6 @@ def generate_report():
         'saldo_promedio': informe_dto.saldo_promedio
     })
 
-def create_transaction():
-    #Crea una nueva transacción
-
-    data = request.get_json()
-    transaction_dto = TransactionMapper.from_dict(data)
-    transaction_repository = RepositoryFactory.create_transaction_repository()
-    service = TransactionApplicationService(transaction_repository)
-    transaction = service.create_transaction(transaction_dto)
-    return jsonify(TransactionMapper.to_dict(transaction)), 201
-
-def get_transactions(transaction_id):
-    #Obtiene la transacción con el ID especificado
-
-    transaction_repository = RepositoryFactory.create_transaction_repository()
-    service = TransactionApplicationService(transaction_repository)
-    transactions = service.get_transactions(transaction_id), 200
 
 
 
