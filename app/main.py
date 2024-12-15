@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from controllers.transaction_controller import (transaction_blueprint,admission_blueprint, personalAdmistraccion,
 proveedoresAdmistraccion,almacenAdmistraccion,medicamentoAdmistraccion, equipoMedicoAdmistraccion,
-pacientesAdmistraccion, habitacionesAdmistraccion, cirugiaAdmistraccion)
+pacientesAdmistraccion, habitacionesAdmistraccion, cirugiaAdmistraccion, citasAdmindistraccion)
 
 app = Flask(__name__)
 app.register_blueprint(transaction_blueprint)
@@ -14,6 +14,7 @@ app.register_blueprint(equipoMedicoAdmistraccion)
 app.register_blueprint(pacientesAdmistraccion)
 app.register_blueprint(habitacionesAdmistraccion)
 app.register_blueprint(cirugiaAdmistraccion)
+app.register_blueprint(citasAdmindistraccion)
   
 @app.route("/")
 def home():
