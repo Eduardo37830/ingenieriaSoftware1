@@ -82,6 +82,19 @@ medicamentos = [
 @app.route('/medicamentos')
 def medicamentos_view():
     return render_template('medicamentos.html', medicamentos=medicamentos)
+
+# ---------------------------------------------------------------------Inicio Medico
+@app.route('/inicio_medico')
+def inicio_medico():
+    return render_template('inicio_medico.html')
+# ---------------------------------------------------------------------Citas Medicas
+@app.route('/citas_medicas')
+def citas_medicas():
+    return render_template('citas_medicas.html')
+# ---------------------------------------------------------------------Citas Medicas
+@app.route('/cirugias')
+def cirugias():
+    return render_template('cirugias.html')
 # ---------------------------------------------------------------------Main
 if __name__ == "__main__":
     app.run(debug=True)
