@@ -4,11 +4,9 @@
 
 {% block content %}
 <head>
-    <title>Página de Inicio</title>
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='styles/inicio_cliente.css') }}">
+    <title>Inicio Cliente</title>
 </head>
 <h1>Inicio Cliente</h1>
-<a href="{{ url_for('inicio_cliente') }}" class="btn btn-primary">
-    Ir a Inicio Cliente
-</a>
-
 {% endblock %}
