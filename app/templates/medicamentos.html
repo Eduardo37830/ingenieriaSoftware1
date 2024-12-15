@@ -9,5 +9,27 @@
     <title>Medicamentos</title>
 </head>
 <h1>Medicamentos</h1>
+<div class="contenedor-medicamentos">
+    <table class="tabla-medicamentos">
+        <thead>
+            <tr>
+                <th class="columna-fecha">Fecha</th>
+                <th class="columna-cantidad">Cantidad</th>
+                <th class="columna-nombre">Nombre del Medicamento</th>
+                <th class="columna-dosis">Dosis</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for medicamento in medicamentos %}
+            <tr>
+                <td>{{ medicamento.fecha }}</td>
+                <td>{{ medicamento.cantidad }}</td>
+                <td>{{ medicamento.nombre }}</td>
+                <td>{{ medicamento.dosis }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 
 {% endblock %}
