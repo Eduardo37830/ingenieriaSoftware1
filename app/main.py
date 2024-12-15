@@ -1,11 +1,21 @@
 from flask import Flask, render_template, request, redirect, url_for
-from controllers.transaction_controller import transaction_blueprint, admission_blueprint, personalAdmistraccion, proveedoresAdmistraccion
+from controllers.transaction_controller import (transaction_blueprint,admission_blueprint, personalAdmistraccion,
+proveedoresAdmistraccion,almacenAdmistraccion,medicamentoAdmistraccion, equipoMedicoAdmistraccion,
+pacientesAdmistraccion, habitacionesAdmistraccion, cirugiaAdmistraccion, citasAdmindistraccion)
 
 app = Flask(__name__)
 app.register_blueprint(transaction_blueprint)
 app.register_blueprint(admission_blueprint)
 app.register_blueprint(personalAdmistraccion)
-app.register_blueprint(proveedoresAdmistraccion)  
+app.register_blueprint(proveedoresAdmistraccion)
+app.register_blueprint(almacenAdmistraccion)
+app.register_blueprint(medicamentoAdmistraccion)
+app.register_blueprint(equipoMedicoAdmistraccion)
+app.register_blueprint(pacientesAdmistraccion)
+app.register_blueprint(habitacionesAdmistraccion)
+app.register_blueprint(cirugiaAdmistraccion)
+app.register_blueprint(citasAdmindistraccion)
+  
 @app.route("/")
 def home():
     return render_template("index.html")
@@ -65,11 +75,49 @@ def cancelar_cita():
 # ---------------------------------------------------------------------Historial Médico
 @app.route('/historial_medico')
 def historial_medico():
-    return render_template('historial_medico.html')
+    # Datos de ejemplo para el historial médico
+    historial = [
+        {"fecha": "2024-06-01", "diagnostico": "Gripe", "tratamiento": "Reposo y líquidos", "medico": "Dr. Ramírez"},
+        {"fecha": "2024-06-10", "diagnostico": "Faringitis", "tratamiento": "Antibióticos", "medico": "Dra. González"},
+        {"fecha": "2024-06-20", "diagnostico": "Dolor de cabeza", "tratamiento": "Analgésicos", "medico": "Dr. Pérez"},
+    ]
+    return render_template('historial_medico.html', historial=historial)
 # ---------------------------------------------------------------------Medicamentos
+medicamentos = [
+    {"fecha": "2024-06-01", "cantidad": 2, "nombre": "Paracetamol", "dosis": "500mg cada 8 horas"},
+    {"fecha": "2024-06-05", "cantidad": 1, "nombre": "Ibuprofeno", "dosis": "400mg cada 6 horas"},
+    {"fecha": "2024-06-10", "cantidad": 3, "nombre": "Amoxicilina", "dosis": "500mg cada 12 horas"},
+]
+
 @app.route('/medicamentos')
-def medicamentos():
-    return render_template('medicamentos.html')
+def medicamentos_view():
+    return render_template('medicamentos.html', medicamentos=medicamentos)
+
+# ---------------------------------------------------------------------Inicio Medico
+@app.route('/inicio_medico')
+def inicio_medico():
+    return render_template('inicio_medico.html')
+# ---------------------------------------------------------------------Citas Medicas
+# Ejemplo de datos de citas (se podría conectar a una base de datos)
+citas = [
+    {"id": 1, "nombre": "Juan Pérez", "hora": "10:00", "fecha": "2024-12-15", "motivo": "Consulta General"},
+    {"id": 2, "nombre": "María Gómez", "hora": "14:00", "fecha": "2024-12-16", "motivo": "Revisión Médica"},
+    {"id": 3, "nombre": "Carlos López", "hora": "09:30", "fecha": "2024-12-17", "motivo": "Examen Especial"}
+]
+@app.route('/citas_medicas')
+def citas_medicas():
+    return render_template('citas_medicas.html', citas=citas)
+# ---------------------------------------------------------------------Cirugias
+# Datos de ejemplo para cirugías
+cirugias = [
+    {"nombre_paciente": "Juan Pérez", "hora": "08:00", "fecha": "2024-06-15", "habitacion": "101", "tipo": "Cardíaca", "personal_medico": "Dr. Gómez, Dra. López", "equipo_medico": "Anestesiólogo, Enfermero"},
+    {"nombre_paciente": "María López", "hora": "10:00", "fecha": "2024-06-16", "habitacion": "102", "tipo": "Ortopédica", "personal_medico": "Dr. Martínez, Dra. Ruiz", "equipo_medico": "Asistente, Enfermero"},
+    {"nombre_paciente": "Carlos Ramírez", "hora": "12:00", "fecha": "2024-06-17", "habitacion": "103", "tipo": "Neurológica", "personal_medico": "Dr. Pérez, Dra. Torres", "equipo_medico": "Instrumentista, Anestesiólogo"},
+]
+
+@app.route('/cirugias')
+def cirugias_view():
+    return render_template('cirugias.html', cirugias=cirugias)
 # ---------------------------------------------------------------------Main
 if __name__ == "__main__":
     app.run(debug=True)

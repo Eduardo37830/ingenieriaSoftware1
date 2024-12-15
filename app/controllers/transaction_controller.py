@@ -3,27 +3,29 @@ from flask import Blueprint, render_template, jsonify
 
 from mappers.transaction_mapper import TransactionMapper
 
+<<<<<<< HEAD
 from ingenieriaSoftware1.application.services import transaction_application_service
 
 # Crea un Blueprint llamado 'transactions'.
 # Un Blueprint es una forma de organizar las rutas y lógica relacionada para una sección específica de la aplicación.
+=======
+>>>>>>> 41ba387d4fa0fb71b1802eee79a1968222cf84eb
 transaction_blueprint = Blueprint('transactions', __name__)
 admission_blueprint = Blueprint('admissions', __name__)
 personalAdmistraccion = Blueprint('personalAdmistraccion', __name__)
 proveedoresAdmistraccion = Blueprint('proveedoresAdmistraccion', __name__)
-
-# Crea una instancia de TransactionMapper, que se utilizará para obtener las transacciones.
+almacenAdmistraccion = Blueprint('almacenAdmistraccion', __name__)
+medicamentoAdmistraccion = Blueprint('medicamentoAdmistraccion', __name__)
+equipoMedicoAdmistraccion = Blueprint('equipoMedicoAdmistraccion', __name__)
+pacientesAdmistraccion = Blueprint('pacientesAdmistraccion', __name__)
+habitacionesAdmistraccion = Blueprint('habitacionesAdmistraccion', __name__)
+cirugiaAdmistraccion = Blueprint('cirugiaAdmistraccion', __name__)
+citasAdmindistraccion = Blueprint('citasAdmindistraccion', __name__)
 mapper = TransactionMapper()
 
-# Define una ruta asociada al Blueprint 'transactions'.
-# Esta ruta se activa cuando el usuario visita la URL '/transactions'.
 @transaction_blueprint.route('/transactions')
 def show_transactions():
-    # Llama al método `get_all_transactions` del `TransactionMapper` para obtener todas las transacciones.
     transactions = mapper.get_all_transactions()
-    
-    # Renderiza la plantilla 'transactions.html' y pasa la lista de transacciones al contexto de la plantilla.
-    # Esto permite mostrar las transacciones en la interfaz de usuario.
     return render_template('transactions.html', transactions=transactions)
 @admission_blueprint.route('/Administrador')
 def show_admissions():
@@ -34,6 +36,7 @@ def show_personal():
 @proveedoresAdmistraccion.route('/Administrador/proveedores')
 def show_proveedores():
     return render_template('proveedoresAdmistrador.html')
+<<<<<<< HEAD
 
 
 @transaction_blueprint.route('/transactions/report')
@@ -64,3 +67,26 @@ def generate_report():
 
 
 
+=======
+@almacenAdmistraccion.route('/Administrador/almacen')
+def show_almacen():
+    return render_template('almacenAdmistrador.html')
+@medicamentoAdmistraccion.route('/Administrador/almacen/medicamentos')
+def show_medicamento():
+    return render_template('medicamentosAdmistrador.html')
+@equipoMedicoAdmistraccion.route('/Administrador/almacen/Equipo_medico')
+def show_equipomedico():
+    return render_template('equipoMedicoAdmistrador.html')
+@pacientesAdmistraccion.route('/Administrador/pacientes')
+def show_pacientes():
+    return render_template('pacientesAdmistrador.html')
+@habitacionesAdmistraccion.route('/Administrador/habitaciones')
+def show_habitaciones():
+    return render_template('habitacionesAdmistrador.html')
+@cirugiaAdmistraccion.route('/Administrador/cirugias')
+def show_cirugias():
+    return render_template('cirugiasAdmistrador.html')
+@citasAdmindistraccion.route('/Administrador/citas')
+def show_citas():
+    return render_template('citasAdmistrador.html')
+>>>>>>> 41ba387d4fa0fb71b1802eee79a1968222cf84eb

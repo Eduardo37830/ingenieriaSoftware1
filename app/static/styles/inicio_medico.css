@@ -1,0 +1,70 @@
+/* Contenedor principal */
+.button-container {
+	display: flex;
+	gap: 20px; /* Espaciado entre los botones */
+	justify-content: center;
+	align-items: center;
+	padding: 50px;
+}
+
+/* Botones personalizados */
+.custom-btn {
+	display: inline-block;
+	text-align: center;
+	text-decoration: none;
+	font-size: 14px;
+	padding: 15px 25px;
+	border: 2px solid transparent;
+	border-radius: 8px; /* Bordes redondeados */
+	font-family: Arial, sans-serif;
+	font-weight: bold;
+	transition: all 0.3s ease;
+}
+
+/* Botón Inicio Cliente */
+.custom-btn-cliente {
+	background-color: var(--boton); /* Azul */
+	color: #ffffff;
+	border-color: var(--boton);
+}
+
+.custom-btn-cliente:hover {
+	background-color: #0056b3;
+	border-color: #0056b3;
+}
+
+/* Botón Agendar Cita */
+.custom-btn-cita {
+	background-color: var(--notificaciones); /* Verde */
+	color: #ffffff;
+	border-color: var(--notificaciones);
+}
+
+.custom-btn-cita:hover {
+	background-color: #0056b3;
+	border-color: #0056b3;
+}
+
+/* Botón Historial Médico */
+.custom-btn-historial {
+	background-color: var(--alerta);
+	color: #ffffff;
+	border-color: var(--alerta);
+}
+
+.custom-btn-historial:hover {
+	background-color: #0056b3;
+	border-color: #0056b3;
+}
+
+/* Botón Medicamentos */
+.custom-btn-medicamentos {
+	background-color: #17a2b8; /* Celeste */
+	color: #ffffff;
+	border-color: #17a2b8;
+}
+
+.custom-btn-medicamentos:hover {
+	background-color: #0056b3;
+	border-color: #0056b3;
+}

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Equipo Medico{% endblock %}
+
+{% block content %}
+<head>
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='styles/tablas.css') }}">
+    <title>Equipo Medico</title>
+</head>
+<div class="main">
+    <h2>Equipo Medico</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Tipo</th>
+                <th>Funcionalidad</th>
+                <th>Cantidad disponible</th>
+                <th>Nombre de provedor</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <div class="button-container">
+        <div class="button-container"><bottom onclick="agregar()" class="custom-btn custom-btn-1">Hacer pedido</bottom></div>
+        <div class="button-container" ><bottom onclick="eliminar()" class="custom-btn custom-btn-3">eliminar</bottom></div>
+    </div>
+</div>
+
+<script>
+    function agregar() {
+        alert('Función Agregar en desarrollo');
+    }
+
+    function editar() {
+        alert('Función Editar en desarrollo');
+    }
+
+    function eliminar() {
+        alert('Función Eliminar en desarrollo');
+    }
+</script>
+
+{% endblock %}
+

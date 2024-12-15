@@ -1,177 +1,84 @@
-<!DOCTYPE html>
-<html lang="es">
+
+{% extends "base.html" %}
+
+{% block title %}Inicio Admistrador{% endblock %}
+
+{% block content %}
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Hospital</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            font-family: Arial, sans-serif;
-        }
-
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            border-bottom: 2px solid #ccc;
-            z-index: 1000;
-        }
-
-        header .logo-section {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        header .nav-section {
-            flex-grow: 1;
-            text-align: center;
-        }
-
-        header .nav-section span {
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        header .user-section {
-            font-size: 14px;
-        }
-
-        main {
-            flex: 1;
-            margin-top: 80px; /* espacio para el header */
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            width: 80%;
-        }
-
-        .grid-item {
-            background-color: #f4f4f4;
-            padding: 20px;
-            text-align: center;
-            font-weight: bold;
-            border: 2px solid #ccc;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        footer {
-            background-color: #f4f4f4;
-            text-align: center;
-            padding: 10px;
-            border-top: 2px solid #ccc;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-        }
-    </style>
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='styles/admistrador.css') }}">
+    <title>Inicio Admistrador</title>
 </head>
-<body>
-    <header>
-        <div class="logo-section">
-            <div>NOMBRE DEL HOSPITAL</div>
-            <div>LOGO</div>
-        </div>
-        <div class="nav-section">
-            <span>INICIO SOPORTE INFORMACION</span>
-        </div>
-        <div class="user-section">
-            CUENTA USUARIO
-        </div>
-    </header>
-
-    <main>
-        <div class="grid-container">
-            <div class="grid-item"><bottom id="citasycirugias">Citas y Cirugias</bottom></div>
-            <div class="grid-item"><bottom id="personalmedico">Personal Medico</bottom></div>
-            <div class="grid-item"><bottom id="proveedores">Proveedores</bottom></div>
-            <div class="grid-item"><bottom id="almacen">Almacen</bottom></div>
-            <div class="grid-item"><bottom id="pacientes">Pacientes</bottom></div>
-            <div class="grid-item"><bottom id="habitaciones">Habitaciones</bottom></div>
-            <div class="grid-item"><bottom id="departamentos">Departamentos</bottom></div>
-            
-        <script>
-            document.getElementById("citasycirugias").addEventListener("click", function () {
-                const body = document.body;
-                body.classList.add("fade-out");
-                setTimeout(() => {
-                    window.location.href = "/Administrador/citasycirugias";
-                }, 1000);
-            });
-            document.getElementById("personalmedico").addEventListener("click", function () {
-                const body = document.body;
-                body.classList.add("fade-out");
-                setTimeout(() => {
-                    window.location.href = "/Administrador/personalmedico";
-                }, 1000);
-            });
-            document.getElementById("proveedores").addEventListener("click", function () {
-                const body = document.body;
-                body.classList.add("fade-out");
-                setTimeout(() => {
-                    window.location.href = "/Administrador/proveedores";
-                }, 1000);
-            });
-            document.getElementById("almacen").addEventListener("click", function () {
-                const body = document.body;
-                body.classList.add("fade-out");
-                setTimeout(() => {
-                    window.location.href = "/Administrador/almacen";
-                }, 1000);
-            });
-            document.getElementById("pacientes").addEventListener("click", function () {
-                const body = document.body;
-                body.classList.add("fade-out");
-                setTimeout(() => {
-                    window.location.href = "/Administrador/pacientes";
-                }, 1000);
-            });
-            document.getElementById("habitaciones").addEventListener("click", function () {
-                const body = document.body;
-                body.classList.add("fade-out");
-                setTimeout(() => {
-                    window.location.href = "/Administrador/habitaciones";
-                }, 1000);
-            });
-            document.getElementById("departamentos").addEventListener("click", function () {
-                const body = document.body;
-                body.classList.add("fade-out");
-                setTimeout(() => {
-                    window.location.href = "/Administrador/departamentos";
-                }, 1000);
-            });
-
-        </script>
-        </div>
-    </main>
-
-    <footer>
-        CONTACTOS Y SERVICIO AL CLIENTE
-    </footer>
-</body>
-</html>
+<main>
+    <div class="button-container">
+        <div class="button-container"><bottom id="citas" class="custom-btn custom-btn-1">Citas</bottom></div>
+        <div class="button-container"><bottom id="cirugia" class="custom-btn custom-btn-2">Cirugias</bottom></div>
+        <div class="button-container"><bottom id="personalmedico"class="custom-btn custom-btn-3">Personal Medico</bottom></div>
+        <div class="button-container"><bottom id="proveedores"class="custom-btn custom-btn-4">Proveedores</bottom></div>
+    </div>
+    <div class="button-container">
+        <div class="button-container"><bottom id="almacen"class="custom-btn custom-btn-4">Almacen</bottom></div>
+        <div class="button-container"><bottom id="pacientes" class="custom-btn custom-btn-3">Pacientes</bottom></div>
+        <div class="button-container"><bottom id="habitaciones"class="custom-btn custom-btn-2">Habitaciones</bottom></div>
+        <div class="button-container"><bottom id="departamentos"class="custom-btn custom-btn-1">Departamentos</bottom></div>   
+    </div>
+    <script>
+        document.getElementById("personalmedico").addEventListener("click", function () {
+            const body = document.body;
+            body.classList.add("fade-out");
+            setTimeout(() => {
+                window.location.href = "/Administrador/personalmedico";
+            }, 1000);
+        });
+        document.getElementById("proveedores").addEventListener("click", function () {
+            const body = document.body;
+            body.classList.add("fade-out");
+            setTimeout(() => {
+                window.location.href = "/Administrador/proveedores";
+            }, 1000);
+        });
+        document.getElementById("almacen").addEventListener("click", function () {
+            const body = document.body;
+            body.classList.add("fade-out");
+            setTimeout(() => {
+                window.location.href = "/Administrador/almacen";
+            }, 1000);
+        });
+        document.getElementById("pacientes").addEventListener("click", function () {
+            const body = document.body;
+            body.classList.add("fade-out");
+            setTimeout(() => {
+                window.location.href = "/Administrador/pacientes";
+            }, 1000);
+        });
+        document.getElementById("habitaciones").addEventListener("click", function () {
+            const body = document.body;
+            body.classList.add("fade-out");
+            setTimeout(() => {
+                window.location.href = "/Administrador/habitaciones";
+            }, 1000);
+        });
+        document.getElementById("departamentos").addEventListener("click", function () {
+            const body = document.body;
+            body.classList.add("fade-out");
+            setTimeout(() => {
+                window.location.href = "/Administrador/departamentos";
+            }, 1000);
+        });
+        document.getElementById("citas").addEventListener("click", function () {
+            const body = document.body;
+            body.classList.add("fade-out");
+            setTimeout(() => {
+                window.location.href = "/Administrador/citas";
+            }, 1000);
+        });
+        document.getElementById("cirugia").addEventListener("click", function () {
+            const body = document.body;
+            body.classList.add("fade-out");
+            setTimeout(() => {
+                window.location.href = "/Administrador/cirugias";
+            }, 1000);
+        });
+    </script>
+</main>
+{% endblock %}
