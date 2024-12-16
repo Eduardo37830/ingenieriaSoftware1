@@ -1,8 +1,8 @@
 # application/services/transaction_application_service.py
 
 from application.dtos.transaction_dto import TransactionDTO
-from domain.services.transaction_service import TransactionService
 from domain.repositories.i_transaction_repository import ITransactionRepository
+from domain.services.transaction_service import TransactionService
 
 
 class TransactionApplicationService:
