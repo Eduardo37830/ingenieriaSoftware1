@@ -1,7 +1,7 @@
 # domain/repositories/i_habitacion_repository.py
 from abc import ABC, abstractmethod
 from typing import List
-from domain.entities.habitacion import Habitacion
+from domain.entities.room import Habitacion
 
 class IhabitacionRepository(ABC):
     @abstractmethod

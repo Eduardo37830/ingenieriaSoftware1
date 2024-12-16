@@ -1,6 +1,6 @@
 from datetime import datetime
-from paciente import Paciente
-from personalMedico import PersonalMedico
+from .paciente import Paciente
+from .personalMedico import PersonalMedico
 
 class Cita:
     def __init__(self, id: int, motivoConsulta: str, fechaHoraConsulta: datetime, paciente: Paciente, personalMedico: PersonalMedico, totalAPagar: float):
