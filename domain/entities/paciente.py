@@ -1,20 +1,42 @@
-from datetime import datetime
-from typing import List
+from historialMedico import HistorialMedico
+from usuario import Usuario
 
-class HistorialMedico:
-    def __init__(self, fecha: datetime, descripcion: str):
-        self.fecha = fecha
-        self.descripcion = descripcion
 
-class Paciente:
-    def __init__(self, id: int, direccion: str, telefono: str, historialMedico: List[HistorialMedico]):
-        self.id = id
-        self.direccion = direccion
-        self.telefono = telefono
-        self.historialMedico = historialMedico
+class Paciente(Usuario):
+    """
+    Representa a un paciente que hereda de la clase Usuario.
 
-    def agregarEntradaHistorial(self, entrada: HistorialMedico):
-        self.historialMedico.append(entrada)
+    Atributos:
+        historial_medico (list): Lista de entradas del historial médico (instancias de HistorialMedico).
+    """
 
-    def consultarHistorialMedico(self):
-        return self.historialMedico
+    def __init__(self, id_usuario, nombre, correo, contrasena, rol, direccion, telefono, tipoDocumento, numeroDocumento):
+        super().__init__(id_usuario, nombre, correo, contrasena, rol, direccion, telefono, tipoDocumento, numeroDocumento)
+        self.historial_medico = []
+        self.citas = []
+        self.formulas = []
+
+    def agregarHistorial(self, historialMedico):
+        """
+        Agrega una nueva entrada al historial médico del paciente.
+
+        Args:
+            historialMedico (HistorialMedico): Instancia de HistorialMedico que representa una entrada del historial.
+
+        Raises:
+            ValueError: Si el objeto proporcionado no es una instancia de HistorialMedico.
+        """
+        if isinstance(historialMedico, HistorialMedico):
+            self.historial_medico.append(historialMedico)
+        else:
+            raise ValueError("La entrada debe ser una instancia de HistorialMedico.")
+
+    def mostrarHistorial(self):
+        """
+        Muestra el historial médico completo del paciente.
+
+        Returns:
+            str: Representación textual del historial médico.
+        """
+        return "\n".join(str(entry) for entry in self.historial_medico)
+

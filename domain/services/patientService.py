@@ -1,4 +1,4 @@
-from domain.entities.patient import Patient
+from domain.entities.paciente import Patient
 from domain.entities.cita import Cita
 from domain.repositories.i_cita_repository import ICitaRepository
 

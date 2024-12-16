@@ -1,7 +1,7 @@
 import sqlite3
 from typing import List
 from domain.repositories.i_habitacion_repository import IHabitacionRepository
-from domain.entities.room import Habitacion
+from domain.entities.habitacion import Habitacion
 
 class SQLiteHabitacionRepository(IHabitacionRepository):
     def __init__(self, db_path: str):

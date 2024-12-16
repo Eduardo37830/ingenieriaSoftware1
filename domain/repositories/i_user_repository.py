@@ -1,24 +1,24 @@
 from abc import ABC, abstractmethod
-from ingenieriaSoftware1.domain.entities.user import User
+from domain.entities.usuario import Usuario
 from typing import List, Optional
 
 
 class IUserRepository(ABC):
 
     @abstractmethod
-    def get_by_id(self, user_id: int) -> Optional[User]:
+    def get_by_id(self, user_id: int) -> Optional[Usuario]:
         pass
 
     @abstractmethod
-    def get_all(self) -> List[User]:
+    def get_all(self) -> List[Usuario]:
         pass
 
     @abstractmethod
-    def save(self, user: User) -> None:
+    def save(self, user: Usuario) -> None:
         pass
 
     @abstractmethod
-    def update(self, user: User) -> None:
+    def update(self, user: Usuario) -> None:
         pass
 
     @abstractmethod

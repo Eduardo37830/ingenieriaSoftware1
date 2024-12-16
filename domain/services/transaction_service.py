@@ -1,7 +1,7 @@
 # domain/services/transaction_service.py
 
-from ingenieriaSoftware1.application.dtos.transaction_dto import TransactionDTO
-from ingenieriaSoftware1.application.dtos.informe_dto import InformeDTO
+from application.dtos.transaction_dto import TransactionDTO
+from application.dtos.informe_dto import InformeDTO
 
 class TransactionService:
     def create_transaction(self, amount: float, description: str):

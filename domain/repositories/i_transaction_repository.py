@@ -1,7 +1,7 @@
 # domain/repositories/i_transaction_repository.py
 
 from abc import ABC, abstractmethod
-from ingenieriaSoftware1.application.dtos.transaction_dto import TransactionDTO
+from application.dtos.transaction_dto import TransactionDTO
 
 
 class ITransactionRepository(ABC):

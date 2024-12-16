@@ -1,7 +1,7 @@
 
 from flask import Blueprint, render_template, jsonify
 
-from mappers.transaction_mapper import TransactionMapper, SimulacionCitasAdmistrador, SimulacionCirujias
+from app.mappers.transaction_mapper import TransactionMapper, SimulacionCitasAdmistrador, SimulacionCirujias
 from app.mappers.transaction_mapper import TransactionMapper
 
 

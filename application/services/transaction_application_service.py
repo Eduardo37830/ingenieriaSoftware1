@@ -1,8 +1,8 @@
 # application/services/transaction_application_service.py
 
-from ingenieriaSoftware1.application.dtos.transaction_dto import TransactionDTO
-from ingenieriaSoftware1.domain.services.transaction_service import TransactionService
-from ingenieriaSoftware1.domain.repositories.i_transaction_repository import ITransactionRepository
+from application.dtos.transaction_dto import TransactionDTO
+from domain.services.transaction_service import TransactionService
+from domain.repositories.i_transaction_repository import ITransactionRepository
 
 
 class TransactionApplicationService:

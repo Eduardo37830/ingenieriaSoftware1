@@ -6,12 +6,12 @@ from domain.entities.cirugia import Cita
 class ICirugiaRepository(ABC):
     @abstractmethod
     def save(self, cita: Cita) -> None:
-        """Guarda o actualiza una cirugia."""
+        """Guarda o actualiza una cirugia.py."""
         pass
 
     @abstractmethod
     def find_by_id(self, cita_id: int) -> Cita:
-        """Busca una cirugia por su ID."""
+        """Busca una cirugia.py por su ID."""
         pass
 
     @abstractmethod
@@ -21,5 +21,5 @@ class ICirugiaRepository(ABC):
 
     @abstractmethod
     def delete(self, cita_id: int) -> None:
-        """Elimina una cirugia."""
+        """Elimina una cirugia.py."""
         pass
