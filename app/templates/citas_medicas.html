@@ -26,10 +26,17 @@
                 <td>{{ cita.hora }}</td>
                 <td>{{ cita.fecha }}</td>
                 <td>{{ cita.motivo }}</td>
-                <td>
-                    <button class="boton-seleccionar" type="button">
-                        Seleccionar
-                    </button>
+                <td class="tabla-botones">
+                    <a class="boton-seleccionar"
+                        href="{{ url_for('historial_medico') }}"
+                        class="custom-btn custom-btn-cita">
+                        Historial
+                    </a>
+                    <a class="boton-seleccionar"
+                        href="{{ url_for('formula') }}"
+                        class="custom-btn custom-btn-cita">
+                        Formula
+                    </a>
                 </td>
             </tr>
             {% endfor %}
