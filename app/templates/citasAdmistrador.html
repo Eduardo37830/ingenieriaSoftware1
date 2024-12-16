@@ -23,6 +23,20 @@
             </tr>
         </thead>
         <tbody>
+            {% for cita in citas %}
+                <tr class="citas-row">
+                    <td class="citas-data">{{ cita.Nombre }}</td>
+                    <td class="citas-data">{{ cita['Hora consulta'] }}</td>
+                    <td class="citas-data">{{ cita['Fecha consulta'] }}</td>
+                    <td class="citas-data">{{ cita['Motivo de la consulta'] }}</td>
+                    <td class="citas-data">{{ cita.tipo }}</td>
+                    <td class="citas-data">{{ cita['Nombre del medico'] }}</td>
+                    <td class="citas-data">
+                        <input type="radio" name="seleccionar_cita"
+                            value="{{ cita.id }}" class="citas-radio">
+                    </td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>

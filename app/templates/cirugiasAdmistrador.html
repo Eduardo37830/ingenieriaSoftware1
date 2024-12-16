@@ -24,6 +24,20 @@
             </tr>
         </thead>
         <tbody>
+            {% for cirugia in cirugias %}
+                <tr>
+                    <td>{{ cirugia.Nombre }}</td>
+                    <td>{{ cirugia.Hora }}</td>
+                    <td>{{ cirugia.Fecha }}</td>
+                    <td>{{ cirugia.Habitacion }}</td>
+                    <td>{{ cirugia.tipo }}</td>
+                    <td>{{ cirugia['lista personal medico'] }}</td>
+                    <td>{{ cirugia['lista equipo medico'] }}</td>
+                    <td>
+                        <input type="radio" name="seleccionar_cirugia" value="{{ cirugia.Seleccionar }}">
+                    </td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
     <div class="button-container">

@@ -2,7 +2,7 @@
 from flask import Blueprint, render_template
 
 
-from mappers.transaction_mapper import TransactionMapper
+from mappers.transaction_mapper import TransactionMapper, SimulacionCitasAdmistrador, SimulacionCirujias
 
 transaction_blueprint = Blueprint('transactions', __name__)
 admission_blueprint = Blueprint('admissions', __name__)
@@ -16,6 +16,9 @@ habitacionesAdmistraccion = Blueprint('habitacionesAdmistraccion', __name__)
 cirugiaAdmistraccion = Blueprint('cirugiaAdmistraccion', __name__)
 citasAdmindistraccion = Blueprint('citasAdmindistraccion', __name__)
 mapper = TransactionMapper()
+simuladorcitas = SimulacionCitasAdmistrador()
+simuladorcirugias = SimulacionCirujias()
+
 
 @transaction_blueprint.route('/transactions')
 def show_transactions():
@@ -47,7 +50,9 @@ def show_habitaciones():
     return render_template('habitacionesAdmistrador.html')
 @cirugiaAdmistraccion.route('/Administrador/cirugias')
 def show_cirugias():
-    return render_template('cirugiasAdmistrador.html')
+    cirugias = simuladorcirugias.get_cirugias()
+    return render_template('cirugiasAdmistrador.html', cirugias=cirugias)
 @citasAdmindistraccion.route('/Administrador/citas')
 def show_citas():
-    return render_template('citasAdmistrador.html')
+    citas = simuladorcitas.get_citas()
+    return render_template('citasAdmistrador.html', citas=citas)
