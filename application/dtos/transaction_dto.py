@@ -1,5 +1,6 @@
+# application/dtos/transaction_dto.py
+
 class TransactionDTO:
-    def __init__(self, description: str, amount: float, transaction_type: str):
-        self.description = description
+    def __init__(self, amount: float, description: str):
         self.amount = amount
-        self.transaction_type = transaction_type
+        self.description = description
