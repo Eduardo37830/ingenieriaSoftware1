@@ -2,10 +2,10 @@
 from flask import Blueprint, render_template, jsonify
 
 from mappers.transaction_mapper import TransactionMapper, SimulacionCitasAdmistrador, SimulacionCirujias
-from ingenieriaSoftware1.app.mappers.transaction_mapper import TransactionMapper
+from app.mappers.transaction_mapper import TransactionMapper
 
 
-from ingenieriaSoftware1.application.services import transaction_application_service
+from application.services import transaction_application_service
 
 # Crea un Blueprint llamado 'transactions'.
 # Un Blueprint es una forma de organizar las rutas y lógica relacionada para una sección específica de la aplicación.
