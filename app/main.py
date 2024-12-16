@@ -1,7 +1,12 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from flask import Flask, render_template, request, redirect, url_for
 from controllers.transaction_controller import (transaction_blueprint,admission_blueprint, personalAdmistraccion,
 proveedoresAdmistraccion,almacenAdmistraccion,medicamentoAdmistraccion, equipoMedicoAdmistraccion,
 pacientesAdmistraccion, habitacionesAdmistraccion, cirugiaAdmistraccion, citasAdmindistraccion)
+
 
 app = Flask(__name__)
 app.register_blueprint(transaction_blueprint)
