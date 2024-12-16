@@ -3,6 +3,7 @@ from flask import Blueprint, render_template, jsonify
 
 from ingenieriaSoftware1.app.mappers.transaction_mapper import TransactionMapper
 
+
 from ingenieriaSoftware1.application.services import transaction_application_service
 
 # Crea un Blueprint llamado 'transactions'.
@@ -34,6 +35,7 @@ def show_personal():
 @proveedoresAdmistraccion.route('/Administrador/proveedores')
 def show_proveedores():
     return render_template('proveedoresAdmistrador.html')
+
 
 
 @transaction_blueprint.route('/transactions/report')
@@ -70,4 +72,3 @@ def show_cirugias():
 @citasAdmindistraccion.route('/Administrador/citas')
 def show_citas():
     return render_template('citasAdmistrador.html')
-

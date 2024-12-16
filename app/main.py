@@ -118,6 +118,11 @@ cirugias = [
 @app.route('/cirugias')
 def cirugias_view():
     return render_template('cirugias.html', cirugias=cirugias)
+
+# ---------------------------------------------------------------------Formula
+@app.route('/formula')
+def formula():
+    return render_template('formula.html')
 # ---------------------------------------------------------------------Main
 if __name__ == "__main__":
     app.run(debug=True)
