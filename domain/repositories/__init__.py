@@ -8,3 +8,4 @@ from .i_medicamento_repository import IMedicamentoRepository
 from .i_proveedor_repository import IProveedorRepository
 from .i_equipoMedico_repository import IEquipoMedicoRepository
 from .i_historial_medico_repository import IHistorialMedicoRepository
+from .i_user_repository import IUserRepository

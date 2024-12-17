@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 from typing import List
 from domain.entities.formula import Formula
 
-class IformulaRepository(ABC):
+class IFormulaRepository(ABC):
     @abstractmethod
     def save(self, formula: Formula) -> None:
         """Guarda o actualiza un formula."""

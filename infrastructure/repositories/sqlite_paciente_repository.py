@@ -15,17 +15,34 @@ class SQLitePacienteRepository(IPacienteRepository):
             cursor = conn.cursor()
             cursor.execute(
                 """
-                INSERT INTO PACIENTES (id, nombre, direccion, telefono, historialMedico)
-                VALUES (?, ?, ?, ?, ?)
+                INSERT INTO PACIENTES (
+                    id, nombre, correo, contrasena, rol, direccion, telefono, tipoDocumento, numeroDocumento
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                 ON CONFLICT(id) DO UPDATE SET
-                nombre = excluded.nombre,
-                direccion = excluded.direccion,
-                telefono = excluded.telefono,
-                historialMedico = excluded.historialMedico
+                    nombre = excluded.nombre,
+                    correo = excluded.correo,
+                    contrasena = excluded.contrasena,
+                    rol = excluded.rol,
+                    direccion = excluded.direccion,
+                    telefono = excluded.telefono,
+                    tipoDocumento = excluded.tipoDocumento,
+                    numeroDocumento = excluded.numeroDocumento
                 """,
-                (paciente.id, paciente.nombre, paciente.direccion, paciente.telefono, paciente.historialMedico)
+                (
+                    paciente.id_usuario,
+                    paciente.nombre,
+                    paciente.correo,
+                    paciente.contrasena,
+                    paciente.rol,
+                    paciente.direccion,
+                    paciente.telefono,
+                    paciente.tipoDocumento,
+                    paciente.numeroDocumento,
+                )
             )
             conn.commit()
+
 
     def find_by_id(self, paciente_id: int) -> Paciente:
         with self._connect() as conn:

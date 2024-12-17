@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 from typing import List
 from domain.entities.habitacion import Habitacion
 
-class IhabitacionRepository(ABC):
+class IHabitacionRepository(ABC):
     @abstractmethod
     def save(self, habitacion: Habitacion) -> None:
         """Guarda o actualiza una habitacion."""
