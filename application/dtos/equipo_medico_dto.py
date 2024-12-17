@@ -1,5 +1,5 @@
 from typing import Optional
-from ingenieriaSoftware1.domain.entities.equipo_medico import EquipoMedico
+from ingenieriaSoftware1.domain.entities.equipoMedico import EquipoMedico
 
 class EquipoMedicoDTO:
     def __init__(self, id: Optional[int] = None, tipo_equipo: str = "", funcionalidad: Optional[str] = None,

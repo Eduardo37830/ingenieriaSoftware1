@@ -1,6 +1,4 @@
 from ingenieriaSoftware1.application.dtos.usuario_dto import UsuarioDTO
-from ingenieriaSoftware1.domain.entities.historialMedico import HistorialMedico
-
 
 class UsuarioService:
     def __init__(self, usuario_repository):

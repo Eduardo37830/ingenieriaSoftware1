@@ -6,4 +6,5 @@ from .cirugia import Cirugia
 from .formula import Formula
 from .medicamento import Medicamento
 from .proveedor import Proveedor
-from .equipo_medico import EquipoMedico
+from .historialMedico import HistorialMedico
+from .usuario import Usuario

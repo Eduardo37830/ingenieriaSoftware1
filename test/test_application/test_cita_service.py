@@ -4,7 +4,6 @@ from ingenieriaSoftware1.application.dtos.usuario_dto import UsuarioDTO
 from ingenieriaSoftware1.application.services.usuario_service import UsuarioService
 from ingenieriaSoftware1.domain.entities.usuario import Usuario
 from ingenieriaSoftware1.domain.repositories.i_user_repository import IUserRepository as UsuarioRepository
-from ingenieriaSoftware1.domain.entities.historialMedico import HistorialMedico
 
 
 class TestUsuarioService(unittest.TestCase):

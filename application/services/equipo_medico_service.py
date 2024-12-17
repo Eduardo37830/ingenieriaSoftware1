@@ -21,7 +21,7 @@ class EquipoMedicoApplicationService:
     def obtener_todos_los_equipos(self) -> list[EquipoMedicoDTO]:
         """Obtiene todos los equipos médicos."""
         equipos = self.equipo_medico_repository.find_all()
-        return [EquipoMedicoDTO.from_entity(e) for e in equipos]  # Convertir todas las entidades a DTOs
+        return [EquipoMedicoDTO.from_entity(e) for e in equipos]  # Convertir todas las entidades a DTO
 
     def verificar_disponibilidad(self, equipo_medico_id: int) -> bool:
         """Verifica la disponibilidad de un equipo médico."""
