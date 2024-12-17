@@ -3,6 +3,7 @@ from typing import List
 from domain.repositories.i_user_repository import IUserRepository
 from domain.entities.usuario import Usuario
 
+
 class SqliteUserRepository(IUserRepository):
 
     def __init__(self, db_path: str):
@@ -12,8 +13,11 @@ class SqliteUserRepository(IUserRepository):
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
         cursor.execute(
-            'INSERT OR REPLACE INTO USUARIOS (id, nombre, apellido, email, password) VALUES (?, ?, ?, ?, ?)',
-            (user.id, user.nombre, user.apellido, user.email, user.password)
+            '''INSERT OR REPLACE INTO USUARIOS 
+               (id, nombre, correo, contrasena, rol, direccion, telefono, tipo_documento, numero_documento) 
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)''',
+            (user.id, user.nombre, user.correo, user.contrasena, user.rol, user.direccion,
+             user.telefono, user.tipo_documento, user.numero_documento)
         )
         conn.commit()
         conn.close()
@@ -21,7 +25,7 @@ class SqliteUserRepository(IUserRepository):
     def find_by_id(self, user_id: int) -> Usuario:
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
-        cursor.execute('SELECT * FROM user WHERE id = ?', (user_id,))
+        cursor.execute('SELECT * FROM USUARIOS WHERE id = ?', (user_id,))
         user = cursor.fetchone()
         conn.close()
         return Usuario(*user) if user else None
@@ -29,7 +33,7 @@ class SqliteUserRepository(IUserRepository):
     def find_all(self) -> List[Usuario]:
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
-        cursor.execute('SELECT * FROM user')
+        cursor.execute('SELECT * FROM USUARIOS')
         users = cursor.fetchall()
         conn.close()
         return [Usuario(*user) for user in users]

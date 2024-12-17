@@ -3,6 +3,7 @@ from typing import List
 from domain.repositories.i_paciente_repository import IPacienteRepository
 from domain.entities.paciente import Paciente
 
+
 class SQLitePacienteRepository(IPacienteRepository):
     def __init__(self, db_path: str):
         self.db_path = db_path
@@ -16,7 +17,7 @@ class SQLitePacienteRepository(IPacienteRepository):
             cursor.execute(
                 """
                 INSERT INTO PACIENTES (
-                    id, nombre, correo, contrasena, rol, direccion, telefono, tipoDocumento, numeroDocumento
+                    id, nombre, correo, contrasena, rol, direccion, telefono, tipo_documento, numero_documento
                 )
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                 ON CONFLICT(id) DO UPDATE SET
@@ -26,28 +27,31 @@ class SQLitePacienteRepository(IPacienteRepository):
                     rol = excluded.rol,
                     direccion = excluded.direccion,
                     telefono = excluded.telefono,
-                    tipoDocumento = excluded.tipoDocumento,
-                    numeroDocumento = excluded.numeroDocumento
+                    tipo_documento = excluded.tipo_documento,
+                    numero_documento = excluded.numero_documento
                 """,
                 (
-                    paciente.id_usuario,
+                    paciente.id,
                     paciente.nombre,
                     paciente.correo,
                     paciente.contrasena,
                     paciente.rol,
                     paciente.direccion,
                     paciente.telefono,
-                    paciente.tipoDocumento,
-                    paciente.numeroDocumento,
+                    paciente.tipo_documento,
+                    paciente.numero_documento,
                 )
             )
             conn.commit()
 
-
     def find_by_id(self, paciente_id: int) -> Paciente:
         with self._connect() as conn:
             cursor = conn.cursor()
-            cursor.execute("SELECT id, nombre, direccion, telefono, historialMedico FROM PACIENTES WHERE id = ?", (paciente_id,))
+            cursor.execute("""
+                SELECT id, nombre, correo, contrasena, rol, direccion, telefono, tipo_documento, numero_documento 
+                FROM PACIENTES 
+                WHERE id = ?
+            """, (paciente_id,))
             row = cursor.fetchone()
             if row:
                 return Paciente(*row)
@@ -56,6 +60,9 @@ class SQLitePacienteRepository(IPacienteRepository):
     def find_all(self) -> List[Paciente]:
         with self._connect() as conn:
             cursor = conn.cursor()
-            cursor.execute("SELECT id, nombre, direccion, telefono, historialMedico FROM PACIENTES")
+            cursor.execute("""
+                SELECT id, nombre, correo, contrasena, rol, direccion, telefono, tipo_documento, numero_documento 
+                FROM PACIENTES
+            """)
             rows = cursor.fetchall()
             return [Paciente(*row) for row in rows]

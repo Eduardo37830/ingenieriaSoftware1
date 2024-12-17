@@ -13,19 +13,30 @@ class SQLiteCitaRepository(ICitaRepository):
     def save(self, cita: Cita) -> None:
         with self._connect() as conn:
             cursor = conn.cursor()
-            cursor.execute(
-                """
-                INSERT INTO CITAS (id, motivoConsulta, fechaConsulta, horaConsulta, paciente_id)
-                VALUES (?, ?, ?, ?, ?)
-                """,
-                (cita.id, cita.motivoConsulta, cita.fechaConsulta, cita.horaConsulta, cita.paciente_id)
-            )
+            # Columnas opcionales manejadas condicionalmente
+            query = """
+                INSERT INTO CITAS (id, motivoConsulta, fechaConsulta, horaConsulta, paciente_id, personalMedico_id, costoTotal, habitacion_id)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """
+            cursor.execute(query, (
+                cita.id,
+                cita.motivoConsulta,
+                cita.fechaConsulta,
+                cita.horaConsulta,
+                cita.paciente_id,
+                cita.personalMedico_id,
+                cita.costoTotal,
+                cita.habitacion_id
+            ))
             conn.commit()
 
     def find_by_id(self, cita_id: int) -> Cita:
         with self._connect() as conn:
             cursor = conn.cursor()
-            cursor.execute("SELECT id, motivoConsulta, fechaConsulta, horaConsulta, paciente_id FROM CITAS WHERE id = ?", (cita_id,))
+            cursor.execute("""
+                SELECT id, motivoConsulta, fechaConsulta, horaConsulta, paciente_id, personalMedico_id, costoTotal, habitacion_id 
+                FROM CITAS WHERE id = ?
+            """, (cita_id,))
             row = cursor.fetchone()
             if row:
                 return Cita(*row)
@@ -34,6 +45,9 @@ class SQLiteCitaRepository(ICitaRepository):
     def find_all_by_paciente(self, paciente_id: int) -> List[Cita]:
         with self._connect() as conn:
             cursor = conn.cursor()
-            cursor.execute("SELECT id, motivoConsulta, fechaConsulta, horaConsulta, paciente_id FROM CITAS WHERE paciente_id = ?", (paciente_id,))
+            cursor.execute("""
+                SELECT id, motivoConsulta, fechaConsulta, horaConsulta, paciente_id, personalMedico_id, costoTotal, habitacion_id 
+                FROM CITAS WHERE paciente_id = ?
+            """, (paciente_id,))
             rows = cursor.fetchall()
             return [Cita(*row) for row in rows]

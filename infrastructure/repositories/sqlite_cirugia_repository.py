@@ -15,17 +15,17 @@ class SQLiteCirugiaRepository(ICirugiaRepository):
             cursor = conn.cursor()
             cursor.execute(
                 """
-                INSERT INTO CIRUGIAS (id, fechaCirugia, tipoCirugia, id_paciente, id_habitacion, horaCirugia)
+                INSERT INTO CIRUGIAS (id, fecha_cirugia, tipo_cirugia, id_paciente, id_habitacion, hora_cirugia)
                 VALUES (?, ?, ?, ?, ?, ?)
                 """,
-                (cirugia.id, cirugia.fechaCirugia, cirugia.tipoCirugia, cirugia.id_paciente, cirugia.id_habitacion, cirugia.horaCirugia)
+                (cirugia.id, cirugia.fecha_cirugia, cirugia.tipo_cirugia, cirugia.id_paciente, cirugia.id_habitacion, cirugia.hora_cirugia)
             )
             conn.commit()
 
     def find_by_id(self, cirugia_id: int) -> Cirugia:
         with self._connect() as conn:
             cursor = conn.cursor()
-            cursor.execute("SELECT id, fechaCirugia, tipoCirugia, id_paciente, id_habitacion, horaCirugia FROM CIRUGIAS WHERE id = ?", (cirugia_id,))
+            cursor.execute("SELECT id, fecha_cirugia, tipo_cirugia, id_paciente, id_habitacion, hora_cirugia FROM CIRUGIAS WHERE id = ?", (cirugia_id,))
             row = cursor.fetchone()
             if row:
                 return Cirugia(*row)
@@ -34,6 +34,6 @@ class SQLiteCirugiaRepository(ICirugiaRepository):
     def find_all(self) -> List[Cirugia]:
         with self._connect() as conn:
             cursor = conn.cursor()
-            cursor.execute("SELECT id, fechaCirugia, tipoCirugia, id_paciente, id_habitacion, horaCirugia FROM CIRUGIAS")
+            cursor.execute("SELECT id, fecha_cirugia, tipo_cirugia, id_paciente, id_habitacion, hora_cirugia FROM CIRUGIAS")
             rows = cursor.fetchall()
             return [Cirugia(*row) for row in rows]

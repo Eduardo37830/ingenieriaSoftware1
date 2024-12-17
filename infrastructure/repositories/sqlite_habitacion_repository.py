@@ -15,17 +15,17 @@ class SQLiteHabitacionRepository(IHabitacionRepository):
             cursor = conn.cursor()
             cursor.execute(
                 """
-                INSERT INTO HABITACIONES (id, disponibilidad, tipoHabitacion)
+                INSERT INTO HABITACIONES (id, disponibilidad, tipo_habitacion, capacidad)
                 VALUES (?, ?, ?)
                 """,
-                (habitacion.id, habitacion.disponibilidad, habitacion.tipoHabitacion)
+                (habitacion.id, habitacion.disponibilidad, habitacion.tipo_habitacion, habitacion.capacidad)
             )
             conn.commit()
 
     def find_by_id(self, habitacion_id: int) -> Habitacion:
         with self._connect() as conn:
             cursor = conn.cursor()
-            cursor.execute("SELECT id, disponibilidad, tipoHabitacion FROM HABITACIONES WHERE id = ?", (habitacion_id,))
+            cursor.execute("SELECT id, disponibilidad, tipo_habitacion, capacidad FROM HABITACIONES WHERE id = ?", (habitacion_id,))
             row = cursor.fetchone()
             if row:
                 return Habitacion(*row)
@@ -34,6 +34,6 @@ class SQLiteHabitacionRepository(IHabitacionRepository):
     def find_available(self) -> List[Habitacion]:
         with self._connect() as conn:
             cursor = conn.cursor()
-            cursor.execute("SELECT id, disponibilidad, tipoHabitacion FROM HABITACIONES WHERE disponibilidad = 1")
+            cursor.execute("SELECT id, disponibilidad, tipo_habitacion, capacidad  FROM HABITACIONES WHERE disponibilidad = 1")
             rows = cursor.fetchall()
             return [Habitacion(*row) for row in rows]

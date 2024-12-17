@@ -23,7 +23,7 @@ class SQLitePacienteRepository(IPacienteRepository):
                 telefono = excluded.telefono,
                 historialMedico = excluded.historialMedico
                 """,
-                (paciente.id, paciente.nombre, paciente.direccion, paciente.telefono, paciente.historialMedico)
+                (paciente.id, paciente.nombre, paciente.direccion, paciente.telefono, paciente.historial_medico)
             )
             conn.commit()
 
