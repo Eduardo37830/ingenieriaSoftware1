@@ -1,6 +1,6 @@
 from datetime import datetime
 from typing import Optional
-from ingenieriaSoftware1.domain.entities.cita import Cita
+from domain.entities.cita import Cita
 
 class CitaDTO:
     def __init__(self, id: Optional[int] = None, motivoConsulta: str = "", fechaConsulta: datetime = None,

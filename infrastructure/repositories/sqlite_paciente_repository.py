@@ -14,24 +14,14 @@ class SQLitePacienteRepository(IPacienteRepository):
     def save(self, paciente: Paciente) -> None:
         with self._connect() as conn:
             cursor = conn.cursor()
+
+            # 1. Insertar en USUARIOS
             cursor.execute(
                 """
-                INSERT INTO PACIENTES (
-                    id, nombre, correo, contrasena, rol, direccion, telefono, tipo_documento, numero_documento
-                )
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-                ON CONFLICT(id) DO UPDATE SET
-                    nombre = excluded.nombre,
-                    correo = excluded.correo,
-                    contrasena = excluded.contrasena,
-                    rol = excluded.rol,
-                    direccion = excluded.direccion,
-                    telefono = excluded.telefono,
-                    tipo_documento = excluded.tipo_documento,
-                    numero_documento = excluded.numero_documento
+                INSERT INTO USUARIOS (nombre, correo, contrasena, rol, direccion, telefono, tipo_documento, numero_documento)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
-                    paciente.id,
                     paciente.nombre,
                     paciente.correo,
                     paciente.contrasena,
@@ -39,30 +29,77 @@ class SQLitePacienteRepository(IPacienteRepository):
                     paciente.direccion,
                     paciente.telefono,
                     paciente.tipo_documento,
-                    paciente.numero_documento,
+                    paciente.numero_documento
                 )
             )
+            # Obtener el ID generado para USUARIOS
+            usuario_id = cursor.lastrowid
+
+            # 2. Insertar en PACIENTES usando el ID de USUARIOS
+            cursor.execute(
+                """
+                INSERT INTO PACIENTES (usuario_id)
+                VALUES (?)
+                """,
+                (usuario_id,)
+            )
+
             conn.commit()
+            print("Paciente guardado correctamente.")
 
     def find_by_id(self, paciente_id: int) -> Paciente:
         with self._connect() as conn:
             cursor = conn.cursor()
-            cursor.execute("""
-                SELECT id, nombre, correo, contrasena, rol, direccion, telefono, tipo_documento, numero_documento 
-                FROM PACIENTES 
-                WHERE id = ?
-            """, (paciente_id,))
+            cursor.execute(
+                """
+                SELECT u.id, u.nombre, u.correo, u.contrasena, u.rol, u.direccion, 
+                    u.telefono, u.tipo_documento, u.numero_documento
+                FROM PACIENTES p
+                JOIN USUARIOS u ON p.usuario_id = u.id
+                WHERE p.id = ?
+                """,
+                (paciente_id,)
+            )
             row = cursor.fetchone()
             if row:
-                return Paciente(*row)
-            raise ValueError("Paciente no encontrado")
+                return Paciente(
+                    id=row[0],
+                    nombre=row[1],
+                    correo=row[2],
+                    contrasena=row[3],
+                    rol=row[4],
+                    direccion=row[5],
+                    telefono=row[6],
+                    tipo_documento=row[7],
+                    numero_documento=row[8]
+                )
+            else:
+                raise ValueError("Paciente no encontrado.")
+
 
     def find_all(self) -> List[Paciente]:
         with self._connect() as conn:
             cursor = conn.cursor()
-            cursor.execute("""
-                SELECT id, nombre, correo, contrasena, rol, direccion, telefono, tipo_documento, numero_documento 
-                FROM PACIENTES
-            """)
+            cursor.execute(
+                """
+                SELECT u.id, u.nombre, u.correo, u.contrasena, u.rol, u.direccion, 
+                    u.telefono, u.tipo_documento, u.numero_documento
+                FROM PACIENTES p
+                JOIN USUARIOS u ON p.usuario_id = u.id
+                """
+            )
             rows = cursor.fetchall()
-            return [Paciente(*row) for row in rows]
+            return [
+                Paciente(
+                    id=row[0],
+                    nombre=row[1],
+                    correo=row[2],
+                    contrasena=row[3],
+                    rol=row[4],
+                    direccion=row[5],
+                    telefono=row[6],
+                    tipo_documento=row[7],
+                    numero_documento=row[8]
+                )
+                for row in rows
+            ]

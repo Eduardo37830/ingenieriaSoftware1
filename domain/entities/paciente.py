@@ -1,5 +1,5 @@
-from historialMedico import HistorialMedico
-from usuario import Usuario
+from .historialMedico import HistorialMedico
+from .usuario import Usuario
 
 
 class Paciente(Usuario):

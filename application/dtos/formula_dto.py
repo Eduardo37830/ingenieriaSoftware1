@@ -1,4 +1,4 @@
-from ingenieriaSoftware1.domain.entities.formula import Formula
+from domain.entities.formula import Formula
 
 class FormulaDTO:
     def __init__(self, id: int, paciente_id: int, medicamento_id: int, descripcion: str, cantidad: int):

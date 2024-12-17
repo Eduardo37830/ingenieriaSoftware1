@@ -1,4 +1,4 @@
-from ingenieriaSoftware1.domain.entities.paciente import Paciente
+from domain.entities.paciente import Paciente
 
 class PacienteDTO:
     def __init__(self, id_usuario, nombre, correo, contrasena, rol, direccion, telefono, tipoDocumento, numeroDocumento):
