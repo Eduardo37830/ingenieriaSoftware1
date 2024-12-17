@@ -1,4 +1,4 @@
-from usuario import Usuario
+from ingenieriaSoftware1.domain.entities.usuario import Usuario
 from datetime import datetime, time
 
 

@@ -1,92 +1,134 @@
 import unittest
 from unittest.mock import MagicMock
-from ingenieriaSoftware1.application.dtos.usuario_dto import UsuarioDTO
-from ingenieriaSoftware1.application.services.usuario_service import UsuarioService
-from ingenieriaSoftware1.domain.entities.usuario import Usuario
-from ingenieriaSoftware1.domain.repositories.i_user_repository import IUserRepository as UsuarioRepository
+from ingenieriaSoftware1.application.services.cita_service import CitaService
+from ingenieriaSoftware1.application.dtos.cita_dto import CitaDTO
+from ingenieriaSoftware1.domain.entities.cita import Cita
+from ingenieriaSoftware1.domain.repositories.i_cita_repository import ICitaRepository as CitaRepository
 
 
-class TestUsuarioService(unittest.TestCase):
+class TestCitaService(unittest.TestCase):
 
     def setUp(self):
         """
         Configura el entorno antes de cada test.
         """
-        self.usuario_repository = MagicMock(UsuarioRepository)
-        self.usuario_service = UsuarioService(self.usuario_repository)
+        # Crear un mock con spec para el repositorio
+        self.cita_repository = MagicMock(spec=CitaRepository)
+        self.cita_service = CitaService(self.cita_repository)
 
-        # Creamos un usuario de ejemplo
-        self.usuario = Usuario(
+        # Creamos una cita de ejemplo
+        self.cita = Cita(
             id=1,
-            nombre="Juan Pérez",
-            correo="juan.perez@example.com",
-            contrasena="password123",
-            rol="paciente",
-            direccion="Calle Falsa 123",
-            telefono="123456789",
-            tipo_documento="DNI",
-            numero_documento="12345678"
+            usuario_id=1,
+            fecha="2024-12-20",
+            hora="10:00",
+            detalles="Consulta médica general"
         )
 
-    def test_autenticar_usuario_correcto(self):
+    def test_crear_cita_correcta(self):
         """
-        Test de autenticación con credenciales correctas.
+        Test para crear una cita con datos correctos.
         """
-        # Simulamos que el repositorio devuelve el usuario correcto
-        self.usuario_repository.buscar_por_correo.return_value = self.usuario
+        print("Ejecutando test: test_crear_cita_correcta")
+        # Simulamos que el repositorio devuelve la cita creada
+        self.cita_repository.crear.return_value = self.cita
 
-        # Ejecutamos el método de autenticación
-        usuario_dto = self.usuario_service.autenticar_usuario("juan.perez@example.com", "password123")
+        # Ejecutamos el método de creación de cita
+        cita_dto = self.cita_service.crear_cita(1, "2024-12-20", "10:00", "Consulta médica general")
 
-        # Verificamos que se haya devuelto el DTO del usuario
-        self.assertIsInstance(usuario_dto, UsuarioDTO)
-        self.assertEqual(usuario_dto.id, 1)
-        self.assertEqual(usuario_dto.nombre, "Juan Pérez")
-        self.assertEqual(usuario_dto.correo, "juan.perez@example.com")
-        self.assertEqual(usuario_dto.rol, "paciente")
+        # Verificamos que se haya devuelto el DTO de la cita
+        self.assertIsInstance(cita_dto, CitaDTO)
+        self.assertEqual(cita_dto.id, 1)
+        self.assertEqual(cita_dto.usuario_id, 1)
+        self.assertEqual(cita_dto.fecha, "2024-12-20")
+        self.assertEqual(cita_dto.hora, "10:00")
+        self.assertEqual(cita_dto.detalles, "Consulta médica general")
 
-    def test_autenticar_usuario_incorrecto(self):
+        # Verificar que se llamó correctamente al método del repositorio
+        self.cita_repository.crear.assert_called_once_with(1, "2024-12-20", "10:00", "Consulta médica general")
+        print("Resultado del test: Cita creada correctamente.")
+
+    def test_obtener_cita_por_id(self):
         """
-        Test de autenticación con credenciales incorrectas.
+        Test para obtener una cita por su ID.
         """
-        # Simulamos que el repositorio devuelve el usuario la contraseña es incorrecta
-        self.usuario_repository.buscar_por_correo.return_value = self.usuario
+        print("Ejecutando test: test_obtener_cita_por_id")
+        # Simulamos que el repositorio devuelve la cita correcta
+        self.cita_repository.buscar_por_id.return_value = self.cita
 
-        # Ejecutamos el método de autenticación con una contraseña incorrecta
-        usuario_dto = self.usuario_service.autenticar_usuario("juan.perez@example.com", "password")
+        # Ejecutamos el método de obtención de cita por ID
+        cita_dto = self.cita_service.obtener_cita_por_id(1)
 
-        # Verificamos que el usuario no fue autenticado
-        self.assertIsNone(usuario_dto)
+        # Verificamos que se haya devuelto el DTO de la cita
+        self.assertIsInstance(cita_dto, CitaDTO)
+        self.assertEqual(cita_dto.id, 1)
+        self.assertEqual(cita_dto.usuario_id, 1)
+        self.assertEqual(cita_dto.fecha, "2024-12-20")
+        self.assertEqual(cita_dto.hora, "10:00")
+        self.assertEqual(cita_dto.detalles, "Consulta médica general")
 
-    def test_obtener_usuario_por_id(self):
+        # Verificar que se llamó correctamente al método del repositorio
+        self.cita_repository.buscar_por_id.assert_called_once_with(1)
+        print("Resultado del test: Cita obtenida correctamente.")
+
+    def test_obtener_cita_por_id_no_existente(self):
         """
-        Test para obtener los detalles de un usuario por su ID.
+        Test cuando la cita no existe en la base de datos.
         """
-        # Simulamos que el repositorio devuelve el usuario correcto
-        self.usuario_repository.buscar_por_id.return_value = self.usuario
+        print("Ejecutando test: test_obtener_cita_por_id_no_existente")
+        # Simulamos que el repositorio no encuentra la cita
+        self.cita_repository.buscar_por_id.return_value = None
 
-        # Ejecutamos el método de obtención de usuario por ID
-        usuario_dto = self.usuario_service.obtener_usuario_por_id(1)
+        # Ejecutamos el método de obtención de cita por ID
+        cita_dto = self.cita_service.obtener_cita_por_id(99)
 
-        # Verificamos que se haya devuelto el DTO del usuario
-        self.assertIsInstance(usuario_dto, UsuarioDTO)
-        self.assertEqual(usuario_dto.id, 1)
-        self.assertEqual(usuario_dto.nombre, "Juan Pérez")
-        self.assertEqual(usuario_dto.correo, "juan.perez@example.com")
-        self.assertEqual(usuario_dto.rol, "paciente")
+        # Verificamos que no se encontró la cita
+        self.assertIsNone(cita_dto)
 
-    def test_obtener_usuario_por_id_no_existente(self):
+        # Verificar que se llamó correctamente al método del repositorio
+        self.cita_repository.buscar_por_id.assert_called_once_with(99)
+        print("Resultado del test: Cita no encontrada verificada.")
+
+    def test_eliminar_cita_existente(self):
         """
-        Test cuando el usuario no existe en la base de datos.
+        Test para eliminar una cita existente.
         """
-        # Simulamos que el repositorio no encuentra el usuario
-        self.usuario_repository.buscar_por_id.return_value = None
+        print("Ejecutando test: test_eliminar_cita_existente")
+        # Simulamos que la cita existe
+        self.cita_repository.buscar_por_id.return_value = self.cita
+        self.cita_repository.eliminar = MagicMock()
 
-        # Ejecutamos el método de obtención de usuario por ID
-        usuario_dto = self.usuario_service.obtener_usuario_por_id(99)
+        # Ejecutamos el método para eliminar la cita
+        resultado = self.cita_service.eliminar_cita(1)
 
-        # Verificamos que no se encontró el usuario
-        self.assertIsNone(usuario_dto)
+        # Verificamos que la eliminación fue exitosa
+        self.assertTrue(resultado)
+
+        # Verificar que se llamaron los métodos correctos del repositorio
+        self.cita_repository.buscar_por_id.assert_called_once_with(1)
+        self.cita_repository.eliminar.assert_called_once_with(1)
+        print("Resultado del test: Cita eliminada correctamente.")
+
+    def test_eliminar_cita_no_existente(self):
+        """
+        Test para intentar eliminar una cita que no existe.
+        """
+        print("Ejecutando test: test_eliminar_cita_no_existente")
+        # Simulamos que la cita no existe
+        self.cita_repository.buscar_por_id.return_value = None
+        self.cita_repository.eliminar = MagicMock()
+
+        # Ejecutamos el método para eliminar la cita
+        resultado = self.cita_service.eliminar_cita(1)
+
+        # Verificamos que la eliminación no fue exitosa
+        self.assertFalse(resultado)
+
+        # Verificar que se llamaron los métodos correctos del repositorio
+        self.cita_repository.buscar_por_id.assert_called_once_with(1)
+        self.cita_repository.eliminar.assert_not_called()
+        print("Resultado del test: Cita no encontrada para eliminar verificada.")
+
 
 if __name__ == '__main__':
     unittest.main()

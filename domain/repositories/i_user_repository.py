@@ -24,3 +24,16 @@ class IUserRepository(ABC):
     @abstractmethod
     def delete(self, user_id: int) -> None:
         pass
+
+    @abstractmethod
+    def buscar_por_correo(self, correo: str) -> Optional[Usuario]:
+        pass
+
+    @abstractmethod
+    def buscar_por_id(self, id: int) -> Optional[Usuario]:
+        pass
+
+    @abstractmethod
+    def eliminar_usuario(self, user_id: int):
+        pass
+

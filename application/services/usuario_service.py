@@ -30,3 +30,10 @@ class UsuarioService:
         if usuario:
             return UsuarioDTO(usuario.id, usuario.nombre, usuario.correo, usuario.rol)
         return None
+
+    def eliminar_usuario(self, user_id: int) -> bool:
+        usuario = self.usuario_repository.buscar_por_id(user_id)
+        if not usuario:
+            return False  # Usuario no encontrado
+        self.usuario_repository.eliminar(user_id)
+        return True  # Usuario eliminado
