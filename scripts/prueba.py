@@ -5,7 +5,7 @@ import os
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.append(project_root)
 
-from infrastructure.factory.repository_factory import RepositoryFactory
+from infraestructure.factory.repository_factory import RepositoryFactory
 from domain.entities.paciente import Paciente
 
 

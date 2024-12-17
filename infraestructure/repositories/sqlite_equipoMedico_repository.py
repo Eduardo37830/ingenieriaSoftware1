@@ -1,7 +1,7 @@
 import sqlite3
 from typing import List
 from domain.repositories.i_equipoMedico_repository import IEquipoMedicoRepository
-from domain.entities.equipo_medico import EquipoMedico
+from domain.entities.equipoMedico import EquipoMedico
 
 class SQLiteEquipoMedicoRepository(IEquipoMedicoRepository):
     def __init__(self, db_path: str):

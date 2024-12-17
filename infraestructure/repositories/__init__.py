@@ -7,3 +7,4 @@ from .sqlite_formula_repository import SQLiteFormulaRepository
 from .sqlite_medicamento_repository import SQLiteMedicamentoRepository
 from .sqlite_proveedor_repository import SQLiteProveedorRepository
 from .sqlite_equipoMedico_repository import SQLiteEquipoMedicoRepository
+from .sqlite_medicamento_repository import SQLiteMedicamentoRepository

@@ -1,7 +1,7 @@
 # domain/repositories/i_formula_repository.py
 from abc import ABC, abstractmethod
 from typing import List
-from ingenieriaSoftware1.domain.entities.formula import Formula
+from domain.entities.formula import Formula
 
 class IformulaRepository(ABC):
     @abstractmethod

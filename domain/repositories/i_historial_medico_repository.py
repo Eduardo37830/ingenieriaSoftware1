@@ -1,6 +1,6 @@
-from ingenieriaSoftware1.domain.entities.historialMedico import HistorialMedico
+from domain.entities.historialMedico import HistorialMedico
 
-class HistorialMedicoRepository():
+class IHistorialMedicoRepository():
     def __init__(self, session):
         self.session = session  # Aquí deberías incluir tu mecanismo de conexión a la base de datos
 
