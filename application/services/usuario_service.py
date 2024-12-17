@@ -1,4 +1,4 @@
-from ingenieriaSoftware1.application.dtos.usuario_dto import UsuarioDTO
+from application.dtos.usuario_dto import UsuarioDTO
 
 class UsuarioService:
     def __init__(self, usuario_repository):

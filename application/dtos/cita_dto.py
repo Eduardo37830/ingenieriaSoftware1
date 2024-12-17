@@ -6,6 +6,7 @@ class CitaDTO:
     def __init__(self, id: Optional[int] = None, motivoConsulta: str = "", fechaConsulta: datetime = None,
                  horaConsulta: datetime = None, paciente_id: int = None, personalMedico_id: int = None,
                  costoTotal: float = 0.0, habitacion_id: Optional[int] = None):
+        self.usuario_id = None
         self.id = id
         self.motivoConsulta = motivoConsulta
         self.fechaConsulta = fechaConsulta

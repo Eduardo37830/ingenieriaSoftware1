@@ -1,6 +1,6 @@
 from .paciente import Paciente
 from .cita import Cita
-from ingenieriaSoftware1.domain.entities.personalMedico import PersonalMedico
+from domain.entities.personalMedico import PersonalMedico
 from .habitacion import Habitacion
 from .cirugia import Cirugia
 from .formula import Formula

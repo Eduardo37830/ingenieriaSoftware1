@@ -31,3 +31,6 @@ class ICitaRepository(ABC):
     def find_all_by_personal_medico(self, personalMedico_id):
 
         pass
+
+    def eliminar(self, cita_id):
+        pass

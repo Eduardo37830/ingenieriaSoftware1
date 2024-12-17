@@ -22,3 +22,5 @@ class CitaService:
             raise ValueError(f"La habitación con ID {idHabitacion} no está disponible.")
         habitacion.asignarAcomodacion(idCita=idCita)
 
+
+

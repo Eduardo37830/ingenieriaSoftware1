@@ -1,6 +1,6 @@
-from ingenieriaSoftware1.application.dtos.paciente_dto import PacienteDTO
-from ingenieriaSoftware1.domain.repositories.i_paciente_repository import IPacienteRepository
-from ingenieriaSoftware1.application.exceptions.application_error import NotFoundError
+from application.dtos.paciente_dto import PacienteDTO
+from domain.repositories.i_paciente_repository import IPacienteRepository
+from application.exceptions.application_error import NotFoundError
 
 class PacienteApplicationService:
     def __init__(self, paciente_repository: IPacienteRepository):
