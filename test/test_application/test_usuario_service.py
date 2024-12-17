@@ -1,9 +1,9 @@
 import unittest
 from unittest.mock import MagicMock
-from ingenieriaSoftware1.application.dtos.usuario_dto import UsuarioDTO
-from ingenieriaSoftware1.application.services.usuario_service import UsuarioService
-from ingenieriaSoftware1.domain.entities.usuario import Usuario
-from ingenieriaSoftware1.domain.repositories.i_user_repository import IUserRepository as UsuarioRepository
+from application.dtos.usuario_dto import UsuarioDTO
+from application.services.usuario_service import UsuarioService
+from domain.entities.usuario import Usuario
+from domain.repositories.i_user_repository import IUserRepository as UsuarioRepository
 
 
 class TestUsuarioService(unittest.TestCase):
