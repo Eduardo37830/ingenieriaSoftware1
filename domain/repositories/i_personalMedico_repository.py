@@ -1,7 +1,8 @@
-# domain/repositories/i_personal_medico_repository.py
+    # domain/repositories/i_personal_medico_repository.py
 from abc import ABC, abstractmethod
 from typing import List
-from domain.entities.personalMedico import PersonalMedico
+from ingenieriaSoftware1.domain.entities.personalMedico import PersonalMedico
+
 
 class IPersonalMedicoRepository(ABC):
     @abstractmethod

@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import Mock
-from ingenieriaSoftware1.application.services.medication_service import MedicationService
+from ingenieriaSoftware1.application.services.medicamento_service import MedicationService
 from ingenieriaSoftware1.domain.entities.medicamento import Medicamento
 
 

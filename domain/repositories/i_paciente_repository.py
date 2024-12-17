@@ -18,3 +18,9 @@ class IPacienteRepository(ABC):
     def find_all(self) -> List[Paciente]:
         """Obtiene todos los pacientes."""
         pass
+
+    def update(self, paciente):
+        pass
+
+    def delete(self, paciente_id):
+        pass

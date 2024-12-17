@@ -1,0 +1,8 @@
+from ingenieriaSoftware1.application.dtos.usuario_dto import UsuarioDTO
+from ingenieriaSoftware1.application.services.usuario_service import UsuarioService
+from ingenieriaSoftware1.domain.entities.historialMedico import HistorialMedico
+from ingenieriaSoftware1.application.services.historial_medico_service import HistorialMedicoApplicationService
+from ingenieriaSoftware1.application.dtos.historial_medico_dto import HistorialMedicoDTO
+from ingenieriaSoftware1.domain.repositories.i_user_repository import IUserRepository as UsuarioRepository
+from ingenieriaSoftware1.domain.entities.usuario import Usuario
+from ingenieriaSoftware1.domain.entities.paciente import Paciente

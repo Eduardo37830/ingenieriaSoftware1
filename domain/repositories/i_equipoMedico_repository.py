@@ -18,3 +18,7 @@ class IequipoMedicoRepository(ABC):
     def find_all(self) -> List[EquipoMedico]:
         """Obtiene todos los equipoMedicos."""
         pass
+
+    def delete(self, equipo_medico_id):
+        """Elimina un equipoMedico por su ID."""
+        pass

@@ -23,3 +23,7 @@ class ICitaRepository(ABC):
     def delete(self, cita_id: int) -> None:
         """Elimina una cita."""
         pass
+
+    def find_all(self):
+        """Obtiene todas las citas."""
+        pass

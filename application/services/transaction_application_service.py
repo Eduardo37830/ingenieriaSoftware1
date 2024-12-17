@@ -1,27 +1,25 @@
 # application/services/transaction_application_service.py
-
-from application.dtos.transaction_dto import TransactionDTO
-from domain.repositories.i_transaction_repository import ITransactionRepository
-from domain.services.transaction_service import TransactionService
-
+from ingenieriaSoftware1.domain.repositories.i_transaction_repository import ITransactionRepository
+from ingenieriaSoftware1.application.dtos.transaction_dto import TransactionDTO
+from ingenieriaSoftware1.application.exceptions.application_error import NotFoundError
 
 class TransactionApplicationService:
-    def __init__(self, transaction_service: TransactionService, transaction_repository: ITransactionRepository):
-        self.transaction_service = transaction_service
+    def __init__(self, transaction_repository: ITransactionRepository):
         self.transaction_repository = transaction_repository
 
-    def create_transaction(self, transaction_dto: TransactionDTO):
-        # Convierte el DTO a una entidad de dominio (Transaction)
-        transaction = self.transaction_service.create_transaction(transaction_dto.amount, transaction_dto.description)
-
-        # Guarda la transacción usando el repositorio
+    def registrar_transaccion(self, transaction_dto: TransactionDTO) -> None:
+        """Registra una nueva transacción."""
+        transaction = transaction_dto.to_entity()
         self.transaction_repository.save(transaction)
-        return transaction
 
-    def get_all_transactions(self):
-        # Recupera todas las transacciones del repositorio
-        return self.transaction_repository.get_all()
+    def obtener_transaccion_por_id(self, transaction_id: int) -> TransactionDTO:
+        """Obtiene una transacción por su ID."""
+        transaction = self.transaction_repository.get_by_id(transaction_id)
+        if not transaction:
+            raise NotFoundError(f"No se encontró una transacción con el ID {transaction_id}")
+        return TransactionDTO.from_entity(transaction)
 
-    def generate_report(self):
-        # Llama al servicio de dominio para generar un informe
-        return self.transaction_service.generate_financial_report()
+    def listar_transacciones(self) -> list[TransactionDTO]:
+        """Lista todas las transacciones."""
+        transactions = self.transaction_repository.get_all()
+        return [TransactionDTO.from_entity(t) for t in transactions]
