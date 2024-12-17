@@ -1,9 +1,9 @@
 # domain/repositories/i_equipoMedico_repository.py
 from abc import ABC, abstractmethod
 from typing import List
-from domain.entities.equipo_medico import EquipoMedico
+from domain.entities.equipoMedico import EquipoMedico
 
-class IequipoMedicoRepository(ABC):
+class IEquipoMedicoRepository(ABC):
     @abstractmethod
     def save(self, equipoMedico: EquipoMedico) -> None:
         """Guarda o actualiza un equipoMedico."""

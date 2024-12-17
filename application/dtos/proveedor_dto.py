@@ -1,3 +1,4 @@
+from domain.entities.proveedor import Proveedor
 class ProveedorDTO:
     def __init__(self, id_proveedor, nombre, fecha_entrega, costo, telefono_vendedor):
         self.id_proveedor = id_proveedor

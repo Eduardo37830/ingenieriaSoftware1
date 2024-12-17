@@ -2,7 +2,7 @@ from datetime import datetime
 
 
 class Medicamento:
-    def __init__(self, medicamento_id, nombre, tipoMedicamento, fechaFabricacion, fechaVencimiento, cantidad):
+    def __init__(self, medicamento_id, nombre, tipoMedicamento, fechaFabricacion, fechaVencimiento, cantidad, id_proveedor):
         """
         Clase para representar un medicamento.
         :param medicamento_id: ID único del medicamento.
@@ -18,6 +18,7 @@ class Medicamento:
         self.fechaFabricacion = fechaFabricacion
         self.fechaVencimiento = fechaVencimiento
         self.cantidad = cantidad
+        self.id_proveedor = id_proveedor
 
     def verificarDisponibilidad(self, cantidadRequerida):
         """

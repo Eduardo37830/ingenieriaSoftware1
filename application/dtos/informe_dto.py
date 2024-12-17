@@ -1,5 +1,5 @@
 # application/dtos/informe_dto.py
-
+from domain.entities.formula import Formula
 class InformeDTO:
     def __init__(self, total_depositos: float, total_retiros: float, saldo_promedio: float):
         self.total_depositos = total_depositos

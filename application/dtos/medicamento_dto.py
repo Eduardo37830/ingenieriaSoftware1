@@ -1,4 +1,4 @@
-from ingenieriaSoftware1.domain.entities.medicamento import Medicamento
+from domain.entities.medicamento import Medicamento
 from datetime import datetime
 
 class MedicamentoDTO:

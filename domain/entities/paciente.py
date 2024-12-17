@@ -1,5 +1,5 @@
-from ingenieriaSoftware1.domain.entities.historialMedico import HistorialMedico
-from ingenieriaSoftware1.domain.entities.usuario import Usuario
+from historialMedico import HistorialMedico
+from usuario import Usuario
 
 
 class Paciente(Usuario):

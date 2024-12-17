@@ -1,7 +1,7 @@
 # domain/repositories/i_cita_repository.py
 from abc import ABC, abstractmethod
 from typing import List
-from ingenieriaSoftware1.domain.entities.cita import Cita
+from domain.entities.cirugia import Cita
 
 class ICirugiaRepository(ABC):
     @abstractmethod

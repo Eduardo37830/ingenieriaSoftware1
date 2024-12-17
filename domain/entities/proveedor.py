@@ -1,5 +1,5 @@
 class Proveedor:
-    def __init__(self, id_proveedor, nombre, fecha_entrega, costo, telefono_vendedor):
+    def __init__(self, id_proveedor, nombre, fecha_entrega, costo, telefono_vendedor, direccion):
         """
         Clase para representar un proveedor.
         :param id_proveedor: ID único del proveedor.
@@ -8,11 +8,12 @@ class Proveedor:
         :param costo: Costo de la entrega.
         :param telefono_vendedor: Teléfono del vendedor.
         """
-        self.id_proveedor = id_proveedor
+        self.id = id_proveedor
         self.nombre = nombre
         self.fecha_entrega = fecha_entrega
         self.costo = costo
         self.telefono_vendedor = telefono_vendedor
+        self.direccion = direccion
         self.medicamentos = []  # Lista de medicamentos gestionados por este proveedor
 
     def registrar_pedido(self, medicamento, cantidad):

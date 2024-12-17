@@ -1,6 +1,6 @@
 from datetime import datetime
 from typing import Optional
-from ingenieriaSoftware1.domain.entities.cirugia import Cirugia
+from domain.entities.cirugia import Cirugia
 
 class CirugiaDTO:
     def __init__(self, id: Optional[int] = None, fecha_cirugia: datetime = None, tipo_cirugia: str = "",

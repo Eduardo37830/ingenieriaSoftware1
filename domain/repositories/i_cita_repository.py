@@ -27,3 +27,7 @@ class ICitaRepository(ABC):
     def find_all(self):
         """Obtiene todas las citas."""
         pass
+
+    def find_all_by_personal_medico(self, personalMedico_id):
+
+        pass

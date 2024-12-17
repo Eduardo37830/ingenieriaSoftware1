@@ -18,7 +18,7 @@ class SQLiteProveedorRepository(IProveedorRepository):
                 INSERT INTO PROVEEDORES (id, nombre, telefono, direccion)
                 VALUES (?, ?, ?, ?)
                 """,
-                (proveedor.id, proveedor.nombre, proveedor.telefono, proveedor.direccion)
+                (proveedor.id, proveedor.nombre, proveedor.telefono_vendedor, proveedor.direccion)
             )
             conn.commit()
 

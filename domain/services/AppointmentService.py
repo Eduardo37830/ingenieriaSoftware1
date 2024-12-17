@@ -1,5 +1,5 @@
-from ingenieriaSoftware1.domain.entities.cita import Cita
-from ingenieriaSoftware1.domain.repositories.i_cita_repository import ICitaRepository
+from domain.entities.cita import Cita
+from domain.repositories.i_cita_repository import ICitaRepository
 
 class AppointmentService:
     def __init__(self, cita_repository: ICitaRepository):

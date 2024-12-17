@@ -15,17 +15,17 @@ class SQLiteFormulaRepository(IFormulaRepository):
             cursor = conn.cursor()
             cursor.execute(
                 """
-                INSERT INTO FORMULAS (id, medicamento, tiempoUso, cantidad, nombrePaciente)
+                INSERT INTO FORMULAS (id, medicamento_id, cantidad, paciente_id)
                 VALUES (?, ?, ?, ?, ?)
                 """,
-                (formula.id, formula.medicamento, formula.tiempoUso, formula.cantidad, formula.nombrePaciente)
+                (formula.id, formula.medicamento_id, formula.cantidad, formula.paciente_id)
             )
             conn.commit()
 
     def find_by_id(self, formula_id: int) -> Formula:
         with self._connect() as conn:
             cursor = conn.cursor()
-            cursor.execute("SELECT id, medicamento, tiempoUso, cantidad, nombrePaciente FROM FORMULAS WHERE id = ?", (formula_id,))
+            cursor.execute("SELECT id, medicamento_id, cantidad, paciente_id FROM FORMULAS WHERE id = ?", (formula_id,))
             row = cursor.fetchone()
             if row:
                 return Formula(*row)
@@ -34,6 +34,6 @@ class SQLiteFormulaRepository(IFormulaRepository):
     def find_all(self) -> List[Formula]:
         with self._connect() as conn:
             cursor = conn.cursor()
-            cursor.execute("SELECT id, medicamento, tiempoUso, cantidad, nombrePaciente FROM FORMULAS")
+            cursor.execute("SELECT id, medicamento_id, cantidad, paciente_id FROM FORMULAS")
             rows = cursor.fetchall()
             return [Formula(*row) for row in rows]

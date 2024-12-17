@@ -18,7 +18,7 @@ class SQLiteMedicamentoRepository(IMedicamentoRepository):
                 INSERT INTO MEDICAMENTOS (id, nombre, tipoMedicamento, fechaFabricacion, fechaVencimiento, cantidad, id_proveedor)
                 VALUES (?, ?, ?, ?, ?, ?, ?)
                 """,
-                (medicamento.id, medicamento.nombre, medicamento.tipoMedicamento,
+                (medicamento.medicamento_id, medicamento.nombre, medicamento.tipoMedicamento,
                  medicamento.fechaFabricacion, medicamento.fechaVencimiento, medicamento.cantidad, medicamento.id_proveedor)
             )
             conn.commit()

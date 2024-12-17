@@ -1,3 +1,5 @@
+from domain.entities.personalMedico import PersonalMedico
+
 class PersonalMedicoDTO:
     def __init__(self, id, nombre, especializacion, disponibilidad, horaInicioTurno, horaFinTurno, departamento_id):
         """

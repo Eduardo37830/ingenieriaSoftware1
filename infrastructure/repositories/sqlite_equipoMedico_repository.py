@@ -1,7 +1,7 @@
 import sqlite3
 from typing import List
 from domain.repositories.i_equipoMedico_repository import IEquipoMedicoRepository
-from domain.entities.equipo_medico import EquipoMedico
+from domain.entities.equipoMedico import EquipoMedico
 
 class SQLiteEquipoMedicoRepository(IEquipoMedicoRepository):
     def __init__(self, db_path: str):
@@ -15,10 +15,10 @@ class SQLiteEquipoMedicoRepository(IEquipoMedicoRepository):
             cursor = conn.cursor()
             cursor.execute(
                 """
-                INSERT INTO EQUIPOS_MEDICOS (id, tipoEquipo, funcionalidad, disponibilidad)
+                INSERT INTO EQUIPOS_MEDICOS (id, tipo_equipo, funcionalidad, disponibilidad)
                 VALUES (?, ?, ?, ?)
                 """,
-                (equipo.id, equipo.tipoEquipo, equipo.funcionalidad, equipo.disponibilidad)
+                (equipo.id, equipo.tipo_equipo, equipo.funcionalidad, equipo.disponibilidad)
             )
             conn.commit()
 

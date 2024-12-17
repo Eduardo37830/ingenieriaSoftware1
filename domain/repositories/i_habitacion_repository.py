@@ -1,9 +1,9 @@
 # domain/repositories/i_habitacion_repository.py
 from abc import ABC, abstractmethod
 from typing import List
-from ingenieriaSoftware1.domain.entities.habitacion import Habitacion
+from domain.entities.habitacion import Habitacion
 
-class IhabitacionRepository(ABC):
+class IHabitacionRepository(ABC):
     @abstractmethod
     def save(self, habitacion: Habitacion) -> None:
         """Guarda o actualiza una habitacion."""

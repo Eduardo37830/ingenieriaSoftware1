@@ -1,5 +1,4 @@
 from ingenieriaSoftware1.domain.entities.historialMedico import HistorialMedico
-from ingenieriaSoftware1.domain.entities.usuario import Usuario
 
 class HistorialMedicoDTO:
     def __init__(self, fecha, diagnostico, tratamiento, observaciones, medico_id, paciente_id):

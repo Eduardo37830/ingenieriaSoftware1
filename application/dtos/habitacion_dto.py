@@ -1,4 +1,4 @@
-from ingenieriaSoftware1.domain.entities.habitacion import Habitacion
+from domain.entities.habitacion import Habitacion
 
 class HabitacionDTO:
     def __init__(self, id: int, disponibilidad: bool, tipo_habitacion: str, capacidad: int, cita_asignada: int = None):
