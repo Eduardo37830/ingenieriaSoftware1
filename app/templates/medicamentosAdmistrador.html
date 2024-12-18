@@ -23,6 +23,17 @@
             </tr>
         </thead>
         <tbody>
+            {% for medicamento in medicamentos %}
+            <tr>
+                <td>{{ medicamento.Nombre }}</td>
+                <td>{{ medicamento.Tipo }}</td>
+                <td>{{ medicamento.CantidadDisponible }}</td>
+                <td>{{ medicamento.FechaVencimiento }}</td>
+                <td>{{ medicamento.FechaFabricacion }}</td>
+                <td>{{ medicamento.Cantidad }}</td>
+                <td>{{ medicamento.NombreProveedor }}</td>
+            </tr>
+            {% endfor %}
         </tbody>
     </table>
     <div class="button-container">

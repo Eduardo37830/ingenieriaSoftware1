@@ -23,6 +23,19 @@
             </tr>
         </thead>
         <tbody>
+            {% for proveedor in proveedores %}
+            <tr>
+                <td>{{ proveedor.Nombre }}</td>
+                <td>{{ proveedor.Direccion }}</td>
+                <td>{{ proveedor.Telefono }}</td>
+                <td>{{ proveedor.PedidoPendiente }}</td>
+                <td>{{ proveedor.FechaEntrega }}</td>
+                <td>{{ proveedor.CantidadPedidos }}</td>
+                <td>
+                    <input type="radio" name="seleccionar_proveedor" value="{{ proveedor.Nombre }}">
+                </td>
+            </tr>
+            {% endfor %}
         </tbody>
     </table>
     <div class="button-container">
