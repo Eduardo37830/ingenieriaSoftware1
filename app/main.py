@@ -24,14 +24,16 @@ app.register_blueprint(pacientesAdmistraccion)
 app.register_blueprint(habitacionesAdmistraccion)
 app.register_blueprint(cirugiaAdmistraccion)
 app.register_blueprint(citasAdmindistraccion)
-# ---------------------------------------------------------------------------Home
+# ---------------------------------------------------------------------------
+# Home
+# ---------------------------------------------------------------------------
 @app.route("/")
 def home():
     return render_template("index.html")
 
-# ---------------------------------------------------------------------------General
-
-# ---------------------------------------------------------------------Iniciar Sesion
+# ---------------------------------------------------------------------------
+# Iniciar Sesion
+# ---------------------------------------------------------------------------
 
 # Simulación de una base de datos
 usuarios = {
@@ -85,7 +87,9 @@ def registrarse():
         return "Registro exitoso"
 
     return render_template('registrarse.html')
-# ---------------------------------------------------------------------Cerrar sesion
+# ---------------------------------------------------------------------------
+# Cerrar Sesion
+# ---------------------------------------------------------------------------
 @app.route('/cerrar_sesion')
 def cerrar_sesion():
     # Elimina todos los datos de la sesión
@@ -93,14 +97,16 @@ def cerrar_sesion():
     # Redirige al usuario a la página de inicio de sesión o inicio
     return redirect(url_for('home'))
 
-# ---------------------------------------------------------------------------Cliente
-
-# ---------------------------------------------------------------------Inicio Cliente
+# ---------------------------------------------------------------------------
+# Inicio Cliente
+# ---------------------------------------------------------------------------
 @app.route('/inicio_cliente')
 def inicio_cliente():
     return render_template('inicio_cliente.html')
 
-# ---------------------------------------------------------------------AGENDAR CITA
+# ---------------------------------------------------------------------------
+# Agendar Cita
+# ---------------------------------------------------------------------------
 @app.route('/agendar_cita', methods=["GET", "POST"])
 def agendar_cita():
     
@@ -122,7 +128,9 @@ def agendar_cita():
     # Si es un GET, simplemente renderiza el formulario
     return render_template('agendar_cita.html')
 
-# -----------------------------------------------------------------------Citas Agendadas
+# ---------------------------------------------------------------------------
+# Citas Agendadas
+# ---------------------------------------------------------------------------
 @app.route('/citas_agendadas', methods=["GET", "POST"])
 def citas_agendadas():
     # Simulamos que estos datos vienen de una fuente externa
@@ -174,7 +182,9 @@ def cancelar_cita():
         return "No se seleccionó ninguna cita para cancelar.", 400
     return redirect(url_for('citas_agendadas'))
 
-# ----------------------------------------------------------------------Historial Medico
+# ---------------------------------------------------------------------------
+# Historial Medico
+# ---------------------------------------------------------------------------
 @app.route('/historial_medico')
 def historial_medico():
     # Simulamos que estos datos vienen de una fuente externa
@@ -221,9 +231,9 @@ def medicamentos_view():
 
     return render_template('medicamentos.html', medicamentos=medicamentos)
 
-# ---------------------------------------------------------------------------Medico
-
-# ---------------------------------------------------------------------Inicio Medico
+# ---------------------------------------------------------------------------
+# Inicio Medico
+# ---------------------------------------------------------------------------
 
 # Datos simulados de citas asociadas a cada médico
 citas_por_medico = {
