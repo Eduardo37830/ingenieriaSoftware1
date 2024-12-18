@@ -10,34 +10,37 @@
 </head>
 <h1>Citas Agendadas</h1>
 <div class="citas-container">
-    <table class="citas-table">
-        <thead>
-            <tr class="citas-header-row">
-                <th class="citas-header">FECHA</th>
-                <th class="citas-header">HORA</th>
-                <th class="citas-header">TIPO</th>
-                <th class="citas-header">MEDICO</th>
-                <th class="citas-header">SELECCIONAR</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for cita in citas %}
-            <tr class="citas-row">
-                <td class="citas-data">{{ cita.fecha }}</td>
-                <td class="citas-data">{{ cita.hora }}</td>
-                <td class="citas-data">{{ cita.tipo }}</td>
-                <td class="citas-data">{{ cita.medico }}</td>
-                <td class="citas-data">
-                    <input type="radio" name="seleccionar_cita"
-                        value="{{ cita.id }}" class="citas-radio">
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <!-- Botón para cancelar cita -->
-    <form action="{{ url_for('cancelar_cita') }}" method="POST">
-        <button type="submit" class="citas-btn">CANCELAR CITA</button>
+    {% if citas %}
+    <form method="POST" action="{{ url_for('cancelar_cita') }}">
+        <table class="citas-table">
+            <thead>
+                <tr class="citas-header-row">
+                    <th class="citas-header">FECHA</th>
+                    <th class="citas-header">HORA</th>
+                    <th class="citas-header">TIPO</th>
+                    <th class="citas-header">MEDICO</th>
+                    <th class="citas-header">SELECCIONAR</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cita in citas %}
+                <tr class="citas-row">
+                    <td class="citas-data">{{ cita.fecha }}</td>
+                    <td class="citas-data">{{ cita.hora }}</td>
+                    <td class="citas-data">{{ cita.tipo }}</td>
+                    <td class="citas-data">{{ cita.medico }}</td>
+                    <td class="citas-data">
+                        <input type="radio" name="seleccionar_cita"
+                            value="{{ cita.id }}" class="citas-radio">
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button type="submit" class="citas-button">Cancelar Cita</button>
     </form>
+    {% else %}
+    <p>No hay citas agendadas para esta cédula.</p>
+    {% endif %}
 </div>
 {% endblock %}

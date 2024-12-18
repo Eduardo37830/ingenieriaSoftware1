@@ -9,20 +9,28 @@
         href="{{ url_for('static', filename='styles/admistrador.css') }}">
     <title>Inicio Admistrador</title>
 </head>
-<main>
-    <div class="button-container">
-        <div class="button-container"><bottom id="citas" class="custom-btn custom-btn-1">Citas</bottom></div>
-        <div class="button-container"><bottom id="cirugia" class="custom-btn custom-btn-2">Cirugias</bottom></div>
-        <div class="button-container"><bottom id="personalmedico"class="custom-btn custom-btn-3">Personal Medico</bottom></div>
-        <div class="button-container"><bottom id="proveedores"class="custom-btn custom-btn-4">Proveedores</bottom></div>
-    </div>
-    <div class="button-container">
-        <div class="button-container"><bottom id="almacen"class="custom-btn custom-btn-4">Almacen</bottom></div>
-        <div class="button-container"><bottom id="pacientes" class="custom-btn custom-btn-3">Pacientes</bottom></div>
-        <div class="button-container"><bottom id="habitaciones"class="custom-btn custom-btn-2">Habitaciones</bottom></div>
-        <div class="button-container"><bottom id="departamentos"class="custom-btn custom-btn-1">Departamentos</bottom></div>   
-    </div>
-    <script>
+<h1>Bienvenido Administrador</h1>
+<div class="button-container">
+    <div class="button-container"><bottom id="citas"
+            class="custom-btn custom-btn-1">Citas</bottom></div>
+    <div class="button-container"><bottom id="cirugia"
+            class="custom-btn custom-btn-2">Cirugias</bottom></div>
+    <div class="button-container"><bottom id="personalmedico"
+            class="custom-btn custom-btn-3">Personal Medico</bottom></div>
+    <div class="button-container"><bottom id="proveedores"
+            class="custom-btn custom-btn-4">Proveedores</bottom></div>
+</div>
+<div class="button-container">
+    <div class="button-container"><bottom id="almacen"
+            class="custom-btn custom-btn-4">Almacen</bottom></div>
+    <div class="button-container"><bottom id="pacientes"
+            class="custom-btn custom-btn-3">Pacientes</bottom></div>
+    <div class="button-container"><bottom id="habitaciones"
+            class="custom-btn custom-btn-2">Habitaciones</bottom></div>
+    <div class="button-container"><bottom id="departamentos"
+            class="custom-btn custom-btn-1">Departamentos</bottom></div>
+</div>
+<script>
         document.getElementById("personalmedico").addEventListener("click", function () {
             const body = document.body;
             body.classList.add("fade-out");
@@ -73,5 +81,5 @@
             }, 1000);
         });
     </script>
-</main>
+
 {% endblock %}

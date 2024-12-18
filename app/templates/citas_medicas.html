@@ -6,13 +6,15 @@
 <link rel="stylesheet"
     href="{{ url_for('static', filename='styles/citas_medicas.css') }}">
 
-<h1 class="citas-titulo">Citas Médicas</h1>
+<h1>Citas Médicas</h1>
 
 <div class="citas-container">
+    {% if citas %}
     <table class="tabla-citas">
         <thead>
             <tr class="tabla-encabezado">
                 <th>Nombre del Paciente</th>
+                <th>Cédula del Paciente</th>
                 <th>Hora Consulta</th>
                 <th>Fecha Consulta</th>
                 <th>Motivo de Consulta</th>
@@ -23,12 +25,13 @@
             {% for cita in citas %}
             <tr class="tabla-fila">
                 <td>{{ cita.nombre }}</td>
+                <td>{{ cita.cedula_paciente }}</td>
                 <td>{{ cita.hora }}</td>
                 <td>{{ cita.fecha }}</td>
                 <td>{{ cita.motivo }}</td>
                 <td class="tabla-botones">
                     <a class="boton-seleccionar"
-                        href="{{ url_for('historial_medico') }}"
+                        href="{{ url_for('historial_medico', cedula=cita.cedula_paciente) }}"
                         class="custom-btn custom-btn-cita">
                         Historial
                     </a>
@@ -42,5 +45,8 @@
             {% endfor %}
         </tbody>
     </table>
+    {% else %}
+    <p class="mensaje-sin-citas">No hay citas médicas asociadas a tu cédula.</p>
+    {% endif %}
 </div>
 {% endblock %}
