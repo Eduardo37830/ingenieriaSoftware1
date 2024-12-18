@@ -39,7 +39,6 @@ def cerrar_sesion():
     return redirect(url_for('home'))
 
 
-
 # ---------------------------------------------------------------------Iniciar Sesion
 
 # Simulación de una base de datos
@@ -123,7 +122,6 @@ def citas_agendadas():
         {"id": 2, "fecha": "2024-12-16", "hora": "14:00", "tipo": "Revisión Médica", "medico": "María Gómez", "cedula": 987},
         {"id": 3, "fecha": "2024-12-17", "hora": "09:30", "tipo": "Examen Especial", "medico": "Carlos López", "cedula": 987},
     ]
-
     # Obtener la cédula del usuario desde la sesión
     cedula_usuario = session.get('cedula')
 
