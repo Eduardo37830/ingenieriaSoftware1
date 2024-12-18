@@ -30,6 +30,15 @@ def home():
 def inicio_cliente():
     return render_template('inicio_cliente.html')
 
+# ---------------------------------------------------------------------Cerrar sesion
+@app.route('/cerrar_sesion')
+def cerrar_sesion():
+    # Elimina todos los datos de la sesión
+    session.clear()
+    # Redirige al usuario a la página de inicio de sesión o inicio
+    return redirect(url_for('home'))
+
+
 
 # ---------------------------------------------------------------------Iniciar Sesion
 
