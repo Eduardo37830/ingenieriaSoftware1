@@ -26,7 +26,6 @@ CREATE TABLE PERSONAL_MEDICO (
     horaInicioTurno TIME,
     horaFinTurno TIME,
     especializacion TEXT,
-    departamento TEXT,
     FOREIGN KEY (usuario_id) REFERENCES USUARIOS (id)
 );
 

@@ -1,58 +1,70 @@
 import sqlite3
-from typing import List
-from domain.repositories.i_historial_medico_repository import IHistorialMedicoRepository
 from domain.entities.historialMedico import HistorialMedico
+from domain.repositories.i_historial_medico_repository import IHistorialMedicoRepository
+from typing import List
 
-class SqliteHistorialMedicoRepository(IHistorialMedicoRepository):
-    def __init__(self, connection: sqlite3.Connection):
-        self.connection = connection
+class SQLiteHistorialMedicoRepository(IHistorialMedicoRepository):
+    def __init__(self, db_path: str):
+        self.db_path = db_path
 
-    def connect(self):
+    def _connect(self):
         return sqlite3.connect(self.db_path)
 
-    def save(self, historial_medico: HistorialMedico):
-        cursor = self.connection.cursor()
-        cursor.execute(
-            """
- INSERT INTO HISTORIALES_MEDICOS (paciente_id, fecha, diagnostico, tratamiento, observaciones, medico_id)
-VALUES (?, ?, ?, ?, ?, ?)
-            """,
-            (
-                historial_medico.paciente_id,
-                historial_medico.fecha,
-                historial_medico.diagnostico,
-                historial_medico.tratamiento,
-                historial_medico.observaciones,
-                historial_medico.medico_id,
-            ),
-        )
-        self.connection.commit()
+    def save(self, historial: HistorialMedico) -> None:
+        """Inserta o actualiza un historial médico"""
+        with self._connect() as conn:
+            cursor = conn.cursor()
+            if historial.id is None:
+                cursor.execute(
+                    """
+                    INSERT INTO HISTORIALES_MEDICOS (fecha, diagnostico, tratamiento, observaciones, medico_id, paciente_id)
+                    VALUES (?, ?, ?, ?, ?, ?)
+                    """,
+                    (historial.fecha, historial.diagnostico, historial.tratamiento, historial.observaciones, historial.medico_id, historial.paciente_id),
+                )
+            else:
+                cursor.execute(
+                    """
+                    UPDATE HISTORIALES_MEDICOS SET fecha = ?, diagnostico = ?, tratamiento = ?, observaciones = ?, medico_id = ?, paciente_id = ?
+                    WHERE id = ?
+                    """,
+                    (historial.fecha, historial.diagnostico, historial.tratamiento, historial.observaciones, historial.medico_id, historial.paciente_id, historial.id),
+                )
+            conn.commit()
 
     def find_by_id(self, historial_id: int) -> HistorialMedico:
-        cursor = self.connection.cursor()
-        cursor.execute(
-            """
-SELECT paciente_id, fecha, diagnostico, tratamiento, observaciones, medico_id
-FROM HISTORIALES_MEDICOS
-WHERE id = ?
-            """,
-            (historial_id,),
-        )
-        row = cursor.fetchone()
-        if row:
-            return HistorialMedico(*row)
-        raise ValueError("Historial Médico no encontrado")
-    
-    def find_all_by_paciente(self, paciente_id: int) -> List[HistorialMedico]:
-        cursor = self.connection.cursor()
-        cursor.execute(
-            """
-SELECT id, fecha, diagnostico, tratamiento, observaciones, medico_id
-FROM HISTORIALES_MEDICOS
-WHERE paciente_id = ?
-            """,
-            (paciente_id,),
-        )
-        rows = cursor.fetchall()
-        return [HistorialMedico(*row) for row in rows]
-    
+        """Busca un historial médico por ID"""
+        with self._connect() as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                """
+                SELECT id, fecha, diagnostico, tratamiento, observaciones, medico_id, paciente_id
+                FROM HISTORIALES_MEDICOS
+                WHERE id = ?
+                """,
+                (historial_id,),
+            )
+            row = cursor.fetchone()
+            if row:
+                return HistorialMedico(*row)
+            return None
+
+    def find_all(self) -> List[HistorialMedico]:
+        """Devuelve todos los historiales médicos"""
+        with self._connect() as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                """
+                SELECT id, fecha, diagnostico, tratamiento, observaciones, medico_id, paciente_id
+                FROM HISTORIALES_MEDICOS
+                """
+            )
+            rows = cursor.fetchall()
+            return [HistorialMedico(*row) for row in rows]
+
+    def delete(self, historial_id: int) -> None:
+        """Elimina un historial médico por ID"""
+        with self._connect() as conn:
+            cursor = conn.cursor()
+            cursor.execute("DELETE FROM HISTORIALES_MEDICOS WHERE id = ?", (historial_id,))
+            conn.commit()
