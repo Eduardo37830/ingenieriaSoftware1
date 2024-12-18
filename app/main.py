@@ -154,9 +154,17 @@ def citas_agendadas():
 def cancelar_cita():
     selected_id = request.form.get("seleccionar_cita")
     if selected_id:
-        print(f"Cita cancelada con ID: {selected_id}")
-        # Aquí pondrías la lógica real para eliminar la cita de la base de datos
+        try:
+            selected_id = int(selected_id)
+            # Aquí podrías eliminar la cita de la base de datos o lista
+            print(f"Cita cancelada con ID: {selected_id}")
+            # Simulación: Redirigimos a citas_agendadas para que se actualice la lista
+        except ValueError:
+            return "ID de cita inválido.", 400
+    else:
+        return "No se seleccionó ninguna cita para cancelar.", 400
     return redirect(url_for('citas_agendadas'))
+
 
 @app.route('/historial_medico')
 def historial_medico():

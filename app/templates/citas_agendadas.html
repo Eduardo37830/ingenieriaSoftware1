@@ -11,7 +11,7 @@
 <h1>Citas Agendadas</h1>
 <div class="citas-container">
     {% if citas %}
-    <form method="POST">
+    <form method="POST" action="{{ url_for('cancelar_cita') }}">
         <table class="citas-table">
             <thead>
                 <tr class="citas-header-row">
