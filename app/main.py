@@ -1,3 +1,6 @@
+# ---------------------------------------------------------------------------
+# Importaciones
+# ---------------------------------------------------------------------------
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -21,14 +24,16 @@ app.register_blueprint(pacientesAdmistraccion)
 app.register_blueprint(habitacionesAdmistraccion)
 app.register_blueprint(cirugiaAdmistraccion)
 app.register_blueprint(citasAdmindistraccion)
-# ---------------------------------------------------------------------------Home
+# ---------------------------------------------------------------------------
+# Home
+# ---------------------------------------------------------------------------
 @app.route("/")
 def home():
     return render_template("index.html")
 
-# ---------------------------------------------------------------------------General
-
-# ---------------------------------------------------------------------Iniciar Sesion
+# ---------------------------------------------------------------------------
+# Iniciar sesión
+# ---------------------------------------------------------------------------
 
 # Simulación de una base de datos
 usuarios = {
@@ -61,7 +66,9 @@ def procesar_inicio_sesion():
     else:
         # Si las credenciales son incorrectas
         return "Credenciales incorrectas", 401
-# ---------------------------------------------------------------------Registrarse
+# ---------------------------------------------------------------------------
+# Registrarse
+# ---------------------------------------------------------------------------
 @app.route('/registrarse', methods=['GET', 'POST'])
 def registrarse():
     if request.method == 'POST':
@@ -79,7 +86,9 @@ def registrarse():
         return "Registro exitoso"
 
     return render_template('registrarse.html')
-# ---------------------------------------------------------------------Cerrar sesion
+# ---------------------------------------------------------------------------
+# Cerrar sesion
+# ---------------------------------------------------------------------------
 @app.route('/cerrar_sesion')
 def cerrar_sesion():
     # Elimina todos los datos de la sesión
@@ -87,14 +96,18 @@ def cerrar_sesion():
     # Redirige al usuario a la página de inicio de sesión o inicio
     return redirect(url_for('home'))
 
-# ---------------------------------------------------------------------------Cliente
 
-# ---------------------------------------------------------------------Inicio Cliente
+# ---------------------------------------------------------------------------
+# Inicio Cliente
+# ---------------------------------------------------------------------------
+
 @app.route('/inicio_cliente')
 def inicio_cliente():
     return render_template('inicio_cliente.html')
 
-# ---------------------------------------------------------------------AGENDAR CITA
+# ---------------------------------------------------------------------------
+# Agendar Cita
+# ---------------------------------------------------------------------------
 @app.route('/agendar_cita', methods=["GET", "POST"])
 def agendar_cita():
     
@@ -116,7 +129,9 @@ def agendar_cita():
     # Si es un GET, simplemente renderiza el formulario
     return render_template('agendar_cita.html')
 
-# -----------------------------------------------------------------------Citas Agendadas
+# ---------------------------------------------------------------------------
+# Citas Agendadas
+# ---------------------------------------------------------------------------
 @app.route('/citas_agendadas', methods=["GET", "POST"])
 def citas_agendadas():
     # Simulamos que estos datos vienen de una fuente externa
@@ -168,7 +183,9 @@ def cancelar_cita():
         return "No se seleccionó ninguna cita para cancelar.", 400
     return redirect(url_for('citas_agendadas'))
 
-# ----------------------------------------------------------------------Historial Medico
+# ---------------------------------------------------------------------------
+# Historial Médico
+# ---------------------------------------------------------------------------
 @app.route('/historial_medico')
 def historial_medico():
     # Simulamos que estos datos vienen de una fuente externa
@@ -191,7 +208,9 @@ def historial_medico():
     return render_template('historial_medico.html', historial=historial)
 
 
-# ---------------------------------------------------------------------Medicamentos
+# ---------------------------------------------------------------------------
+# Medicamentos
+# ---------------------------------------------------------------------------
 @app.route('/medicamentos')
 def medicamentos_view():
     # Simulamos que estos datos vienen de una fuente externa
@@ -213,9 +232,9 @@ def medicamentos_view():
 
     return render_template('medicamentos.html', medicamentos=medicamentos)
 
-# ---------------------------------------------------------------------------Medico
-
-# ---------------------------------------------------------------------Inicio Medico
+# ---------------------------------------------------------------------------
+# Inicio Medico
+# ---------------------------------------------------------------------------
 
 # Datos simulados de citas asociadas a cada médico
 citas_por_medico = {
@@ -231,7 +250,9 @@ citas_por_medico = {
 @app.route('/inicio_medico')
 def inicio_medico():
     return render_template('inicio_medico.html')
-# ----------------------------------------------------------------------Citas Médicas
+# ---------------------------------------------------------------------------
+# Citas Medicas
+# ---------------------------------------------------------------------------
 @app.route('/citas_medicas')
 def citas_medicas():
     # Ejemplo de datos de citas (se podría conectar a una base de datos)
@@ -251,7 +272,9 @@ def citas_medicas():
 
     return render_template('citas_medicas.html', citas=citas_medico)
 
-# ---------------------------------------------------------------------Cirugias
+# ---------------------------------------------------------------------------
+# Cirugias
+# ---------------------------------------------------------------------------
 # Datos de ejemplo para cirugías
 cirugias = [
     {"nombre_paciente": "Juan Pérez", "hora": "08:00", "fecha": "2024-06-15", "habitacion": "101", "tipo": "Cardíaca", "personal_medico": "Dr. Gómez, Dra. López", "equipo_medico": "Anestesiólogo, Enfermero", "cedula_paciente": "987"},
@@ -271,10 +294,14 @@ def cirugias_view():
     # Renderizar la plantilla con las cirugías filtradas
     return render_template('cirugias.html', cirugias=cirugias_usuario)
 
-# ---------------------------------------------------------------------Formula
+# ---------------------------------------------------------------------------
+# Formula
+# ---------------------------------------------------------------------------
 @app.route('/formula')
 def formula():
     return render_template('formula.html')
-# ---------------------------------------------------------------------Main
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
 if __name__ == "__main__":
     app.run(debug=True)
