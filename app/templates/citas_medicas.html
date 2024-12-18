@@ -9,6 +9,7 @@
 <h1 class="citas-titulo">Citas Médicas</h1>
 
 <div class="citas-container">
+    {% if citas %}
     <table class="tabla-citas">
         <thead>
             <tr class="tabla-encabezado">
@@ -42,5 +43,8 @@
             {% endfor %}
         </tbody>
     </table>
+    {% else %}
+    <p class="mensaje-sin-citas">No hay citas médicas asociadas a tu cédula.</p>
+    {% endif %}
 </div>
 {% endblock %}

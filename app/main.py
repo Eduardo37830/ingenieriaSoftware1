@@ -44,8 +44,8 @@ def cerrar_sesion():
 
 # Simulación de una base de datos
 usuarios = {
-    "123": {"password": "1234", "rol": 3},  # Ejemplo de usuario (Paciente)
-    "987": {"password": "abcd", "rol": 2},  # Ejemplo de usuario (Médico)
+    "123": {"password": "1234", "rol": 3},  # Ejemplo de usuario (Medico)
+    "987": {"password": "abcd", "rol": 2},  # Ejemplo de usuario (Paciente)
     "111": {"password": "admin", "rol": 1}  # Ejemplo de usuario (Administrador)
 }
 # ---------------------------------------------------------------------Iniciar Sesión
@@ -68,7 +68,7 @@ def procesar_inicio_sesion():
         if rol == 3:
             return redirect(url_for('inicio_medico'))
         elif rol == 2:
-            return redirect(url_for('inicio_paciente'))
+            return redirect(url_for('inicio_cliente'))
         elif rol == 1:
             return redirect(url_for('admissions.show_admissions'))
     else:
@@ -163,6 +163,18 @@ def medicamentos_view():
     return render_template('medicamentos.html', medicamentos=medicamentos)
 
 # ---------------------------------------------------------------------Inicio Medico
+
+# Datos simulados de citas asociadas a cada médico
+citas_por_medico = {
+    "123": [  # Médico con cédula "123"
+        {"id": 1, "nombre": "Pedro Pérez", "hora": "10:00", "fecha": "2024-12-15", "motivo": "Consulta General"},
+        {"id": 2, "nombre": "María Gómez", "hora": "14:00", "fecha": "2024-12-16", "motivo": "Revisión Médica"},
+    ],
+    "987": [  # Paciente con cédula "987"
+        {"id": 3, "nombre": "Carlos López", "hora": "09:30", "fecha": "2024-12-17", "motivo": "Examen Especial"},
+    ],
+}
+
 @app.route('/inicio_medico')
 def inicio_medico():
     return render_template('inicio_medico.html')
@@ -175,18 +187,35 @@ citas = [
 ]
 @app.route('/citas_medicas')
 def citas_medicas():
+    # Verificar si hay una sesión activa
+    cedula = session.get('cedula')
+    if not cedula:
+        return redirect(url_for('iniciar_sesion'))  # Redirigir al inicio de sesión si no hay sesión
+
+    # Obtener las citas asociadas a la cédula del médico
+    citas = citas_por_medico.get(cedula, [])
+
     return render_template('citas_medicas.html', citas=citas)
+
 # ---------------------------------------------------------------------Cirugias
 # Datos de ejemplo para cirugías
 cirugias = [
-    {"nombre_paciente": "Juan Pérez", "hora": "08:00", "fecha": "2024-06-15", "habitacion": "101", "tipo": "Cardíaca", "personal_medico": "Dr. Gómez, Dra. López", "equipo_medico": "Anestesiólogo, Enfermero"},
-    {"nombre_paciente": "María López", "hora": "10:00", "fecha": "2024-06-16", "habitacion": "102", "tipo": "Ortopédica", "personal_medico": "Dr. Martínez, Dra. Ruiz", "equipo_medico": "Asistente, Enfermero"},
-    {"nombre_paciente": "Carlos Ramírez", "hora": "12:00", "fecha": "2024-06-17", "habitacion": "103", "tipo": "Neurológica", "personal_medico": "Dr. Pérez, Dra. Torres", "equipo_medico": "Instrumentista, Anestesiólogo"},
+    {"nombre_paciente": "Juan Pérez", "hora": "08:00", "fecha": "2024-06-15", "habitacion": "101", "tipo": "Cardíaca", "personal_medico": "Dr. Gómez, Dra. López", "equipo_medico": "Anestesiólogo, Enfermero", "cedula_paciente": "987"},
+    {"nombre_paciente": "María López", "hora": "10:00", "fecha": "2024-06-16", "habitacion": "102", "tipo": "Ortopédica", "personal_medico": "Dr. Martínez, Dra. Ruiz", "equipo_medico": "Asistente, Enfermero", "cedula_paciente": "987"},
+    {"nombre_paciente": "Carlos Ramírez", "hora": "12:00", "fecha": "2024-06-17", "habitacion": "103", "tipo": "Neurológica", "personal_medico": "Dr. Pérez, Dra. Torres", "equipo_medico": "Instrumentista, Anestesiólogo", "cedula_paciente": "123"},
 ]
+
 
 @app.route('/cirugias')
 def cirugias_view():
-    return render_template('cirugias.html', cirugias=cirugias)
+    # Obtener la cédula del usuario desde la sesión
+    cedula_usuario = session.get('cedula')
+
+    # Filtrar las cirugías asociadas a la cédula del usuario
+    cirugias_usuario = [cirugia for cirugia in cirugias if cirugia['cedula_paciente'] == cedula_usuario]
+
+    # Renderizar la plantilla con las cirugías filtradas
+    return render_template('cirugias.html', cirugias=cirugias_usuario)
 
 # ---------------------------------------------------------------------Formula
 @app.route('/formula')

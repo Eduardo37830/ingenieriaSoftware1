@@ -1,15 +1,18 @@
 {% extends "base.html" %}
 
-{% block title %}Cirugias{% endblock %}
+{% block title %}Cirugías{% endblock %}
 
 {% block content %}
 <head>
     <link rel="stylesheet"
         href="{{ url_for('static', filename='styles/cirugias.css') }}">
-    <title>Cirugias</title>
+    <title>Cirugías</title>
 </head>
-<h1>Cirugias</h1>
+
+<h1>Cirugías</h1>
+
 <div class="contenedor-cirugias">
+    {% if cirugias %}
     <table class="tabla-cirugias">
         <thead>
             <tr>
@@ -36,5 +39,9 @@
             {% endfor %}
         </tbody>
     </table>
+    {% else %}
+    <p class="mensaje-sin-cirugias">No hay cirugías asociadas a tu cédula.</p>
+    {% endif %}
 </div>
+
 {% endblock %}
