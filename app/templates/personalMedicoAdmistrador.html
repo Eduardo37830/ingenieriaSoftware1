@@ -23,6 +23,19 @@
             </tr>
         </thead>
         <tbody>
+            {% for personal in personal_medico %}
+            <tr>
+                <td>{{ personal.Nombre }}</td>
+                <td>{{ personal.Departamento }}</td>
+                <td>{{ personal.Profesion }}</td>
+                <td>{{ personal.HorarioEntrada }}</td>
+                <td>{{ personal.HorarioSalida }}</td>
+                <td>{{ personal.Disponibilidad }}</td>
+                <td>
+                    <input type="radio" name="seleccionar_personal" value="{{ personal.Nombre }}">
+                </td>
+            </tr>
+            {% endfor %}
         </tbody>
     </table>
     <div class="button-container">

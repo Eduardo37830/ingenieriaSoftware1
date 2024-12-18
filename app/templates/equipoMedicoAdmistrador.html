@@ -21,6 +21,15 @@
             </tr>
         </thead>
         <tbody>
+            {% for equipo in equipos_medicos %}
+            <tr>
+                <td>{{ equipo.Nombre }}</td>
+                <td>{{ equipo.Tipo }}</td>
+                <td>{{ equipo.Funcionalidad }}</td>
+                <td>{{ equipo.CantidadDisponible }}</td>
+                <td>{{ equipo.NombreProveedor }}</td>
+            </tr>
+            {% endfor %}
         </tbody>
     </table>
     <div class="button-container">

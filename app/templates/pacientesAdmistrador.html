@@ -21,6 +21,17 @@
             </tr>
         </thead>
         <tbody>
+            {% for paciente in pacientes %}
+            <tr>
+                <td>{{ paciente.Nombre }}</td>
+                <td>{{ paciente.Telefono }}</td>
+                <td>{{ paciente.Direccion }}</td>
+                <td>{{ paciente.HistorialMedico }}</td>
+                <td>
+                    <input type="radio" name="seleccionar_paciente" value="{{ paciente.Nombre }}">
+                </td>
+            </tr>
+            {% endfor %}
         </tbody>
     </table>
     <div class="button-container">

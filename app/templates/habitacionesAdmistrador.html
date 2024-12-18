@@ -21,6 +21,17 @@
             </tr>
         </thead>
         <tbody>
+            {% for habitacion in habitaciones %}
+                <tr>
+                    <td>{{ habitacion.Nombre }}</td>
+                    <td>{{ habitacion.Capacidad }}</td>
+                    <td>{{ habitacion.Tipo }}</td>
+                    <td>{{ habitacion.Disponibilidad }}</td>
+                    <td>
+                        <input type="radio" name="seleccionar_habitacion" value="{{ habitacion.Nombre }}">
+                    </td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
     <div class="button-container">
