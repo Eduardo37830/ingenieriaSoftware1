@@ -6,6 +6,10 @@ class HabitacionApplicationService:
     def __init__(self, habitacion_repository: IHabitacionRepository):
         self.habitacion_repository = habitacion_repository
 
+    def registrar_habitacion(self, habitacion: HabitacionDTO) -> None:
+        """Registra una habitación en el sistema."""
+        return self.habitacion_repository.save(habitacion.to_entity())
+
     def asignar_habitacion_a_cita(self, habitacion_id: int, cita_id: int) -> str:
         """Asigna una habitación a una cita si está disponible."""
         habitacion = self.habitacion_repository.find_by_id(habitacion_id)

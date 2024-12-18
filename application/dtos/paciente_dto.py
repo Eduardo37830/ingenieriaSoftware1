@@ -16,15 +16,15 @@ class PacienteDTO:
     def from_entity(paciente: Paciente) -> 'PacienteDTO':
         """Convierte una entidad Paciente a PacienteDTO."""
         return PacienteDTO(
-            id_usuario=paciente.id_usuario,
+            id_usuario=paciente.id,
             nombre=paciente.nombre,
             correo=paciente.correo,
             contrasena=paciente.contrasena,
             rol=paciente.rol,
             direccion=paciente.direccion,
             telefono=paciente.telefono,
-            tipoDocumento=paciente.tipoDocumento,
-            numeroDocumento=paciente.numeroDocumento
+            tipoDocumento=paciente.tipo_documento,
+            numeroDocumento=paciente.numero_documento
         )
 
     def to_entity(self) -> Paciente:
