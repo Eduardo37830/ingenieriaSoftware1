@@ -31,7 +31,7 @@
                 <td>{{ cita.motivo }}</td>
                 <td class="tabla-botones">
                     <a class="boton-seleccionar"
-                        href="{{ url_for('historial_medico') }}"
+                        href="{{ url_for('historial_medico', cedula=cita.cedula_paciente) }}"
                         class="custom-btn custom-btn-cita">
                         Historial
                     </a>

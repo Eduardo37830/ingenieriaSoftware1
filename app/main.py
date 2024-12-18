@@ -158,7 +158,6 @@ def cancelar_cita():
         # Aquí pondrías la lógica real para eliminar la cita de la base de datos
     return redirect(url_for('citas_agendadas'))
 
-# ---------------------------------------------------------------------Historial Médico
 @app.route('/historial_medico')
 def historial_medico():
     # Simulamos que estos datos vienen de una fuente externa
@@ -169,8 +168,8 @@ def historial_medico():
         {"cedula": "987", "fecha": "2024-06-20", "diagnostico": "Dolor de cabeza", "tratamiento": "Analgésicos", "medico": "Dr. Pérez"},
     ]
 
-    # Obtener la cédula de la sesión
-    cedula = session.get('cedula')
+    # Obtener la cédula del parámetro de la URL (si existe) o de la sesión
+    cedula = request.args.get('cedula') or session.get('cedula')
 
     if not cedula:
         return "No se ha iniciado sesión o no se ha proporcionado una cédula.", 403
@@ -179,6 +178,7 @@ def historial_medico():
     historial = [registro for registro in todos_los_historiales if registro['cedula'] == cedula]
 
     return render_template('historial_medico.html', historial=historial)
+
 
 # ---------------------------------------------------------------------Medicamentos
 @app.route('/medicamentos')
@@ -223,9 +223,9 @@ def inicio_medico():
 def citas_medicas():
     # Ejemplo de datos de citas (se podría conectar a una base de datos)
     todas_las_citas = [
-        {"id": 1, "nombre": "Juan Pérez", "hora": "10:00", "fecha": "2024-12-15", "motivo": "Consulta General", "cedula_paciente": 123},
+        {"id": 1, "nombre": "Juan Pérez", "hora": "10:00", "fecha": "2024-12-15", "motivo": "Consulta General", "cedula_paciente": 987, "cedula": 123},
         {"id": 2, "nombre": "María Gómez", "hora": "14:00", "fecha": "2024-12-16", "motivo": "Revisión Médica", "cedula_paciente": 987},
-        {"id": 3, "nombre": "Carlos López", "hora": "09:30", "fecha": "2024-12-17", "motivo": "Examen Especial", "cedula_paciente": 456},
+        {"id": 3, "nombre": "Carlos López", "hora": "09:30", "fecha": "2024-12-17", "motivo": "Examen Especial", "cedula_paciente": 987},
     ]
 
     # Verificar si hay una sesión activa
@@ -234,7 +234,7 @@ def citas_medicas():
         return redirect(url_for('iniciar_sesion'))  # Redirigir al inicio de sesión si no hay sesión
 
     # Obtener las citas asociadas a la cédula del médico
-    citas_medico = [cita for cita in todas_las_citas if cita.get("cedula_paciente") == int(cedula_medico)]
+    citas_medico = [cita for cita in todas_las_citas if cita.get("cedula") == int(cedula_medico)]
 
     return render_template('citas_medicas.html', citas=citas_medico)
 
