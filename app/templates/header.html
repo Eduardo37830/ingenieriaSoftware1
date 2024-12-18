@@ -7,17 +7,11 @@
     </div>
 
     <!-- Centro: Logo y enlaces -->
-    <div class="navbar-center">
-
+    <div class="navbar-right">
         <div class="navbar-links">
-            <a href="#">Inicio</a>
-            <a href="#">Soporte</a>
-            <a href="#">Información</a>
+            <a href="{{ url_for('iniciar_sesion') }}">Iniciar Sesión</a>
+            <a href="{{ url_for('registrarse') }}">Registrarse</a>
         </div>
     </div>
 
-    <!-- Derecha: Cuenta de usuario -->
-    <div class="navbar-right">
-        <div class="navbar-user">CUENTA USUARIO</div>
-    </div>
 </nav>

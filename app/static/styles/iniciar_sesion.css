@@ -1,0 +1,68 @@
+/* Contenedor principal */
+.login-container {
+	background-color: var(--fondo-secundario);
+	padding: 40px;
+	border-radius: 10px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	max-width: 400px;
+	width: 90%;
+	margin: auto;
+	text-align: center;
+}
+
+/* Título del formulario */
+.login-title {
+	color: var(--encabezado);
+	font-size: 2rem;
+	margin-bottom: 20px;
+}
+
+/* Formulario */
+.login-form {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+/* Grupo de campos */
+.form-group {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+/* Etiquetas */
+.form-label {
+	color: var(--texto);
+	font-size: 1rem;
+	margin-bottom: 5px;
+}
+
+/* Campos de entrada */
+.form-input {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid var(--encabezado);
+	border-radius: 5px;
+	font-size: 1rem;
+	color: var(--texto);
+	background-color: var(--fondo-principal);
+}
+
+.form-input:focus {
+	outline: none;
+	border-color: var(--boton);
+	box-shadow: 0 0 5px var(--boton);
+}
+
+/* Botón de inicio de sesión */
+.login-button {
+	background-color: var(--boton);
+	color: white;
+	border: none;
+	padding: 10px;
+	font-size: 1rem;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
