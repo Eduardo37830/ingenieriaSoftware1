@@ -1,7 +1,7 @@
 import sqlite3
-from typing import List
-from domain.repositories.i_cita_repository import ICitaRepository
 from domain.entities.cita import Cita
+from domain.repositories.i_cita_repository import ICitaRepository
+from typing import List
 
 class SQLiteCitaRepository(ICitaRepository):
     def __init__(self, db_path: str):
@@ -11,43 +11,77 @@ class SQLiteCitaRepository(ICitaRepository):
         return sqlite3.connect(self.db_path)
 
     def save(self, cita: Cita) -> None:
+        """Inserta o actualiza una cita"""
         with self._connect() as conn:
             cursor = conn.cursor()
-            # Columnas opcionales manejadas condicionalmente
-            query = """
-                INSERT INTO CITAS (id, motivoConsulta, fechaConsulta, horaConsulta, paciente_id, personalMedico_id, costoTotal, habitacion_id)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-            """
-            cursor.execute(query, (
-                cita.id,
-                cita.motivoConsulta,
-                cita.fechaConsulta,
-                cita.horaConsulta,
-                cita.paciente_id,
-                cita.personalMedico_id,
-                cita.costoTotal,
-                cita.habitacion_id
-            ))
+            if cita.id is None:
+                cursor.execute(
+                    """
+                    INSERT INTO CITAS (motivoConsulta, fechaConsulta, horaConsulta, costoTotal, paciente_id, personalMedico_id, habitacion_id)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    (
+                        cita.motivoConsulta,
+                        cita.fechaConsulta,
+                        cita.horaConsulta,
+                        cita.costoTotal,
+                        cita.paciente_id,
+                        cita.personalMedico_id,
+                        cita.habitacion_id,
+                    ),
+                )
+            else:
+                cursor.execute(
+                    """
+                    UPDATE CITAS SET motivoConsulta = ?, fechaConsulta = ?, horaConsulta = ?, costoTotal = ?, paciente_id = ?, personalMedico_id = ?, habitacion_id = ?
+                    WHERE id = ?
+                    """,
+                    (
+                        cita.motivoConsulta,
+                        cita.fechaConsulta,
+                        cita.horaConsulta,
+                        cita.costoTotal,
+                        cita.paciente_id,
+                        cita.personalMedico_id,
+                        cita.habitacion_id,
+                        cita.id,
+                    ),
+                )
             conn.commit()
 
     def find_by_id(self, cita_id: int) -> Cita:
+        """Busca una cita por ID"""
         with self._connect() as conn:
             cursor = conn.cursor()
-            cursor.execute("""
-                SELECT id, motivoConsulta, fechaConsulta, horaConsulta, paciente_id, personalMedico_id, costoTotal, habitacion_id 
-                FROM CITAS WHERE id = ?
-            """, (cita_id,))
+            cursor.execute(
+                """
+                SELECT id, motivoConsulta, fechaConsulta, horaConsulta, costoTotal, paciente_id, personalMedico_id, habitacion_id
+                FROM CITAS
+                WHERE id = ?
+                """,
+                (cita_id,),
+            )
             row = cursor.fetchone()
             if row:
                 return Cita(*row)
-            raise ValueError("Cita no encontrada")
+            return None
 
-    def find_all_by_paciente(self, paciente_id: int) -> List[Cita]:
+    def find_all(self) -> List[Cita]:
+        """Devuelve todas las citas"""
         with self._connect() as conn:
             cursor = conn.cursor()
-            cursor.execute("""
-                SELECT id, motivoConsulta, fechaConsulta, horaConsulta, paciente_id, personalMedico_id, costoTotal, habitacion_id 
-                FROM CITAS WHERE paciente_id = ?
-            """, (paciente_id,))
+            cursor.execute(
+                """
+                SELECT id, motivoConsulta, fechaConsulta, horaConsulta, costoTotal, paciente_id, personalMedico_id, habitacion_id
+                FROM CITAS
+                """
+            )
             rows = cursor.fetchall()
             return [Cita(*row) for row in rows]
+
+    def delete(self, cita_id: int) -> None:
+        """Elimina una cita por ID"""
+        with self._connect() as conn:
+            cursor = conn.cursor()
+            cursor.execute("DELETE FROM CITAS WHERE id = ?", (cita_id,))
+            conn.commit()

@@ -28,6 +28,28 @@ def home():
 @app.route('/inicio_cliente')
 def inicio_cliente():
     return render_template('inicio_cliente.html')
+
+# ---------------------------------------------------------------------Iniciar Sesion
+@app.route('/iniciar_sesion')
+def iniciar_sesion():
+    return render_template('iniciar_sesion.html')
+
+@app.route('/procesar_inicio_sesion', methods=['POST'])
+def procesar_inicio_sesion():
+    cedula = request.form['cedula']
+    password = request.form['password']
+    
+    # Aquí puedes conectar con tu base de datos para verificar las credenciales.
+    # Ejemplo de impresión de los datos:
+    print(f"Cédula: {cedula}, Contraseña: {password}")
+    
+    # Retorna un mensaje de éxito o redirige a otra página
+    return "Inicio de sesión procesado"
+
+# ---------------------------------------------------------------------Registrarse
+@app.route('/registrarse')
+def registrarse():
+    return render_template('registrarse.html')
 # ---------------------------------------------------------------------AGENDAR CITA
 @app.route('/agendar_cita', methods=["GET", "POST"])
 def agendar_cita():
