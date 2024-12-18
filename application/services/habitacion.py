@@ -1,9 +1,9 @@
-from domain.repositories.i_habitacion_repository import IhabitacionRepository
+from domain.repositories.i_habitacion_repository import IHabitacionRepository
 from application.dtos.habitacion_dto import HabitacionDTO
 from application.exceptions.application_error import NotFoundError
 
 class HabitacionApplicationService:
-    def __init__(self, habitacion_repository: IhabitacionRepository):
+    def __init__(self, habitacion_repository: IHabitacionRepository):
         self.habitacion_repository = habitacion_repository
 
     def asignar_habitacion_a_cita(self, habitacion_id: int, cita_id: int) -> str:

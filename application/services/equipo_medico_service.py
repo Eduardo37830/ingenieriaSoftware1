@@ -1,9 +1,9 @@
-from domain.repositories.i_equipoMedico_repository import IequipoMedicoRepository
+from domain.repositories.i_equipoMedico_repository import IEquipoMedicoRepository
 from application.dtos.equipo_medico_dto import EquipoMedicoDTO
 from application.exceptions.application_error import NotFoundError
 
 class EquipoMedicoApplicationService:
-    def __init__(self, equipo_medico_repository: IequipoMedicoRepository):
+    def __init__(self, equipo_medico_repository: IEquipoMedicoRepository):
         self.equipo_medico_repository = equipo_medico_repository
 
     def registrar_equipo_medico(self, equipo_medico_dto: EquipoMedicoDTO) -> None:

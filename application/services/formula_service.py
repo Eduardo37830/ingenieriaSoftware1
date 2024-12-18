@@ -1,9 +1,9 @@
-from domain.repositories.i_formula_repository import IformulaRepository
+from domain.repositories.i_formula_repository import IFormulaRepository
 from application.dtos.formula_dto import FormulaDTO
 from application.exceptions.application_error import NotFoundError
 
 class FormulaApplicationService:
-    def __init__(self, formula_repository: IformulaRepository):
+    def __init__(self, formula_repository: IFormulaRepository):
         self.formula_repository = formula_repository
 
     def registrar_formula(self, formula_dto: FormulaDTO) -> None:

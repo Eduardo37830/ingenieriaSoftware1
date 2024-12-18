@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import Mock
-from ingenieriaSoftware1.application.services.medicamento_service import MedicationService
-from ingenieriaSoftware1.domain.entities.medicamento import Medicamento
+from application.services.medicamento_service import MedicamentoApplicationService
+from domain.entities.medicamento import Medicamento
 
 
 class TestMedicationService(unittest.TestCase):
@@ -10,7 +10,7 @@ class TestMedicationService(unittest.TestCase):
         self.medication_repository = Mock()
 
         # Crear instancia del servicio
-        self.service = MedicationService(
+        self.service = MedicamentoApplicationService(
             medication_repository=self.medication_repository
         )
 

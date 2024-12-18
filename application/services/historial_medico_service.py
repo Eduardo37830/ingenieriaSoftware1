@@ -1,9 +1,9 @@
-from domain.repositories.i_historial_medico_repository import HistorialMedicoRepository
+from domain.repositories.i_historial_medico_repository import IHistorialMedicoRepository
 from application.dtos.historial_medico_dto import HistorialMedicoDTO
 from application.exceptions.application_error import NotFoundError
 
 class HistorialMedicoApplicationService:
-    def __init__(self, historial_medico_repository: HistorialMedicoRepository):
+    def __init__(self, historial_medico_repository: IHistorialMedicoRepository):
         self.historial_medico_repository = historial_medico_repository
 
     def registrar_historial_medico(self, historial_medico_dto: HistorialMedicoDTO) -> None:
