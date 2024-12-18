@@ -1,6 +1,6 @@
-from ingenieriaSoftware1.domain.repositories.i_equipoMedico_repository import IequipoMedicoRepository
-from ingenieriaSoftware1.application.dtos.equipo_medico_dto import EquipoMedicoDTO
-from ingenieriaSoftware1.application.exceptions.application_error import NotFoundError
+from domain.repositories.i_equipoMedico_repository import IequipoMedicoRepository
+from application.dtos.equipo_medico_dto import EquipoMedicoDTO
+from application.exceptions.application_error import NotFoundError
 
 class EquipoMedicoApplicationService:
     def __init__(self, equipo_medico_repository: IequipoMedicoRepository):

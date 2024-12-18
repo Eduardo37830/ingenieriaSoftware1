@@ -1,6 +1,6 @@
-from ingenieriaSoftware1.domain.repositories.i_medicamento_repository import IMedicamentoRepository
-from ingenieriaSoftware1.application.dtos.medicamento_dto import MedicamentoDTO
-from ingenieriaSoftware1.application.exceptions.application_error import NotFoundError
+from domain.repositories.i_medicamento_repository import IMedicamentoRepository
+from application.dtos.medicamento_dto import MedicamentoDTO
+from application.exceptions.application_error import NotFoundError
 
 class MedicamentoApplicationService:
     def __init__(self, medicamento_repository: IMedicamentoRepository):

@@ -1,5 +1,5 @@
 from datetime import datetime
-from ingenieriaSoftware1.application.dtos.personal_medico_dto import PersonalMedicoDTO
+from application.dtos.personal_medico_dto import PersonalMedicoDTO
 
 class PersonalMedicoService:
     def __init__(self, repository):

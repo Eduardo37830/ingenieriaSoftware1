@@ -1,6 +1,6 @@
-from ingenieriaSoftware1.domain.repositories.i_cirugia_repository import ICirugiaRepository
-from ingenieriaSoftware1.application.dtos.cirugia_dto import CirugiaDTO
-from ingenieriaSoftware1.application.exceptions.application_error import NotFoundError
+from domain.repositories.i_cirugia_repository import ICirugiaRepository
+from application.dtos.cirugia_dto import CirugiaDTO
+from application.exceptions.application_error import NotFoundError
 
 class CirugiaApplicationService:
     def __init__(self, cirugia_repository: ICirugiaRepository):

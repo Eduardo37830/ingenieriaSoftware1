@@ -1,6 +1,6 @@
-from ingenieriaSoftware1.domain.repositories.i_habitacion_repository import IhabitacionRepository
-from ingenieriaSoftware1.application.dtos.habitacion_dto import HabitacionDTO
-from ingenieriaSoftware1.application.exceptions.application_error import NotFoundError
+from domain.repositories.i_habitacion_repository import IhabitacionRepository
+from application.dtos.habitacion_dto import HabitacionDTO
+from application.exceptions.application_error import NotFoundError
 
 class HabitacionApplicationService:
     def __init__(self, habitacion_repository: IhabitacionRepository):

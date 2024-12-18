@@ -1,6 +1,6 @@
-from ingenieriaSoftware1.domain.repositories.i_historial_medico_repository import HistorialMedicoRepository
-from ingenieriaSoftware1.application.dtos.historial_medico_dto import HistorialMedicoDTO
-from ingenieriaSoftware1.application.exceptions.application_error import NotFoundError
+from domain.repositories.i_historial_medico_repository import HistorialMedicoRepository
+from application.dtos.historial_medico_dto import HistorialMedicoDTO
+from application.exceptions.application_error import NotFoundError
 
 class HistorialMedicoApplicationService:
     def __init__(self, historial_medico_repository: HistorialMedicoRepository):

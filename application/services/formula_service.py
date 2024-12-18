@@ -1,6 +1,6 @@
-from ingenieriaSoftware1.domain.repositories.i_formula_repository import IformulaRepository
-from ingenieriaSoftware1.application.dtos.formula_dto import FormulaDTO
-from ingenieriaSoftware1.application.exceptions.application_error import NotFoundError
+from domain.repositories.i_formula_repository import IformulaRepository
+from application.dtos.formula_dto import FormulaDTO
+from application.exceptions.application_error import NotFoundError
 
 class FormulaApplicationService:
     def __init__(self, formula_repository: IformulaRepository):
