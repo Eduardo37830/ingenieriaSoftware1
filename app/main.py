@@ -21,23 +21,12 @@ app.register_blueprint(pacientesAdmistraccion)
 app.register_blueprint(habitacionesAdmistraccion)
 app.register_blueprint(cirugiaAdmistraccion)
 app.register_blueprint(citasAdmindistraccion)
-  
+# ---------------------------------------------------------------------------Home
 @app.route("/")
 def home():
     return render_template("index.html")
-# ---------------------------------------------------------------------Inicio Cliente
-@app.route('/inicio_cliente')
-def inicio_cliente():
-    return render_template('inicio_cliente.html')
 
-# ---------------------------------------------------------------------Cerrar sesion
-@app.route('/cerrar_sesion')
-def cerrar_sesion():
-    # Elimina todos los datos de la sesión
-    session.clear()
-    # Redirige al usuario a la página de inicio de sesión o inicio
-    return redirect(url_for('home'))
-
+# ---------------------------------------------------------------------------General
 
 # ---------------------------------------------------------------------Iniciar Sesion
 
@@ -47,7 +36,6 @@ usuarios = {
     "987": {"password": "abcd", "rol": 2},  # Ejemplo de usuario (Paciente)
     "111": {"password": "admin", "rol": 1}  # Ejemplo de usuario (Administrador)
 }
-# ---------------------------------------------------------------------Iniciar Sesión
 @app.route('/iniciar_sesion')
 def iniciar_sesion():
     return render_template('iniciar_sesion.html')
@@ -91,6 +79,21 @@ def registrarse():
         return "Registro exitoso"
 
     return render_template('registrarse.html')
+# ---------------------------------------------------------------------Cerrar sesion
+@app.route('/cerrar_sesion')
+def cerrar_sesion():
+    # Elimina todos los datos de la sesión
+    session.clear()
+    # Redirige al usuario a la página de inicio de sesión o inicio
+    return redirect(url_for('home'))
+
+# ---------------------------------------------------------------------------Cliente
+
+# ---------------------------------------------------------------------Inicio Cliente
+@app.route('/inicio_cliente')
+def inicio_cliente():
+    return render_template('inicio_cliente.html')
+
 # ---------------------------------------------------------------------AGENDAR CITA
 @app.route('/agendar_cita', methods=["GET", "POST"])
 def agendar_cita():
@@ -113,7 +116,7 @@ def agendar_cita():
     # Si es un GET, simplemente renderiza el formulario
     return render_template('agendar_cita.html')
 
-# ----------------------------------------------------------------------Citas Agendadas
+# -----------------------------------------------------------------------Citas Agendadas
 @app.route('/citas_agendadas', methods=["GET", "POST"])
 def citas_agendadas():
     # Simulamos que estos datos vienen de una fuente externa
@@ -165,7 +168,7 @@ def cancelar_cita():
         return "No se seleccionó ninguna cita para cancelar.", 400
     return redirect(url_for('citas_agendadas'))
 
-
+# ----------------------------------------------------------------------Historial Medico
 @app.route('/historial_medico')
 def historial_medico():
     # Simulamos que estos datos vienen de una fuente externa
@@ -209,6 +212,8 @@ def medicamentos_view():
     medicamentos = [medicamento for medicamento in todos_los_medicamentos if medicamento['cedula'] == cedula]
 
     return render_template('medicamentos.html', medicamentos=medicamentos)
+
+# ---------------------------------------------------------------------------Medico
 
 # ---------------------------------------------------------------------Inicio Medico
 
