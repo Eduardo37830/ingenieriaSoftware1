@@ -218,24 +218,25 @@ citas_por_medico = {
 @app.route('/inicio_medico')
 def inicio_medico():
     return render_template('inicio_medico.html')
-# ---------------------------------------------------------------------Citas Medicas
-# Ejemplo de datos de citas (se podría conectar a una base de datos)
-citas = [
-    {"id": 1, "nombre": "Juan Pérez", "hora": "10:00", "fecha": "2024-12-15", "motivo": "Consulta General"},
-    {"id": 2, "nombre": "María Gómez", "hora": "14:00", "fecha": "2024-12-16", "motivo": "Revisión Médica"},
-    {"id": 3, "nombre": "Carlos López", "hora": "09:30", "fecha": "2024-12-17", "motivo": "Examen Especial"}
-]
+# ----------------------------------------------------------------------Citas Médicas
 @app.route('/citas_medicas')
 def citas_medicas():
+    # Ejemplo de datos de citas (se podría conectar a una base de datos)
+    todas_las_citas = [
+        {"id": 1, "nombre": "Juan Pérez", "hora": "10:00", "fecha": "2024-12-15", "motivo": "Consulta General", "cedula_paciente": 123},
+        {"id": 2, "nombre": "María Gómez", "hora": "14:00", "fecha": "2024-12-16", "motivo": "Revisión Médica", "cedula_paciente": 987},
+        {"id": 3, "nombre": "Carlos López", "hora": "09:30", "fecha": "2024-12-17", "motivo": "Examen Especial", "cedula_paciente": 456},
+    ]
+
     # Verificar si hay una sesión activa
-    cedula = session.get('cedula')
-    if not cedula:
+    cedula_medico = session.get('cedula')
+    if not cedula_medico:
         return redirect(url_for('iniciar_sesion'))  # Redirigir al inicio de sesión si no hay sesión
 
     # Obtener las citas asociadas a la cédula del médico
-    citas = citas_por_medico.get(cedula, [])
+    citas_medico = [cita for cita in todas_las_citas if cita.get("cedula_paciente") == int(cedula_medico)]
 
-    return render_template('citas_medicas.html', citas=citas)
+    return render_template('citas_medicas.html', citas=citas_medico)
 
 # ---------------------------------------------------------------------Cirugias
 # Datos de ejemplo para cirugías

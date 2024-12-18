@@ -14,6 +14,7 @@
         <thead>
             <tr class="tabla-encabezado">
                 <th>Nombre del Paciente</th>
+                <th>Cédula del Paciente</th>
                 <th>Hora Consulta</th>
                 <th>Fecha Consulta</th>
                 <th>Motivo de Consulta</th>
@@ -24,6 +25,7 @@
             {% for cita in citas %}
             <tr class="tabla-fila">
                 <td>{{ cita.nombre }}</td>
+                <td>{{ cita.cedula_paciente }}</td>
                 <td>{{ cita.hora }}</td>
                 <td>{{ cita.fecha }}</td>
                 <td>{{ cita.motivo }}</td>
