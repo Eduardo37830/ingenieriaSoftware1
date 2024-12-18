@@ -1,5 +1,5 @@
 class HistorialMedico:
-    def __init__(self, fecha, diagnostico, tratamiento, observaciones, medico_id,paciente_id):
+    def __init__(self, fecha, diagnostico, tratamiento, observaciones, medico_id,paciente_id, id):
         """
         Clase para representar una entrada en el historial médico de un paciente.
         :param fecha: Fecha de la consulta médica.
@@ -8,6 +8,7 @@ class HistorialMedico:
         :param observaciones: Notas adicionales sobre la condición del paciente.
         :param medico: Nombre del médico o identificador del personal médico.
         """
+        self.id = id
         self.fecha = fecha
         self.diagnostico = diagnostico
         self.tratamiento = tratamiento
