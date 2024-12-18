@@ -1,0 +1,51 @@
+/* Contenedor principal */
+.registro-container {
+	background-color: var(--fondo-secundario);
+	padding: 40px;
+	border-radius: 10px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	max-width: 600px;
+	margin: 0 auto;
+}
+
+/* Estilos generales del formulario */
+.registro-form {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+/* Filas del formulario */
+.registro-fila {
+	display: flex;
+	gap: 20px;
+}
+
+/* Campos del formulario */
+.registro-campo {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+}
+
+.registro-label {
+	font-size: 1rem;
+	color: var(--texto);
+	margin-bottom: 5px;
+}
+
+.registro-input,
+.registro-select {
+	padding: 10px;
+	border: 1px solid var(--texto);
+	border-radius: 5px;
+	font-size: 1rem;
+	background-color: var(--fondo-principal);
+	color: var(--texto);
+}
+
+.registro-input:focus,
+.registro-select:focus {
+	outline: none;
+	border-color: var(--encabezado);
+}

@@ -45,54 +45,53 @@ main {
 	padding-bottom: 40px;
 }
 
-
 /* Estilos para el footer */
 footer {
-    background-color: var(--encabezado);
-    color: white;
-    padding: 20px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid white;
+	background-color: var(--encabezado);
+	color: white;
+	padding: 20px 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-top: 1px solid white;
 	width: 100%;
 }
 
 /* Contenedor del footer */
 .footer-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    margin: 0 auto;
-	padding:30px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	margin: 0 auto;
+	padding: 30px;
 }
 
 /* Estilo para la parte izquierda (texto de derechos reservados) */
 .footer-left p {
-    margin: 0;
+	margin: 0;
 }
 
 /* Estilo para la parte derecha (botón) */
 .footer-right {
-    display: flex;
-    justify-content: flex-end;
+	display: flex;
+	justify-content: flex-end;
 }
 
 /* Estilo del botón */
 .btn-contacto {
-    background-color: var(--boton); 
-    color: white;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 16px;
-    transition: background-color 0.3s;
+	background-color: var(--boton);
+	color: white;
+	padding: 10px 20px;
+	text-decoration: none;
+	border-radius: 5px;
+	font-size: 16px;
+	transition: background-color 0.3s;
 }
 
 /* Efecto hover del botón */
 .btn-contacto:hover {
-    background-color: var(--notificaciones); 
+	background-color: var(--notificaciones);
 }
 
 /* Estilo del botón */
@@ -131,7 +130,6 @@ button:hover {
 	align-items: center;
 }
 
-
 /* Botones o enlaces */
 .navbar-links a,
 .navbar-user {
@@ -145,7 +143,7 @@ button:hover {
 
 .navbar-links a:hover,
 .navbar-user:hover {
-	background-color: var(--notificaciones); 
+	background-color: var(--notificaciones);
 }
 /* Estilos básicos para la transición */
 .fade-out {
@@ -154,9 +152,9 @@ button:hover {
 }
 
 .navbar-link {
-    text-decoration: none; /* Quita el subrayado */
-    color: inherit; /* Hereda el color del texto padre */
-    display: block; /* Hace que el enlace ocupe todo el espacio del contenedor */
+	text-decoration: none; /* Quita el subrayado */
+	color: inherit; /* Hereda el color del texto padre */
+	display: block; /* Hace que el enlace ocupe todo el espacio del contenedor */
 }
 /* Botón 1 */
 .custom-btn-1 {
@@ -225,4 +223,15 @@ button:hover {
 	font-family: Arial, sans-serif;
 	font-weight: bold;
 	transition: all 0.3s ease;
+}
+
+.image-container {
+	display: flex;
+	justify-content: center;
+	gap: 20px; /* Espaciado entre las imágenes */
+	margin-bottom: 20px; /* Espaciado respecto a los botones */
+}
+
+.icon {
+	width: 50%; /* Ajusta el tamaño de las imágenes */
 }
