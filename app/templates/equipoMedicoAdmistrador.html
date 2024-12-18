@@ -1,23 +1,23 @@
 {% extends "base.html" %}
 
-{% block title %}Equipo Medico{% endblock %}
+{% block title %}Equipo Médico{% endblock %}
 
 {% block content %}
 <head>
-    <link rel="stylesheet"
-        href="{{ url_for('static', filename='styles/tablas.css') }}">
-    <title>Equipo Medico</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/tablas.css') }}">
+    <title>Equipo Médico</title>
 </head>
-<div class="main">
-    <h2>Equipo Medico</h2>
-    <table>
+<div class="contenedor">
+    <h2>Equipo Médico</h2>
+    <table class="tabla">
         <thead>
             <tr>
                 <th>Nombre</th>
                 <th>Tipo</th>
                 <th>Funcionalidad</th>
                 <th>Cantidad disponible</th>
-                <th>Nombre de provedor</th>
+                <th>Nombre del proveedor</th>
+                <th>Seleccionar</th>
             </tr>
         </thead>
         <tbody>
@@ -28,29 +28,199 @@
                 <td>{{ equipo.Funcionalidad }}</td>
                 <td>{{ equipo.CantidadDisponible }}</td>
                 <td>{{ equipo.NombreProveedor }}</td>
+                <td>
+                    <input type="radio" name="seleccionar_equipoMedico" value="{{ equipo.Nombre }}" onclick="seleccionarEquipo(this)">
+                </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+
+    <!-- Botones -->
     <div class="button-container">
-        <div class="button-container"><bottom onclick="agregar()" class="custom-btn custom-btn-1">Hacer pedido</bottom></div>
-        <div class="button-container" ><bottom onclick="eliminar()" class="custom-btn custom-btn-3">eliminar</bottom></div>
+        <div class="button-container"><button onclick="agregar()" class="custom-btn custom-btn-1">Hacer pedido</button></div>
+        <div class="button-container"><button onclick="editar()" class="custom-btn custom-btn-2">Editar</button></div>
+        <div class="button-container"><button onclick="eliminar()" class="custom-btn custom-btn-3">Eliminar</button></div>
+    </div>
+</div>
+
+<!-- Modal de edición -->
+<div id="modal-editar" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="cerrarModal()">&times;</span>
+        <h3 id="titulo"></h3>
+        <form id="form-editar-equipo" class="custom-form">
+            <div class="form-group">
+                <label for="nombre" class="form-label">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="tipo" class="form-label">Tipo:</label>
+                <input type="text" id="tipo" name="tipo" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="funcionalidad" class="form-label">Funcionalidad:</label>
+                <input type="text" id="funcionalidad" name="funcionalidad" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="cantidad" class="form-label">Cantidad disponible:</label>
+                <input type="number" id="cantidad" name="cantidad" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="proveedor" class="form-label">Nombre del proveedor:</label>
+                <input type="text" id="proveedor" name="proveedor" class="form-input" required>
+            </div>
+            <button type="submit" id="bottom"></button>
+        </form>
     </div>
 </div>
 
 <script>
-    function agregar() {
-        alert('Función Agregar en desarrollo');
+    let equipoSeleccionado = null;
+
+    // Seleccionar equipo médico
+    function seleccionarEquipo(radio) {
+        const row = radio.closest('tr');
+        equipoSeleccionado = {
+            Nombre: row.cells[0].innerText,
+            Tipo: row.cells[1].innerText,
+            Funcionalidad: row.cells[2].innerText,
+            Cantidad: row.cells[3].innerText,
+            Proveedor: row.cells[4].innerText
+        };
     }
 
+    // Mostrar modal de edición
     function editar() {
-        alert('Función Editar en desarrollo');
+        if (!equipoSeleccionado) {
+            alert('Por favor, selecciona un equipo médico para editar.');
+            return;
+        }
+
+        document.getElementById('titulo').innerText = 'Editar equipo médico: ' + equipoSeleccionado.Nombre;
+        document.getElementById('nombre').value = equipoSeleccionado.Nombre;
+        document.getElementById('tipo').value = equipoSeleccionado.Tipo;
+        document.getElementById('funcionalidad').value = equipoSeleccionado.Funcionalidad;
+        document.getElementById('cantidad').value = equipoSeleccionado.Cantidad;
+        document.getElementById('proveedor').value = equipoSeleccionado.Proveedor;
+        document.getElementById('bottom').innerText = 'Guardar cambios';
+
+        document.getElementById('modal-editar').style.display = 'block';
     }
 
-    function eliminar() {
-        alert('Función Eliminar en desarrollo');
+    // Cerrar modal
+    function cerrarModal() {
+        document.getElementById('modal-editar').style.display = 'none';
     }
+
+    // Agregar equipo (en desarrollo)
+    function agregar() {
+        document.getElementById('titulo').innerText = 'Agregar equipo médico';
+        document.getElementById('form-editar-equipo').reset();
+        document.getElementById('modal-editar').style.display = 'block';
+        document.getElementById('bottom').innerText = 'Agregar';
+    }
+
+    // Eliminar equipo
+    function eliminar() {
+        if (!equipoSeleccionado) {
+            alert('Por favor, selecciona un equipo médico para eliminar.');
+            return;
+        }
+
+        const table = document.querySelector('.tabla');
+        if (!table) {
+            alert('No se encontró la tabla.');
+            return;
+        }
+
+        const rows = Array.from(table.rows);
+        let rowToDelete = null;
+
+        rows.forEach(row => {
+            if (row.cells[0]?.innerText === equipoSeleccionado.Nombre) {
+                rowToDelete = row;
+            }
+        });
+
+        if (rowToDelete) {
+            rowToDelete.remove();
+            alert('El equipo médico ha sido eliminado con éxito.');
+            equipoSeleccionado = null;
+        } else {
+            alert('No se pudo encontrar el equipo médico seleccionado en la tabla.');
+        }
+    }
+
+    // Manejo de formulario de edición
+    document.getElementById('form-editar-equipo')?.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const table = document.querySelector('.tabla');
+        const rows = Array.from(table.rows);
+        let nombreEncontrado = false; // Variable para rastrear si se encuentra el nombre
+
+        rows.forEach(row => {
+            if (row.cells[0]?.innerText === document.getElementById('nombre').value) {
+                // Si se encuentra el nombre, actualiza la fila
+                row.cells[0].innerText = document.getElementById('nombre').value;
+                row.cells[1].innerText = document.getElementById('tipo').value;
+                row.cells[2].innerText = document.getElementById('funcionalidad').value;
+                row.cells[3].innerText = document.getElementById('cantidad').value;
+                row.cells[4].innerText = document.getElementById('proveedor').value;
+                nombreEncontrado = true; // Se marca como encontrado
+            }
+        });
+
+        // Si no se encontró el nombre, agrega una nueva fila
+        if (!nombreEncontrado) {
+            const newRow = table.insertRow(); // Crea una nueva fila
+
+            // Agrega celdas y sus valores
+            newRow.insertCell(0).innerText = document.getElementById('nombre').value;
+            newRow.insertCell(1).innerText = document.getElementById('tipo').value;
+            newRow.insertCell(2).innerText = document.getElementById('funcionalidad').value;
+            newRow.insertCell(3).innerText = document.getElementById('cantidad').value;
+            newRow.insertCell(4).innerText = document.getElementById('proveedor').value;
+        }
+
+        cerrarModal();
+    });
 </script>
 
-{% endblock %}
+<style>
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
 
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 500px;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+{% endblock %}

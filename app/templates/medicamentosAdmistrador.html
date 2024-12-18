@@ -1,25 +1,25 @@
 {% extends "base.html" %}
 
-{% block title %}medicamentos{% endblock %}
+{% block title %}Medicamentos{% endblock %}
 
 {% block content %}
 <head>
     <link rel="stylesheet"
         href="{{ url_for('static', filename='styles/tablas.css') }}">
-    <title>medicamentos</title>
+    <title>Medicamentos</title>
 </head>
-<div class="main">
-    <h2>medicamentos</h2>
-    <table>
+<div class="contenedor">
+    <h2>Medicamentos</h2>
+    <table class="tabla">
         <thead>
             <tr>
                 <th>Nombre</th>
                 <th>Tipo de medicamento</th>
                 <th>Cantidad disponible</th>
                 <th>Fecha de vencimiento</th>
-                <th>Fecha de fabricacion</th>
-                <th>Cantidad</th>
-                <th>Nombre de provedor</th>
+                <th>Fecha de fabricación</th>
+                <th>Nombre del proveedor</th>
+                <th>Seleccionar</th>
             </tr>
         </thead>
         <tbody>
@@ -30,31 +30,193 @@
                 <td>{{ medicamento.CantidadDisponible }}</td>
                 <td>{{ medicamento.FechaVencimiento }}</td>
                 <td>{{ medicamento.FechaFabricacion }}</td>
-                <td>{{ medicamento.Cantidad }}</td>
                 <td>{{ medicamento.NombreProveedor }}</td>
+                <td>
+                    <input type="radio" name="seleccionar_medicamento" value="{{ medicamento.Nombre }}" onclick="seleccionarMedicamento(this)">
+                </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
     <div class="button-container">
-        <div class="button-container"><bottom onclick="agregar()" class="custom-btn custom-btn-1">Hacer pedido</bottom></div>
-        <div class="button-container" ><bottom onclick="eliminar()" class="custom-btn custom-btn-3">eliminar</bottom></div>
+        <div class="button-container"><button onclick="agregar()" class="custom-btn custom-btn-1">Hacer pedido</button></div>
+        <div class="button-container"><button onclick="editar()" class="custom-btn custom-btn-2">Editar</button></div>
+        <div class="button-container"><button onclick="eliminar()" class="custom-btn custom-btn-3">Eliminar</button></div>
+    </div>
+</div>
+
+<!-- Modal de edición -->
+<div id="modal-editar" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="cerrarModal()">&times;</span>
+        <h3 id="titulo"></h3>
+        <form id="form-editar-medicamento" class="custom-form">
+            <div class="form-group">
+                <label for="nombre" class="form-label">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="tipo" class="form-label">Tipo de medicamento:</label>
+                <input type="text" id="tipo" name="tipo" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="cantidad" class="form-label">Cantidad disponible:</label>
+                <input type="number" id="cantidad" name="cantidad" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="fechaVencimiento" class="form-label">Fecha de vencimiento:</label>
+                <input type="date" id="fechaVencimiento" name="fechaVencimiento" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="fechaFabricacion" class="form-label">Fecha de fabricación:</label>
+                <input type="date" id="fechaFabricacion" name="fechaFabricacion" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="proveedor" class="form-label">Nombre del proveedor:</label>
+                <input type="text" id="proveedor" name="proveedor" class="form-input" required>
+            </div>
+            <button type="submit" id="bottom"></button>
+        </form>
     </div>
 </div>
 
 <script>
-    function agregar() {
-        alert('Función Agregar en desarrollo');
+    let medicamentoSeleccionado = null;
+
+    function seleccionarMedicamento(radio) {
+        const row = radio.closest('tr');
+        medicamentoSeleccionado = {
+            Nombre: row.cells[0].innerText,
+            Tipo: row.cells[1].innerText,
+            CantidadDisponible: row.cells[2].innerText,
+            FechaVencimiento: row.cells[3].innerText,
+            FechaFabricacion: row.cells[4].innerText,
+            Proveedor: row.cells[5].innerText
+        };
     }
 
     function editar() {
-        alert('Función Editar en desarrollo');
+        if (!medicamentoSeleccionado) {
+            alert('Por favor, selecciona un medicamento para editar.');
+            return;
+        }
+
+        document.getElementById('titulo').innerText = 'Editar medicamento: ' + medicamentoSeleccionado.Nombre;
+        document.getElementById('nombre').value = medicamentoSeleccionado.Nombre;
+        document.getElementById('tipo').value = medicamentoSeleccionado.Tipo;
+        document.getElementById('cantidad').value = medicamentoSeleccionado.CantidadDisponible;
+        document.getElementById('fechaVencimiento').value = medicamentoSeleccionado.FechaVencimiento;
+        document.getElementById('fechaFabricacion').value = medicamentoSeleccionado.FechaFabricacion;
+        document.getElementById('proveedor').value = medicamentoSeleccionado.Proveedor;
+        document.getElementById('bottom').innerText = 'Guardar cambios';
+
+        document.getElementById('modal-editar').style.display = 'block';
+    }
+
+    function cerrarModal() {
+        document.getElementById('modal-editar').style.display = 'none';
+    }
+
+    function agregar() {
+        document.getElementById('titulo').innerText = 'Agregar medicamento';
+        document.getElementById('form-editar-medicamento').reset();
+        document.getElementById('modal-editar').style.display = 'block';
+        document.getElementById('bottom').innerText = 'Agregar';
     }
 
     function eliminar() {
-        alert('Función Eliminar en desarrollo');
+        if (!medicamentoSeleccionado) {
+            alert('Por favor, selecciona un medicamento para eliminar.');
+            return;
+        }
+
+        const table = document.querySelector('.tabla');
+        const rows = Array.from(table.rows);
+        let rowToDelete = null;
+
+        rows.forEach(row => {
+            if (row.cells[0]?.innerText === medicamentoSeleccionado.Nombre) {
+                rowToDelete = row;
+            }
+        });
+
+        if (rowToDelete) {
+            rowToDelete.remove();
+            alert('El medicamento ha sido eliminado con éxito.');
+            medicamentoSeleccionado = null;
+        } else {
+            alert('No se pudo encontrar el medicamento seleccionado en la tabla.');
+        }
     }
+
+    document.getElementById('form-editar-medicamento')?.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const table = document.querySelector('.tabla');
+        const rows = Array.from(table.rows);
+
+        let nombreEncontrado = false;
+
+        rows.forEach(row => {
+            if (row.cells[0]?.innerText === document.getElementById('nombre').value) {
+                row.cells[0].innerText = document.getElementById('nombre').value;
+                row.cells[1].innerText = document.getElementById('tipo').value;
+                row.cells[2].innerText = document.getElementById('cantidad').value;
+                row.cells[3].innerText = document.getElementById('fechaVencimiento').value;
+                row.cells[4].innerText = document.getElementById('fechaFabricacion').value;
+                row.cells[5].innerText = document.getElementById('proveedor').value;
+                nombreEncontrado = true;
+            }
+        });
+
+        if (!nombreEncontrado) {
+            const newRow = table.insertRow();
+
+            newRow.insertCell(0).innerText = document.getElementById('nombre').value;
+            newRow.insertCell(1).innerText = document.getElementById('tipo').value;
+            newRow.insertCell(2).innerText = document.getElementById('cantidad').value;
+            newRow.insertCell(3).innerText = document.getElementById('fechaVencimiento').value;
+            newRow.insertCell(4).innerText = document.getElementById('fechaFabricacion').value;
+            newRow.insertCell(5).innerText = document.getElementById('proveedor').value;
+        }
+
+        cerrarModal();
+    });
 </script>
 
-{% endblock %}
+<style>
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
 
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 500px;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+{% endblock %}

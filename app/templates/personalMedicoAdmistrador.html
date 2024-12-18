@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 
-{% block title %}Personal Medico{% endblock %}
+{% block title %}Personal Médico{% endblock %}
 
 {% block content %}
 <head>
     <link rel="stylesheet"
         href="{{ url_for('static', filename='styles/tablas.css') }}">
-    <title>Personal Medico</title>
+    <title>Personal Médico</title>
 </head>
-<div class="main">
-    <h2>Personal Medico</h2>
-    <table>
+<div class="contenedor">
+    <h2>Personal Médico</h2>
+    <table class="tabla">
         <thead>
             <tr>
                 <th>Nombre</th>
@@ -32,32 +32,195 @@
                 <td>{{ personal.HorarioSalida }}</td>
                 <td>{{ personal.Disponibilidad }}</td>
                 <td>
-                    <input type="radio" name="seleccionar_personal" value="{{ personal.Nombre }}">
+                    <input type="radio" name="seleccionar_personal" value="{{ personal.Nombre }}" onclick="seleccionarPersonal(this)">
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
     <div class="button-container">
-        <div class="button-container" ><bottom onclick="eliminar()" class="custom-btn custom-btn-1">eliminar</bottom></div>
-        <div class="button-container"><bottom onclick="editar()"class="custom-btn custom-btn-2">Editar</bottom></div>
-        <div class="button-container"><bottom onclick="agregar()" class="custom-btn custom-btn-3">agregar</bottom></div>
+        <div class="button-container"><button onclick="eliminar()" class="custom-btn custom-btn-1">Eliminar</button></div>
+        <div class="button-container"><button onclick="editar()" class="custom-btn custom-btn-2">Editar</button></div>
+        <div class="button-container"><button onclick="agregar()" class="custom-btn custom-btn-3">Agregar</button></div>
+    </div>
+</div>
+
+<!-- Modal de edición -->
+<div id="modal-editar" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="cerrarModal()">&times;</span>
+        <h3 id="titulo"></h3>
+        <form id="form-editar-personal" class="custom-form">
+            <div class="form-group">
+                <label for="nombre" class="form-label">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="departamento" class="form-label">Departamento:</label>
+                <input type="text" id="departamento" name="departamento" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="profesion" class="form-label">Profesión:</label>
+                <input type="text" id="profesion" name="profesion" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="horarioEntrada" class="form-label">Horario Entrada:</label>
+                <input type="time" id="horarioEntrada" name="horarioEntrada" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="horarioSalida" class="form-label">Horario Salida:</label>
+                <input type="time" id="horarioSalida" name="horarioSalida" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="disponibilidad" class="form-label">Disponibilidad:</label>
+                <select id="disponibilidad" name="disponibilidad" class="form-input" required>
+                    <option value="Disponible">Disponible</option>
+                    <option value="No Disponible">No Disponible</option>
+                </select>
+            </div>
+            <button type="submit" id="bottom"></button>
+        </form>
     </div>
 </div>
 
 <script>
-    function agregar() {
-        alert('Función Agregar en desarrollo');
+    let personalSeleccionado = null;
+
+    function seleccionarPersonal(radio) {
+        const row = radio.closest('tr');
+        personalSeleccionado = {
+            Nombre: row.cells[0].innerText,
+            Departamento: row.cells[1].innerText,
+            Profesion: row.cells[2].innerText,
+            HorarioEntrada: row.cells[3].innerText,
+            HorarioSalida: row.cells[4].innerText,
+            Disponibilidad: row.cells[5].innerText
+        };
     }
 
     function editar() {
-        alert('Función Editar en desarrollo');
+        if (!personalSeleccionado) {
+            alert('Por favor, selecciona un miembro del personal para editar.');
+            return;
+        }
+
+        document.getElementById('titulo').innerText = 'Editar Personal: ' + personalSeleccionado.Nombre;
+        document.getElementById('nombre').value = personalSeleccionado.Nombre;
+        document.getElementById('departamento').value = personalSeleccionado.Departamento;
+        document.getElementById('profesion').value = personalSeleccionado.Profesion;
+        document.getElementById('horarioEntrada').value = personalSeleccionado.HorarioEntrada;
+        document.getElementById('horarioSalida').value = personalSeleccionado.HorarioSalida;
+        document.getElementById('disponibilidad').value = personalSeleccionado.Disponibilidad;
+        document.getElementById('bottom').innerText = 'Guardar cambios';
+
+        document.getElementById('modal-editar').style.display = 'block';
+    }
+
+    function cerrarModal() {
+        document.getElementById('modal-editar').style.display = 'none';
+    }
+
+    function agregar() {
+        document.getElementById('titulo').innerText = 'Agregar Personal Médico';
+        document.getElementById('form-editar-personal').reset();
+        document.getElementById('modal-editar').style.display = 'block';
+        document.getElementById('bottom').innerText = 'Agregar';
     }
 
     function eliminar() {
-        alert('Función Eliminar en desarrollo');
+        if (!personalSeleccionado) {
+            alert('Por favor, selecciona un miembro del personal para eliminar.');
+            return;
+        }
+
+        const table = document.querySelector('.tabla');
+        const rows = Array.from(table.rows);
+        let rowToDelete = null;
+
+        rows.forEach(row => {
+            if (row.cells[0]?.innerText === personalSeleccionado.Nombre) {
+                rowToDelete = row;
+            }
+        });
+
+        if (rowToDelete) {
+            rowToDelete.remove();
+            alert('El miembro del personal ha sido eliminado con éxito.');
+            personalSeleccionado = null;
+        } else {
+            alert('No se pudo encontrar el miembro seleccionado en la tabla.');
+        }
     }
+
+    document.getElementById('form-editar-personal')?.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const table = document.querySelector('.tabla');
+        const rows = Array.from(table.rows);
+
+        let nombreEncontrado = false;
+
+        rows.forEach(row => {
+            if (row.cells[0]?.innerText === document.getElementById('nombre').value) {
+                row.cells[0].innerText = document.getElementById('nombre').value;
+                row.cells[1].innerText = document.getElementById('departamento').value;
+                row.cells[2].innerText = document.getElementById('profesion').value;
+                row.cells[3].innerText = document.getElementById('horarioEntrada').value;
+                row.cells[4].innerText = document.getElementById('horarioSalida').value;
+                row.cells[5].innerText = document.getElementById('disponibilidad').value;
+                nombreEncontrado = true;
+            }
+        });
+
+        if (!nombreEncontrado) {
+            const newRow = table.insertRow();
+
+            newRow.insertCell(0).innerText = document.getElementById('nombre').value;
+            newRow.insertCell(1).innerText = document.getElementById('departamento').value;
+            newRow.insertCell(2).innerText = document.getElementById('profesion').value;
+            newRow.insertCell(3).innerText = document.getElementById('horarioEntrada').value;
+            newRow.insertCell(4).innerText = document.getElementById('horarioSalida').value;
+            newRow.insertCell(5).innerText = document.getElementById('disponibilidad').value;
+        }
+
+        cerrarModal();
+    });
 </script>
 
-{% endblock %}
+<style>
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
 
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 500px;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+
+{% endblock %}

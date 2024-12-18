@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 
-{% block title %}proveedores{% endblock %}
+{% block title %}Proveedores{% endblock %}
 
 {% block content %}
 <head>
     <link rel="stylesheet"
         href="{{ url_for('static', filename='styles/tablas.css') }}">
-    <title>Inicio Admistrador</title>
+    <title>Proveedores</title>
 </head>
-<div class="main">
+<div class="contenedor">
     <h2>Proveedores</h2>
-    <table>
+    <table class="tabla">
         <thead>
             <tr>
                 <th>Nombre</th>
@@ -32,33 +32,198 @@
                 <td>{{ proveedor.FechaEntrega }}</td>
                 <td>{{ proveedor.CantidadPedidos }}</td>
                 <td>
-                    <input type="radio" name="seleccionar_proveedor" value="{{ proveedor.Nombre }}">
+                    <input type="radio" name="seleccionar_proveedor" value="{{ proveedor.Nombre }}" onclick="seleccionarProveedor(this)">
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
     <div class="button-container">
-        <div class="button-container" ><bottom onclick="eliminar()" class="custom-btn custom-btn-1">eliminar</bottom></div>
-        <div class="button-container"><bottom onclick="editar()"class="custom-btn custom-btn-2">Editar</bottom></div>
-        <div class="button-container"><bottom onclick="agregar()" class="custom-btn custom-btn-3">agregar</bottom></div>
+        <div class="button-container">
+            <button onclick="eliminar()" class="custom-btn custom-btn-1">Eliminar</button>
+        </div>
+        <div class="button-container">
+            <button onclick="editar()" class="custom-btn custom-btn-2">Editar</button>
+        </div>
+        <div class="button-container">
+            <button onclick="agregar()" class="custom-btn custom-btn-3">Agregar</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de edición -->
+<div id="modal-editar" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="cerrarModal()">&times;</span>
+        <h3 id="titulo"></h3>
+        <form id="form-editar-proveedor" class="custom-form">
+            <div class="form-group">
+                <label for="nombre" class="form-label">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="direccion" class="form-label">Direccion:</label>
+                <input type="text" id="direccion" name="direccion" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="telefono" class="form-label">Telefono:</label>
+                <input type="text" id="telefono" name="telefono" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="pedidoPendiente" class="form-label">Pedido pendiente:</label>
+                <input type="number" id="pedidoPendiente" name="pedidoPendiente" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="fechaEntrega" class="form-label">Fecha de entrega:</label>
+                <input type="date" id="fechaEntrega" name="fechaEntrega" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="cantidadPedidos" class="form-label">Cantidad de pedidos:</label>
+                <input type="number" id="cantidadPedidos" name="cantidadPedidos" class="form-input" required>
+            </div>
+            <button type="submit" id="bottom"></button>
+        </form>
     </div>
 </div>
 
 <script>
-    function agregar() {
-        alert('Función Agregar en desarrollo');
+    let proveedorSeleccionado = null;
+
+    function seleccionarProveedor(radio) {
+        const row = radio.closest('tr');
+        proveedorSeleccionado = {
+            Nombre: row.cells[0].innerText,
+            Direccion: row.cells[1].innerText,
+            Telefono: row.cells[2].innerText,
+            PedidoPendiente: row.cells[3].innerText,
+            FechaEntrega: row.cells[4].innerText,
+            CantidadPedidos: row.cells[5].innerText
+        };
     }
 
     function editar() {
-        alert('Función Editar en desarrollo');
+        if (!proveedorSeleccionado) {
+            alert('Por favor, selecciona un proveedor para editar.');
+            return;
+        }
+
+        document.getElementById('titulo').innerText = 'Editar proveedor: ' + proveedorSeleccionado.Nombre;
+        document.getElementById('nombre').value = proveedorSeleccionado.Nombre;
+        document.getElementById('direccion').value = proveedorSeleccionado.Direccion;
+        document.getElementById('telefono').value = proveedorSeleccionado.Telefono;
+        document.getElementById('pedidoPendiente').value = proveedorSeleccionado.PedidoPendiente;
+        document.getElementById('fechaEntrega').value = proveedorSeleccionado.FechaEntrega;
+        document.getElementById('cantidadPedidos').value = proveedorSeleccionado.CantidadPedidos;
+        document.getElementById('bottom').innerText = 'Guardar cambios';
+
+        document.getElementById('modal-editar').style.display = 'block';
+    }
+
+    function cerrarModal() {
+        document.getElementById('modal-editar').style.display = 'none';
+    }
+
+    function agregar() {
+        document.getElementById('titulo').innerText = 'Agregar proveedor';
+        document.getElementById('form-editar-proveedor').reset();
+        document.getElementById('modal-editar').style.display = 'block';
+        document.getElementById('bottom').innerText = 'Agregar';
     }
 
     function eliminar() {
-        alert('Función Eliminar en desarrollo');
+        if (!proveedorSeleccionado) {
+            alert('Por favor, selecciona un proveedor para eliminar.');
+            return;
+        }
+
+        const table = document.querySelector('.tabla');
+        const rows = Array.from(table.rows);
+        let rowToDelete = null;
+
+        rows.forEach(row => {
+            if (row.cells[0]?.innerText === proveedorSeleccionado.Nombre) {
+                rowToDelete = row;
+            }
+        });
+
+        if (rowToDelete) {
+            rowToDelete.remove();
+            alert('El proveedor ha sido eliminado con éxito.');
+            proveedorSeleccionado = null;
+        } else {
+            alert('No se pudo encontrar el proveedor seleccionado en la tabla.');
+        }
     }
+
+    document.getElementById('form-editar-proveedor')?.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const table = document.querySelector('.tabla');
+        const rows = Array.from(table.rows);
+
+        let nombreEncontrado = false;
+
+        rows.forEach(row => {
+            if (row.cells[0]?.innerText === document.getElementById('nombre').value) {
+                row.cells[0].innerText = document.getElementById('nombre').value;
+                row.cells[1].innerText = document.getElementById('direccion').value;
+                row.cells[2].innerText = document.getElementById('telefono').value;
+                row.cells[3].innerText = document.getElementById('pedidoPendiente').value;
+                row.cells[4].innerText = document.getElementById('fechaEntrega').value;
+                row.cells[5].innerText = document.getElementById('cantidadPedidos').value;
+                nombreEncontrado = true;
+            }
+        });
+
+        if (!nombreEncontrado) {
+            const newRow = table.insertRow();
+
+            newRow.insertCell(0).innerText = document.getElementById('nombre').value;
+            newRow.insertCell(1).innerText = document.getElementById('direccion').value;
+            newRow.insertCell(2).innerText = document.getElementById('telefono').value;
+            newRow.insertCell(3).innerText = document.getElementById('pedidoPendiente').value;
+            newRow.insertCell(4).innerText = document.getElementById('fechaEntrega').value;
+            newRow.insertCell(5).innerText = document.getElementById('cantidadPedidos').value;
+        }
+
+        cerrarModal();
+    });
 </script>
 
+<style>
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 500px;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+
 {% endblock %}
-
-

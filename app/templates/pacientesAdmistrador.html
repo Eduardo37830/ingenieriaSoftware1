@@ -8,15 +8,15 @@
         href="{{ url_for('static', filename='styles/tablas.css') }}">
     <title>Paciente</title>
 </head>
-<div class="main">
+<div class="contenedor">
     <h2>Paciente</h2>
-    <table>
+    <table class="tabla">
         <thead>
             <tr>
                 <th>Nombre</th>
-                <th>Telefono</th>
-                <th>Direccion</th>
-                <th>Historial medico</th>
+                <th>Teléfono</th>
+                <th>Dirección</th>
+                <th>Historial médico</th>
                 <th>Seleccionar</th>
             </tr>
         </thead>
@@ -35,13 +35,24 @@
         </tbody>
     </table>
     <div class="button-container">
-        <div class="button-container" ><bottom onclick="eliminar()" class="custom-btn custom-btn-3">expulsar</bottom></div>
+        <button onclick="eliminar()" class="custom-btn custom-btn-3">Expulsar</button>
     </div>
 </div>
 
 <script>
     function eliminar() {
-        alert('Función Eliminar en desarrollo');
+        const seleccion = document.querySelector('input[name="seleccionar_paciente"]:checked');
+        if (!seleccion) {
+            alert('Por favor, selecciona un paciente para expulsar.');
+            return;
+        }
+
+        const confirmacion = confirm('¿Estás seguro de que deseas expulsar al paciente seleccionado?');
+        if (confirmacion) {
+            const row = seleccion.closest('tr');
+            row.remove();
+            alert('El paciente ha sido expulsado exitosamente.');
+        }
     }
 </script>
 

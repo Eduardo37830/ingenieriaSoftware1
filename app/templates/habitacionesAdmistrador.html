@@ -4,18 +4,17 @@
 
 {% block content %}
 <head>
-    <link rel="stylesheet"
-        href="{{ url_for('static', filename='styles/tablas.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/tablas.css') }}">
     <title>Habitaciones</title>
 </head>
-<div class="main">
+<div class="contenedor">
     <h2>Habitaciones</h2>
-    <table>
+    <table class="tabla">
         <thead>
             <tr>
                 <th>Nombre</th>
                 <th>Capacidad</th>
-                <th>tipo Habitacion</th>
+                <th>Tipo Habitación</th>
                 <th>Disponibilidad</th>
                 <th>Seleccionar</th>
             </tr>
@@ -28,32 +27,173 @@
                     <td>{{ habitacion.Tipo }}</td>
                     <td>{{ habitacion.Disponibilidad }}</td>
                     <td>
-                        <input type="radio" name="seleccionar_habitacion" value="{{ habitacion.Nombre }}">
+                        <input type="radio" name="seleccionar_habitacion" onclick="seleccionarHabitacion(this)" value="{{ habitacion.Nombre }}">
                     </td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
+    <!-- Botones -->
     <div class="button-container">
-        <div class="button-container" ><bottom onclick="eliminar()" class="custom-btn custom-btn-3">eliminar</bottom></div>
-        <div class="button-container"><bottom onclick="editar()"class="custom-btn custom-btn-2">Editar</bottom></div>
-        <div class="button-container"><bottom onclick="agregar()" class="custom-btn custom-btn-1">agregar</bottom></div>
+        <button onclick="agregar()" class="custom-btn custom-btn-1">Agregar</button>
+        <button onclick="editar()" class="custom-btn custom-btn-2">Editar</button>
+        <button onclick="eliminar()" class="custom-btn custom-btn-3">Eliminar</button>
+    </div>
+</div>
+
+<!-- Modal de edición -->
+<div id="modal-editar" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="cerrarModal()">&times;</span>
+        <h3 id="titulo"></h3>
+        <form id="form-editar-habitacion" class="custom-form">
+            <div class="form-group">
+                <label for="nombre" class="form-label">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="capacidad" class="form-label">Capacidad:</label>
+                <input type="number" id="capacidad" name="capacidad" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="tipo" class="form-label">Tipo:</label>
+                <input type="text" id="tipo" name="tipo" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="disponibilidad" class="form-label">Disponibilidad:</label>
+                <input type="text" id="disponibilidad" name="disponibilidad" class="form-input" required>
+            </div>
+            <button type="submit" id="bottom"></button>
+        </form>
     </div>
 </div>
 
 <script>
+    let habitacionSeleccionada = null;
+
+    function seleccionarHabitacion(radio) {
+        const row = radio.closest('tr');
+        habitacionSeleccionada = {
+            Nombre: row.cells[0].innerText,
+            Capacidad: row.cells[1].innerText,
+            Tipo: row.cells[2].innerText,
+            Disponibilidad: row.cells[3].innerText,
+        };
+    }
+
     function agregar() {
-        alert('Función Agregar en desarrollo');
+        document.getElementById('titulo').innerText = 'Agregar habitación';
+        document.getElementById('form-editar-habitacion').reset();
+        document.getElementById('modal-editar').style.display = 'block';
+        document.getElementById('bottom').innerText = 'Agregar';
     }
 
     function editar() {
-        alert('Función Editar en desarrollo');
+        if (!habitacionSeleccionada) {
+            alert('Por favor, selecciona una habitación para editar.');
+            return;
+        }
+        document.getElementById('titulo').innerText = 'Editar habitación: ' + habitacionSeleccionada.Nombre;
+        document.getElementById('nombre').value = habitacionSeleccionada.Nombre;
+        document.getElementById('capacidad').value = habitacionSeleccionada.Capacidad;
+        document.getElementById('tipo').value = habitacionSeleccionada.Tipo;
+        document.getElementById('disponibilidad').value = habitacionSeleccionada.Disponibilidad;
+        document.getElementById('bottom').innerText = 'Guardar cambios';
+        document.getElementById('modal-editar').style.display = 'block';
     }
 
     function eliminar() {
-        alert('Función Eliminar en desarrollo');
+        if (!habitacionSeleccionada) {
+            alert('Por favor, selecciona una habitación para eliminar.');
+            return;
+        }
+
+        const table = document.querySelector('.tabla');
+        const rows = Array.from(table.rows);
+        let rowToDelete = null;
+
+        rows.forEach(row => {
+            if (row.cells[0]?.innerText === habitacionSeleccionada.Nombre) {
+                rowToDelete = row;
+            }
+        });
+
+        if (rowToDelete) {
+            rowToDelete.remove();
+            alert('La habitación ha sido eliminada con éxito.');
+            habitacionSeleccionada = null;
+        } else {
+            alert('No se pudo encontrar la habitación seleccionada en la tabla.');
+        }
     }
+
+    function cerrarModal() {
+        document.getElementById('modal-editar').style.display = 'none';
+    }
+
+    document.getElementById('form-editar-habitacion')?.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const table = document.querySelector('.tabla');
+        const rows = Array.from(table.rows);
+        let nombreEncontrado = false;
+
+        rows.forEach(row => {
+            if (row.cells[0]?.innerText === document.getElementById('nombre').value) {
+                row.cells[0].innerText = document.getElementById('nombre').value;
+                row.cells[1].innerText = document.getElementById('capacidad').value;
+                row.cells[2].innerText = document.getElementById('tipo').value;
+                row.cells[3].innerText = document.getElementById('disponibilidad').value;
+                nombreEncontrado = true;
+            }
+        });
+
+        if (!nombreEncontrado) {
+            const newRow = table.insertRow();
+            newRow.insertCell(0).innerText = document.getElementById('nombre').value;
+            newRow.insertCell(1).innerText = document.getElementById('capacidad').value;
+            newRow.insertCell(2).innerText = document.getElementById('tipo').value;
+            newRow.insertCell(3).innerText = document.getElementById('disponibilidad').value;
+            newRow.insertCell(4).innerHTML = '<input type="radio" name="seleccionar_habitacion">';
+        }
+
+        cerrarModal();
+    });
 </script>
 
-{% endblock %}
+<style>
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
 
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 500px;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+{% endblock %}
