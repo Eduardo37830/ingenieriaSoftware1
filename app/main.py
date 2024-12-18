@@ -2,13 +2,14 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, session, url_for
 from controllers.transaction_controller import (transaction_blueprint,admission_blueprint, personalAdmistraccion,
 proveedoresAdmistraccion,almacenAdmistraccion,medicamentoAdmistraccion, equipoMedicoAdmistraccion,
 pacientesAdmistraccion, habitacionesAdmistraccion, cirugiaAdmistraccion, citasAdmindistraccion)
 
 
 app = Flask(__name__)
+app.secret_key = 'clave_secreta'  # Necesario para usar sesiones
 app.register_blueprint(transaction_blueprint)
 app.register_blueprint(admission_blueprint)
 app.register_blueprint(personalAdmistraccion)
@@ -29,7 +30,16 @@ def home():
 def inicio_cliente():
     return render_template('inicio_cliente.html')
 
+
 # ---------------------------------------------------------------------Iniciar Sesion
+
+# Simulación de una base de datos
+usuarios = {
+    "123": {"password": "1234", "rol": 3},  # Ejemplo de usuario (Paciente)
+    "987": {"password": "abcd", "rol": 2},  # Ejemplo de usuario (Médico)
+    "111": {"password": "admin", "rol": 1}  # Ejemplo de usuario (Administrador)
+}
+# ---------------------------------------------------------------------Iniciar Sesión
 @app.route('/iniciar_sesion')
 def iniciar_sesion():
     return render_template('iniciar_sesion.html')
@@ -38,13 +48,23 @@ def iniciar_sesion():
 def procesar_inicio_sesion():
     cedula = request.form['cedula']
     contraseña = request.form['password']
-    
-    # Aquí puedes conectar con tu base de datos para verificar las credenciales.
-    # Ejemplo de impresión de los datos:
-    print(f"Cédula: {cedula}, Contraseña: {contraseña}")
-    
-    # Retorna un mensaje de éxito o redirige a otra página
-    return "Inicio de sesión procesado"
+
+    # Verificar si el usuario existe en la "base de datos"
+    if cedula in usuarios and usuarios[cedula]["password"] == contraseña:
+        # Almacenar la cédula en la sesión
+        session['cedula'] = cedula
+        rol = usuarios[cedula]["rol"]
+
+        # Redirigir según el rol
+        if rol == 3:
+            return redirect(url_for('inicio_medico'))
+        elif rol == 2:
+            return redirect(url_for('inicio_paciente'))
+        elif rol == 1:
+            return redirect(url_for('admissions.show_admissions'))
+    else:
+        # Si las credenciales son incorrectas
+        return "Credenciales incorrectas", 401
 # ---------------------------------------------------------------------Registrarse
 @app.route('/registrarse', methods=['GET', 'POST'])
 def registrarse():
