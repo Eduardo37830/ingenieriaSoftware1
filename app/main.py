@@ -37,11 +37,11 @@ def iniciar_sesion():
 @app.route('/procesar_inicio_sesion', methods=['POST'])
 def procesar_inicio_sesion():
     cedula = request.form['cedula']
-    password = request.form['password']
+    contraseña = request.form['password']
     
     # Aquí puedes conectar con tu base de datos para verificar las credenciales.
     # Ejemplo de impresión de los datos:
-    print(f"Cédula: {cedula}, Contraseña: {password}")
+    print(f"Cédula: {cedula}, Contraseña: {contraseña}")
     
     # Retorna un mensaje de éxito o redirige a otra página
     return "Inicio de sesión procesado"
@@ -53,11 +53,11 @@ def registrarse():
         apellidos = request.form.get('apellidos')
         cedula = request.form.get('cedula')
         correo = request.form.get('correo')
-        password = request.form.get('password')
+        contraseña = request.form.get('password')
         rol = request.form.get('rol')
 
         # Aquí puedes agregar la lógica para almacenar los datos en la base de datos
-        print(f"Nombres: {nombres}, Apellidos: {apellidos}, Cédula: {cedula}, Correo: {correo}, Contraseña: {password}, Rol: {rol}")
+        print(f"Nombres: {nombres}, Apellidos: {apellidos}, Cédula: {cedula}, Correo: {correo}, Contraseña: {contraseña}, Rol: {rol}")
 
         # Redirige a una página de éxito o muestra un mensaje
         return "Registro exitoso"
