@@ -19,7 +19,7 @@
                 <th>Movito de la consulta</th>
                 <th>tipo</th>
                 <th>Nombre del medico</th>
-                <th>Seleccionar</th>
+                
             </tr>
         </thead>
         <tbody>
@@ -31,10 +31,6 @@
                     <td class="citas-data">{{ cita['Motivo de la consulta'] }}</td>
                     <td class="citas-data">{{ cita.tipo }}</td>
                     <td class="citas-data">{{ cita['Nombre del medico'] }}</td>
-                    <td class="citas-data">
-                        <input type="radio" name="seleccionar_cita"
-                            value="{{ cita.id }}" class="citas-radio">
-                    </td>
                 </tr>
             {% endfor %}
         </tbody>
