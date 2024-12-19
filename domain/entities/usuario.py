@@ -26,7 +26,7 @@ class Usuario:
         self.tipo_documento = tipo_documento
         self.numero_documento = numero_documento
 
-    def autenticar(self, correo, contrasena):
+    def autenticar(self, numero_documento, contrasena):
         """
         Verifica las credenciales de autenticación del usuario.
 
@@ -37,4 +37,4 @@ class Usuario:
         Returns:
             bool: True si las credenciales son correctas, False en caso contrario.
         """
-        return self.correo == correo and self.contrasena == contrasena
+        return self.numero_documento == numero_documento and self.contrasena == contrasena

@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, render_template
 
 from application.dtos.paciente_dto import PacienteDTO
 from application.services.paciente_service import PacienteApplicationService
@@ -21,6 +21,7 @@ def registrar_paciente():
         telefono=data.get("telefono"),
         tipo_documento=data.get("tipo_documento"),
         numero_documento=data.get("numero_documento"),
+        rol= data.get("rol")
     )
     service.registrar_paciente(paciente)
     return jsonify({"mensaje": "Paciente registrado exitosamente"}), 201
@@ -39,3 +40,7 @@ def obtener_paciente(id):
     if paciente:
         return jsonify(paciente.to_dict()), 200
     return jsonify({"error": "Paciente no encontrado"}), 404
+
+@paciente_bp.route('/inicio_cliente', methods=['GET'])
+def inicio_cliente():
+    return render_template('inicio_cliente.html')
