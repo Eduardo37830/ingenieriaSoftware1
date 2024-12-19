@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, render_template
 from application.services.cita_service import CitaApplicationService
 from infrastructure.repositories import SQLiteCitaRepository
 from datetime import datetime
@@ -54,3 +54,41 @@ def listar_citas():
         return jsonify(citas), 200
     except Exception as e:
         return jsonify({"error": "Error al listar las citas", "detalle": str(e)}), 500
+
+@cita_bp.route('/agendar_cita', methods=["GET", "POST"])
+def agendar_cita_get():
+    if request.method == "POST":
+        paciente_id = request.form.get("paciente_id")
+        motivo = request.form.get("motivoConsulta")
+        fecha = request.form.get("fechaConsulta")
+        hora = request.form.get("horaConsulta")
+        personalMedico_id = request.form.get("personalMedico_id")
+        habitacion_id = request.form.get("habitacion_id")
+
+        try:
+            # Llamar al servicio de la aplicación para crear la cita
+            cita_dto = service.crear_cita(
+                paciente_id=paciente_id,
+                fecha=fecha,
+                hora=hora,
+                motivo=motivo,
+                personalMedico_id=personalMedico_id,
+                habitacion_id=habitacion_id
+            )
+
+            return jsonify({"mensaje": "Cita agendada exitosamente", "cita": cita_dto.to_dict()}), 201
+        except ValueError as e:
+            return jsonify({"error": str(e)}), 400
+        except Exception as e:
+            return jsonify({"error": "Error al agendar la cita", "detalle": str(e)}), 500
+
+    return render_template("agendar_cita.html")
+
+@cita_bp.route('/citas_agendadas', methods=["GET", "POST"])
+def citas_agendadas():
+    if request.method == "POST":
+        paciente_id = request.form.get("paciente_id")
+        citas = service.obtener_cita_por_id(paciente_id)
+        return jsonify([cita.to_dict() for cita in citas]), 200
+
+    return render_template("citas_agendadas.html")

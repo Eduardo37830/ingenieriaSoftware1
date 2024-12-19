@@ -18,7 +18,7 @@ class UsuarioService:
         if not correo or not contrasena:
             raise ValueError("El correo y la contraseña son obligatorios")
 
-        usuario = self.usuario_repository.buscar_por_correo(correo)
+        usuario = self.usuario_repository.buscar_por_cedula(correo)
         if usuario and usuario.autenticar(correo, contrasena):
             return UsuarioDTO(usuario.id, usuario.nombre, usuario.correo, usuario.rol)
         return None

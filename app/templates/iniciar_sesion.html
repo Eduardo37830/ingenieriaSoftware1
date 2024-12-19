@@ -13,7 +13,8 @@
 <h1>Iniciar Sesión</h1>
 <div class="login-container">
 
-    <form action="/procesar_inicio_sesion" method="POST" class="login-form">
+    <form action="{{ url_for('usuario_bp.iniciar_sesion') }}" method="POST" class="login-form">
+
         <div class="form-group">
             <label for="cedula" class="form-label">Cédula</label>
             <input type="text" id="cedula" name="cedula" class="form-input"

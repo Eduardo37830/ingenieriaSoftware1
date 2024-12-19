@@ -17,9 +17,11 @@ from controllers.formula_controller import formula_bp
 from controllers.historialMedico_controller import historial_bp
 from controllers.equipoMedico_controller import equipo_bp
 from controllers.personalMedico_controller import personal_medico_bp
+from controllers.user_controller import usuario_bp
 
 
 app = Flask(__name__)
+app.secret_key = 'secret_key'
 app.register_blueprint(paciente_bp, url_prefix='/pacientes')
 app.register_blueprint(cita_bp, url_prefix='/citas')
 app.register_blueprint(cirugia_bp, url_prefix='/cirugias')
@@ -30,6 +32,7 @@ app.register_blueprint(formula_bp, url_prefix='/formulas')
 app.register_blueprint(historial_bp, url_prefix='/historiales')
 app.register_blueprint(equipo_bp, url_prefix='/equipos')
 app.register_blueprint(personal_medico_bp, url_prefix='/personal')
+app.register_blueprint(usuario_bp, url_prefix='/usuarios')
 # ---------------------------------------------------------------------------
 # Home
 # ---------------------------------------------------------------------------
@@ -41,38 +44,13 @@ def home():
 # Iniciar Sesion
 # ---------------------------------------------------------------------------
 
-# Simulación de una base de datos
-usuarios = {
-    "123": {"password": "1234", "rol": 3},  # Ejemplo de usuario (Medico)
-    "987": {"password": "abcd", "rol": 2},  # Ejemplo de usuario (Paciente)
-    "111": {"password": "admin", "rol": 1}  # Ejemplo de usuario (Administrador)
-}
+
 # ---------------------------------------------------------------------Iniciar Sesión
 @app.route('/iniciar_sesion')
 def iniciar_sesion():
     return render_template('iniciar_sesion.html')
 
-@app.route('/procesar_inicio_sesion', methods=['POST'])
-def procesar_inicio_sesion():
-    cedula = request.form['cedula']
-    contraseña = request.form['password']
 
-    # Verificar si el usuario existe en la "base de datos"
-    if cedula in usuarios and usuarios[cedula]["password"] == contraseña:
-        # Almacenar la cédula en la sesión
-        session['cedula'] = cedula
-        rol = usuarios[cedula]["rol"]
-
-        # Redirigir según el rol
-        if rol == 3:
-            return redirect(url_for('inicio_medico'))
-        elif rol == 2:
-            return redirect(url_for('inicio_cliente'))
-        elif rol == 1:
-            return redirect(url_for('admissions.show_admissions'))
-    else:
-        # Si las credenciales son incorrectas
-        return "Credenciales incorrectas", 401
 # ---------------------------------------------------------------------------
 # Registrarse
 # ---------------------------------------------------------------------------
@@ -106,10 +84,14 @@ def cerrar_sesion():
 # ---------------------------------------------------------------------------
 # Inicio Cliente
 # ---------------------------------------------------------------------------
-@app.route('/inicio_cliente')
-def inicio_cliente():
-    return render_template('inicio_cliente.html')
 
+def inicio_medico():
+    return render_template('inicio_medico.html')
+
+@app.route('/rutas')
+def listar_rutas():
+    rutas = [str(rule) for rule in app.url_map.iter_rules()]
+    return {"rutas_disponibles": rutas}
 
 # ---------------------------------------------------------------------------
 # Main
