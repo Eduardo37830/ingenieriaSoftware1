@@ -23,5 +23,7 @@ class ICirugiaRepository(ABC):
         """Elimina una cirugía por su ID."""
         pass
 
-    def find_all(self):
+    @abstractmethod
+    def find_all(self) -> List[Cirugia]:
+        """Obtiene todas las cirugías registradas."""
         pass

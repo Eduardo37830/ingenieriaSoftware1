@@ -1,12 +1,11 @@
-from datetime import datetime
+from datetime import datetime, time
 from typing import Optional
 from domain.entities.cita import Cita
 
 class CitaDTO:
-    def __init__(self, id: Optional[int] = None, motivoConsulta: str = "", fechaConsulta: datetime = None,
-                 horaConsulta: datetime = None, paciente_id: int = None, personalMedico_id: int = None,
+    def __init__(self, id, motivoConsulta: str = "", fechaConsulta: datetime = None,
+                 horaConsulta: time = None, paciente_id: int = None, personalMedico_id: int = None,
                  costoTotal: float = 0.0, habitacion_id: Optional[int] = None):
-        self.usuario_id = None
         self.id = id
         self.motivoConsulta = motivoConsulta
         self.fechaConsulta = fechaConsulta
@@ -28,7 +27,7 @@ class CitaDTO:
             id=cita.id,
             motivoConsulta=cita.motivoConsulta,
             fechaConsulta=cita.fechaConsulta,
-            horaConsulta=cita.horaConsulta,
+            horaConsulta=cita.horaConsulta.time() if cita.horaConsulta else None,  # Si es datetime, extraemos la hora
             paciente_id=cita.paciente_id,
             personalMedico_id=cita.personalMedico_id,
             costoTotal=cita.costoTotal,
@@ -41,7 +40,7 @@ class CitaDTO:
             id=self.id,
             motivoConsulta=self.motivoConsulta,
             fechaConsulta=self.fechaConsulta,
-            horaConsulta=self.horaConsulta,
+            horaConsulta=self.horaConsulta, # Combinamos fecha y hora
             paciente_id=self.paciente_id,
             personalMedico_id=self.personalMedico_id,
             costoTotal=self.costoTotal,
@@ -53,8 +52,8 @@ class CitaDTO:
         return {
             "id": self.id,
             "motivoConsulta": self.motivoConsulta,
-            "fechaConsulta": self.fechaConsulta.strftime("%Y-%m-%d"),
-            "horaConsulta": self.horaConsulta.strftime("%H:%M"),
+            "fechaConsulta": self.fechaConsulta.strftime("%Y-%m-%d") if self.fechaConsulta else None,
+            "horaConsulta": self.horaConsulta.strftime("%H:%M") if self.horaConsulta else None,
             "paciente_id": self.paciente_id,
             "personalMedico_id": self.personalMedico_id,
             "costoTotal": self.costoTotal,

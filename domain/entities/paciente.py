@@ -40,3 +40,11 @@ class Paciente(Usuario):
         """
         return "\n".join(str(entry) for entry in self.historial_medico)
 
+    def agregarCita(self, cita):
+        """
+        Agrega una nueva cita al paciente.
+
+        Args:
+            cita (Cita): Instancia de Cita que representa una cita médica.
+        """
+        self.citas.append(cita)

@@ -17,3 +17,6 @@ class Cirugia:
         self.id_paciente = id_paciente
         self.id_habitacion = id_habitacion
         self.hora_cirugia = hora_cirugia
+
+    def verificarConflicto(self, otra_cirugia):
+        pass

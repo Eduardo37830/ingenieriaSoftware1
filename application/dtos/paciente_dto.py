@@ -1,7 +1,20 @@
 from domain.entities.paciente import Paciente
 
 class PacienteDTO:
-    def __init__(self, id_usuario, nombre, correo, contrasena, rol, direccion, telefono, tipoDocumento, numeroDocumento):
+    def __init__(self, id_usuario: int, nombre: str, correo: str, contrasena: str, rol: str, direccion: str,
+                 telefono: str, tipoDocumento: str, numeroDocumento: str):
+        """
+        Constructor del DTO de Paciente.
+        :param id_usuario: Identificador único del usuario.
+        :param nombre: Nombre del paciente.
+        :param correo: Correo electrónico del paciente.
+        :param contrasena: Contraseña asociada al usuario.
+        :param rol: Rol del usuario (por ejemplo, paciente).
+        :param direccion: Dirección del paciente.
+        :param telefono: Teléfono del paciente.
+        :param tipoDocumento: Tipo de documento (e.g., "DNI", "PASAPORTE").
+        :param numeroDocumento: Número del documento del paciente.
+        """
         self.id_usuario = id_usuario
         self.nombre = nombre
         self.correo = correo
@@ -12,9 +25,22 @@ class PacienteDTO:
         self.tipoDocumento = tipoDocumento
         self.numeroDocumento = numeroDocumento
 
+    def __repr__(self):
+        """
+        Representación en formato cadena del DTO.
+        :return: String con los detalles del paciente.
+        """
+        return (f"PacienteDTO(id_usuario={self.id_usuario}, nombre='{self.nombre}', correo='{self.correo}', "
+                f"rol='{self.rol}', direccion='{self.direccion}', telefono='{self.telefono}', "
+                f"tipoDocumento='{self.tipoDocumento}', numeroDocumento='{self.numeroDocumento}')")
+
     @staticmethod
     def from_entity(paciente: Paciente) -> 'PacienteDTO':
-        """Convierte una entidad Paciente a PacienteDTO."""
+        """
+        Convierte una entidad Paciente a un PacienteDTO.
+        :param paciente: Entidad Paciente.
+        :return: Un objeto PacienteDTO con los datos del paciente.
+        """
         return PacienteDTO(
             id_usuario=paciente.id,
             nombre=paciente.nombre,
@@ -28,7 +54,10 @@ class PacienteDTO:
         )
 
     def to_entity(self) -> Paciente:
-        """Convierte un PacienteDTO a entidad Paciente."""
+        """
+        Convierte un PacienteDTO a una entidad Paciente.
+        :return: Instancia de la entidad Paciente con los datos del DTO.
+        """
         return Paciente(
             id_usuario=self.id_usuario,
             nombre=self.nombre,

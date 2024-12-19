@@ -86,12 +86,12 @@ class ProveedorApplicationService:
 
         # Crear el proveedor
         proveedor = Proveedor(
+            id_proveedor=None,
             nombre=nombre,
             fecha_entrega=fecha_entrega,
             costo=costo,
             telefono_vendedor=telefono_vendedor,
-            direccion=direccion,
-            medicamentos=None
+            direccion=direccion
         )
 
         # Guardar el proveedor en el repositorio

@@ -66,4 +66,4 @@ class PersonalMedicoService:
                 horaFinTurno=medico.horaFinTurno,
                 departamento_id=medico.departamento_id
             )
-        return None
+

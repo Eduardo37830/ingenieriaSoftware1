@@ -79,8 +79,6 @@ class CirugiaApplicationService:
             hora_cirugia=hora,
             id_paciente=paciente_id,
             id_habitacion=habitacion_id,
-            personal_medico_id=personalMedico_id,
-            costo_total=1000.0  # Asignamos un costo por defecto
         )
 
         # Guardar la cirugía en el repositorio
@@ -98,7 +96,7 @@ class CirugiaApplicationService:
         cirugia = self.cirugia_repository.find_by_id(cirugia_id)
         if not cirugia:
             return False  # La cirugía no existe
-        self.cirugia_repository.eliminar(cirugia_id)
+        self.cirugia_repository.delete(cirugia_id)
         return True
 
     def listar_cirugias(self) -> list[CirugiaDTO]:

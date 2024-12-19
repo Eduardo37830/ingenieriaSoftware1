@@ -1,8 +1,8 @@
-from domain.entities.cita import Cita
 from domain.repositories.i_cita_repository import ICitaRepository
 from application.dtos.cita_dto import CitaDTO
 from application.exceptions.application_error import NotFoundError
-from datetime import datetime
+from domain.entities.cita import Cita
+from datetime import datetime, time
 
 class CitaApplicationService:
     def __init__(self, cita_repository: ICitaRepository):
@@ -47,10 +47,12 @@ class CitaApplicationService:
                 return True
         return False
 
-    def crear_cita(self, paciente_id: int, fecha: datetime, hora: datetime, motivo: str,
+    def crear_cita(self, paciente_id: int, fecha: datetime, hora: time, motivo: str,
+                   costoTotal: float,
                    personalMedico_id: int, habitacion_id: int = None) -> CitaDTO:
         """
         Crea una nueva cita médica.
+        :param costoTotal:
         :param paciente_id: ID del paciente.
         :param fecha: Fecha de la cita (datetime).
         :param hora: Hora de la cita (datetime).
@@ -68,14 +70,14 @@ class CitaApplicationService:
 
         # Crear la entidad de cita
         cita = Cita(
-            id=None,  # El ID se asignará automáticamente
+            id=1, # Se asigna automáticamente
             motivoConsulta=motivo,
             fechaConsulta=fecha,
             horaConsulta=hora,
             paciente_id=paciente_id,
             personalMedico_id=personalMedico_id,
             habitacion_id=habitacion_id,
-            costoTotal=100.0  # Asignar un costo adecuado por defecto
+            costoTotal=costoTotal
         )
 
         # Guardar la cita en el repositorio

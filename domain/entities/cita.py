@@ -1,13 +1,14 @@
 from datetime import datetime, date, time
 
 class Cita:
-    def __init__(self, id, motivoConsulta, fechaConsulta, horaConsulta, paciente_id, personalMedico_id, costoTotal, habitacion_id=None):
+    def __init__(self, id: int, motivoConsulta: str, fechaConsulta: datetime, horaConsulta: time,
+                 paciente_id: int, personalMedico_id: int, costoTotal: float, habitacion_id: Optional[int] = None):
         """
         Clase para representar una cita médica.
         :param id: Identificador único de la cita.
         :param motivoConsulta: Motivo de la consulta.
-        :param fechaConsulta: Fecha de la consulta (YYYY-MM-DD).
-        :param horaConsulta: Hora de la consulta (HH:MM:SS).
+        :param fechaConsulta: Fecha de la consulta (datetime).
+        :param horaConsulta: Hora de la consulta (datetime).
         :param paciente_id: ID del paciente asociado.
         :param personalMedico_id: ID del personal médico asignado.
         :param costoTotal: Monto total a pagar por la consulta.
@@ -15,14 +16,14 @@ class Cita:
         """
         self.id = id
         self.motivoConsulta = motivoConsulta
-        self.fechaConsulta = datetime.strptime(fechaConsulta, "%Y-%m-%d").date() if isinstance(fechaConsulta, str) else fechaConsulta
-        self.horaConsulta = datetime.strptime(horaConsulta, "%H:%M:%S").time() if isinstance(horaConsulta, str) else horaConsulta
+        self.fechaConsulta = fechaConsulta.date() if isinstance(fechaConsulta, datetime) else fechaConsulta
+        self.horaConsulta = horaConsulta if isinstance(horaConsulta, time) else horaConsulta
         self.paciente_id = paciente_id
         self.personalMedico_id = personalMedico_id
         self.costoTotal = costoTotal
         self.habitacion_id = habitacion_id
 
-    def verificarConflicto(self, otra_cita):
+    def verificarConflicto(self, otra_cita) -> bool:
         """
         Verifica si existe un conflicto de horarios con otra cita.
         :param otra_cita: Instancia de otra cita con la que se comparará.
@@ -47,3 +48,11 @@ class Cita:
             f"Habitación ID: {self.habitacion_id or 'N/A'}\n"
             f"Total a Pagar: {self.costoTotal}\n"
         )
+
+    def __repr__(self):
+        """
+        Representación de la cita para propósitos de depuración y listas.
+        """
+        return (f"Cita(id={self.id}, motivoConsulta='{self.motivoConsulta}', fechaConsulta={self.fechaConsulta}, "
+                f"horaConsulta={self.horaConsulta}, paciente_id={self.paciente_id}, personalMedico_id={self.personalMedico_id}, "
+                f"costoTotal={self.costoTotal}, habitacion_id={self.habitacion_id})")
