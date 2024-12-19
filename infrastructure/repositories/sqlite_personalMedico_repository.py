@@ -34,7 +34,7 @@ class SQLitePersonalMedicoRepository(IPersonalMedicoRepository):
                 usuario_id = cursor.lastrowid
                 cursor.execute(
                     """
-                    INSERT INTO PERSONAL_MEDICO (usuario_id, disponibilidad, horaInicioTurno, horaFinTurno, especializacion, departamento)
+                    INSERT INTO PERSONAL_MEDICO (usuario_id, disponibilidad, horaInicioTurno, horaFinTurno, especializacion)
                     VALUES (?, ?, ?, ?, ?, ?)
                     """,
                     (
@@ -63,7 +63,7 @@ class SQLitePersonalMedicoRepository(IPersonalMedicoRepository):
                 )
                 cursor.execute(
                     """
-                    UPDATE PERSONAL_MEDICO SET disponibilidad = ?, horaInicioTurno = ?, horaFinTurno = ?, especializacion = ?, departamento = ?
+                    UPDATE PERSONAL_MEDICO SET disponibilidad = ?, horaInicioTurno = ?, horaFinTurno = ?, especializacion = ?
                     WHERE usuario_id = ?
                     """,
                     (
@@ -71,7 +71,6 @@ class SQLitePersonalMedicoRepository(IPersonalMedicoRepository):
                         personal.hora_inicio_turno,
                         personal.hora_fin_turno,
                         personal.especializacion,
-                        personal.departamento,
                         personal.usuario_id,
                     ),
                 )
@@ -84,7 +83,7 @@ class SQLitePersonalMedicoRepository(IPersonalMedicoRepository):
             cursor.execute(
                 """
                 SELECT u.id, u.nombre, u.correo, u.direccion, u.telefono, u.tipo_documento, u.numero_documento,
-                       p.disponibilidad, p.horaInicioTurno, p.horaFinTurno, p.especializacion, p.departamento
+                       p.disponibilidad, p.horaInicioTurno, p.horaFinTurno, p.especializacion
                 FROM PERSONAL_MEDICO p
                 JOIN USUARIOS u ON p.usuario_id = u.id
                 WHERE p.id = ?
@@ -97,19 +96,36 @@ class SQLitePersonalMedicoRepository(IPersonalMedicoRepository):
             return None
 
     def find_all(self) -> List[PersonalMedico]:
-        """Devuelve todo el personal médico"""
+        """Devuelve todo el personal médico."""
         with self._connect() as conn:
             cursor = conn.cursor()
             cursor.execute(
                 """
-                SELECT u.id, u.nombre, u.correo, u.direccion, u.telefono, u.tipo_documento, u.numero_documento,
-                       p.disponibilidad, p.horaInicioTurno, p.horaFinTurno, p.especializacion, p.departamento
+                SELECT u.id, u.nombre, u.correo, u.contrasena, u.rol, u.direccion, u.telefono, u.tipo_documento, u.numero_documento,
+                       p.disponibilidad, p.horaInicioTurno, p.horaFinTurno, p.especializacion
                 FROM PERSONAL_MEDICO p
                 JOIN USUARIOS u ON p.usuario_id = u.id
                 """
             )
             rows = cursor.fetchall()
-            return [PersonalMedico(*row) for row in rows]
+            return [
+                PersonalMedico(
+                    id=row[0],
+                    nombre=row[1],
+                    correo=row[2],
+                    contrasena=row[3],
+                    rol=row[4],
+                    direccion=row[5],
+                    telefono=row[6],
+                    tipoDocumento=row[7],
+                    numeroDocumento=row[8],
+                    disponibilidad=row[9],
+                    horaInicioTurno=row[10],
+                    horaFinTurno=row[11],
+                    especializacion=row[12],
+                )
+                for row in rows
+            ]
 
     def delete(self, personal_id: int) -> None:
         """Elimina un personal médico por ID"""
@@ -117,3 +133,20 @@ class SQLitePersonalMedicoRepository(IPersonalMedicoRepository):
             cursor = conn.cursor()
             cursor.execute("DELETE FROM PERSONAL_MEDICO WHERE id = ?", (personal_id,))
             conn.commit()
+
+    def find_available (self, fecha_hora) -> List[PersonalMedico]:
+        """Devuelve todo el personal médico disponible en una fecha y hora específicas"""
+        with self._connect() as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                """
+                SELECT u.id, u.nombre, u.correo, u.direccion, u.telefono, u.tipo_documento, u.numero_documento,
+                       p.disponibilidad, p.horaInicioTurno, p.horaFinTurno, p.especializacion
+                FROM PERSONAL_MEDICO p
+                JOIN USUARIOS u ON p.usuario_id = u.id
+                WHERE p.disponibilidad = 1 AND p.horaInicioTurno <= ? AND p.horaFinTurno >= ?
+                """,
+                (fecha_hora.time(), fecha_hora.time()),
+            )
+            rows = cursor.fetchall()
+            return [PersonalMedico(*row) for row in rows]

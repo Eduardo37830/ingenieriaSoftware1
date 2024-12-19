@@ -15,13 +15,12 @@ class PersonalMedico(Usuario):
     """
 
     def __init__(self, id, nombre, correo, contrasena, rol, direccion, telefono, tipoDocumento, numeroDocumento, disponibilidad,
-                 horaInicioTurno, horaFinTurno, especializacion, departamento):
+                 horaInicioTurno, horaFinTurno, especializacion):
         super().__init__(id, nombre, correo, contrasena, rol, direccion, telefono, tipoDocumento, numeroDocumento)
         self.disponibilidad = disponibilidad  # Indica si está disponible en general (bool)
         self.horaInicioTurno = horaInicioTurno  # Hora de inicio del turno (time)
         self.horaFinTurno = horaFinTurno  # Hora de fin del turno (time)
         self.especializacion = especializacion
-        self.departamento_id = departamento
 
     def esta_disponible(self, fecha_hora):
         """
@@ -57,3 +56,20 @@ class PersonalMedico(Usuario):
             return f"El personal médico está disponible el {fecha.strftime('%Y-%m-%d %H:%M')}."
         else:
             return f"El personal médico no está disponible el {fecha.strftime('%Y-%m-%d %H:%M')}."
+
+
+    def to_dict(self):
+        """Convierte la instancia en un diccionario."""
+        return {
+            "id": self.id,
+            "nombre": self.nombre,
+            "correo": self.correo,
+            "direccion": self.direccion,
+            "telefono": self.telefono,
+            "tipo_documento": self.tipo_documento,
+            "numero_documento": self.numero_documento,
+            "disponibilidad": self.disponibilidad,
+            "hora_inicio_turno": self.horaInicioTurno,
+            "hora_fin_turno": self.horaFinTurno,
+            "especializacion": self.especializacion,
+        }

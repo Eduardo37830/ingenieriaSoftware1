@@ -3,7 +3,7 @@ from datetime import datetime
 
 class PersonalMedicoDTO:
     def __init__(self, id: int, nombre: str, especializacion: str, disponibilidad: bool,
-                 horaInicioTurno: datetime, horaFinTurno: datetime, departamento_id: int):
+                 horaInicioTurno: datetime, horaFinTurno: datetime):
         """
         DTO para transferir la información del personal médico.
         :param id: Identificador único del personal médico.
@@ -20,7 +20,6 @@ class PersonalMedicoDTO:
         self.disponibilidad = disponibilidad
         self.horaInicioTurno = horaInicioTurno
         self.horaFinTurno = horaFinTurno
-        self.departamento_id = departamento_id
 
     def __repr__(self):
         """
@@ -29,7 +28,7 @@ class PersonalMedicoDTO:
         """
         return (f"PersonalMedicoDTO(id={self.id}, nombre='{self.nombre}', especializacion='{self.especializacion}', "
                 f"disponibilidad={self.disponibilidad}, horaInicioTurno='{self.horaInicioTurno.strftime('%H:%M')}', "
-                f"horaFinTurno='{self.horaFinTurno.strftime('%H:%M')}', departamento_id={self.departamento_id})")
+                f"horaFinTurno='{self.horaFinTurno.strftime('%H:%M')}')")
 
     def to_dict(self):
         """Convierte el DTO a un diccionario para facilitar la transferencia de datos."""
@@ -40,7 +39,6 @@ class PersonalMedicoDTO:
             "disponibilidad": self.disponibilidad,
             "horaInicioTurno": self.horaInicioTurno.strftime('%H:%M'),
             "horaFinTurno": self.horaFinTurno.strftime('%H:%M'),
-            "departamento_id": self.departamento_id
         }
 
     @staticmethod
@@ -57,9 +55,9 @@ class PersonalMedicoDTO:
             disponibilidad=personal_medico.disponibilidad,
             horaInicioTurno=personal_medico.horaInicioTurno,
             horaFinTurno=personal_medico.horaFinTurno,
-            departamento_id=personal_medico.departamento_id
         )
 
+    @staticmethod
     def to_entity(self) -> PersonalMedico:
         """
         Convierte un PersonalMedicoDTO a entidad PersonalMedico.
@@ -72,12 +70,5 @@ class PersonalMedicoDTO:
             disponibilidad=self.disponibilidad,
             horaInicioTurno=self.horaInicioTurno,
             horaFinTurno=self.horaFinTurno,
-            departamento=self.departamento_id,
-            rol=None,
-            contrasena=None,
-            correo=None,
-            telefono=None,
-            direccion=None,
-            tipoDocumento=None,
-            numeroDocumento=None
         )
+

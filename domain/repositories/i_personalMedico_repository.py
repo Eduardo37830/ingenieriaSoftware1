@@ -24,3 +24,7 @@ class IPersonalMedicoRepository(ABC):
     def find_all(self) -> List[PersonalMedico]:
         """Obtiene todos los pacientes."""
         pass
+
+    @abstractmethod
+    def delete(self, personal_id):
+        pass

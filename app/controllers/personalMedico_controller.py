@@ -3,9 +3,11 @@ from flask import Blueprint, request, jsonify
 from application.dtos.personal_medico_dto import PersonalMedicoDTO
 from application.services.personalMedico_service import PersonalMedicoService
 from domain.entities.personalMedico import PersonalMedico
+from infrastructure.repositories import SQLitePersonalMedicoRepository
 
 personal_medico_bp = Blueprint('personal_medico_bp', __name__)
-service = PersonalMedicoService("hospital.db")
+personal_repository = SQLitePersonalMedicoRepository("../hospital.db")
+service = PersonalMedicoService(personal_repository)
 
 @personal_medico_bp.route('/personal', methods=['POST'])
 def registrar_personal_medico():
@@ -17,19 +19,18 @@ def registrar_personal_medico():
         horaInicioTurno=data.get("horaInicioTurno"),
         horaFinTurno=data.get("horaFinTurno"),
         especializacion=data.get("especializacion"),
-        departamento_id=data.get("departamento"),
     )
     service.registrar_personal_medico(personal)
     return jsonify({"mensaje": "Personal médico registrado exitosamente"}), 201
 
-@personal_medico_bp.route('/personal', methods=['GET'])
+@personal_medico_bp.route('/', methods=['GET'])
 def listar_personal_medico():
     personal_medico = service.listar_personal_medico()
     return jsonify([p.to_dict() for p in personal_medico]), 200
 
 @personal_medico_bp.route('/personal/<int:id>', methods=['GET'])
 def obtener_personal_medico(id):
-    personal = service.obtener_personal_medico_por_id(id)
+    personal = service.obtener_personal_medico(id)
     if personal:
         return jsonify(personal.to_dict()), 200
     return jsonify({"error": "Personal médico no encontrado"}), 404

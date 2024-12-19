@@ -16,7 +16,7 @@ class PersonalMedicoService:
         :param fecha_hora: Fecha y hora para verificar la disponibilidad.
         :return: Verdadero si el médico está disponible, falso en caso contrario.
         """
-        medico = self.personal_repository.obtener_por_id(medico_id)
+        medico = self.personal_repository.find_by_id(medico_id)
         if medico:
             return medico.esta_disponible(fecha_hora)
         return False
@@ -28,7 +28,7 @@ class PersonalMedicoService:
         :param fecha: Fecha para verificar la disponibilidad.
         :return: Un mensaje sobre la disponibilidad del médico.
         """
-        medico = self.repository.obtener_por_id(medico_id)
+        medico = self.personal_repository.find_by_id(medico_id)
         if medico:
             return medico.mostrar_disponibilidad(fecha)
         return f"El médico con ID {medico_id} no fue encontrado."
@@ -40,7 +40,7 @@ class PersonalMedicoService:
         :param fecha_hora: Fecha y hora para asignar el turno.
         :return: Mensaje indicando el resultado de la asignación.
         """
-        medico = self.repository.obtener_por_id(medico_id)
+        medico = self.personal_repository.find_by_id(medico_id)
         if medico:
             if medico.esta_disponible(fecha_hora):
                 # Aquí puedes agregar lógica para asignar el turno
@@ -55,7 +55,7 @@ class PersonalMedicoService:
         :param medico_id: ID del médico.
         :return: Un objeto PersonalMedicoDTO con los detalles del médico.
         """
-        medico = self.repository.obtener_por_id(medico_id)
+        medico = self.personal_repository.find_by_id(medico_id)
         if medico:
             return PersonalMedicoDTO(
                 id=medico.id,
@@ -64,8 +64,17 @@ class PersonalMedicoService:
                 disponibilidad=medico.disponibilidad,
                 horaInicioTurno=medico.horaInicioTurno,
                 horaFinTurno=medico.horaFinTurno,
-                departamento_id=medico.departamento_id
             )
 
+    def registrar_personal_medico(self, personal_medico_dto: PersonalMedicoDTO):
+        personal_medico = personal_medico_dto.to_entity()
+        self.personal_repository.save(personal_medico)
+
+    def eliminar_personal_medico(self, personal_id):
+        self.personal_repository.delete(personal_id)
+
+    def obtener_personal_medico(self, personal_id):
+        return self.personal_repository.find_by_id(personal_id)
+
     def listar_personal_medico(self):
-        return [PersonalMedicoDTO.from_entity(personal_medico) for personal_medico in self.personal_repository.find_all()]
+        return self.personal_repository.find_all()
