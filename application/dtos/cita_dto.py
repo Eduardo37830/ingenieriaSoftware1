@@ -47,3 +47,16 @@ class CitaDTO:
             costoTotal=self.costoTotal,
             habitacion_id=self.habitacion_id
         )
+
+    def to_dict(self):
+        """Convierte el DTO a un diccionario."""
+        return {
+            "id": self.id,
+            "motivoConsulta": self.motivoConsulta,
+            "fechaConsulta": self.fechaConsulta.strftime("%Y-%m-%d"),
+            "horaConsulta": self.horaConsulta.strftime("%H:%M"),
+            "paciente_id": self.paciente_id,
+            "personalMedico_id": self.personalMedico_id,
+            "costoTotal": self.costoTotal,
+            "habitacion_id": self.habitacion_id
+        }

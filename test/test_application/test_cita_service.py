@@ -39,7 +39,8 @@ class TestCitaApplicationService(unittest.TestCase):
         cita_guardada = self.cita_dto.to_entity()
         cita_guardada.id = 1  # Asignar un ID después de guardar la cita
 
-        self.cita_repository.save.return_value = None  # Simular que la cita se guarda correctamente
+        #Guardar la cita
+        self.cita_repository.save.return_value = 2
         self.cita_repository.find_by_id.return_value = cita_guardada  # Simular que la cita fue guardada
 
         # Registrar la cita

@@ -18,3 +18,7 @@ class IProveedorRepository(ABC):
     def find_all(self) -> List[Proveedor]:
         """Obtiene todos los Proveedores."""
         pass
+
+    def delete(self, Proveedor: Proveedor) -> None:
+        """Elimina un Proveedor."""
+        pass

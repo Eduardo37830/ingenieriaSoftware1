@@ -6,7 +6,7 @@ from application.services.historial_medico_service import HistorialMedicoApplica
 from application.services.medicamento_service import MedicamentoApplicationService
 from application.services.paciente_service import PacienteApplicationService
 from application.services.personalMedico_service import PersonalMedicoService
-from application.services.proveedor_service import ProveedorService
+from application.services.proveedor_service import ProveedorApplicationService
 from application.services.usuario_service import UsuarioService
 from application.services.cita_service import CitaApplicationService
 
@@ -17,7 +17,7 @@ class ServiceFactory:
 
     _services = {
         "personal_medico": PersonalMedicoService,
-        "proveedor": ProveedorService,
+        "proveedor": ProveedorApplicationService,
         "usuario": UsuarioService,
         "cita": CitaApplicationService,
         "habitacion": HabitacionApplicationService,
