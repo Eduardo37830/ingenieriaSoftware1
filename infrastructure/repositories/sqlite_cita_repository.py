@@ -85,3 +85,17 @@ class SQLiteCitaRepository(ICitaRepository):
             cursor = conn.cursor()
             cursor.execute("DELETE FROM CITAS WHERE id = ?", (cita_id,))
             conn.commit()
+    def find_all_by_paciente (self, paciente_id: int) -> List[Cita]:
+        """Devuelve todas las citas de un paciente"""
+        with self._connect() as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                """
+                SELECT id, motivoConsulta, fechaConsulta, horaConsulta, costoTotal, paciente_id, personalMedico_id, habitacion_id
+                FROM CITAS
+                WHERE paciente_id = ?
+                """,
+                (paciente_id,),
+            )
+            rows = cursor.fetchall()
+            return [Cita(*row) for row in rows]

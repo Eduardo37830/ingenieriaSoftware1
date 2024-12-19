@@ -33,3 +33,44 @@ class SQLiteHabitacionRepository(IHabitacionRepository, ABC):
                     (habitacion.disponibilidad, habitacion.tipo_habitacion, habitacion.capacidad, habitacion.id),
                 )
             conn.commit()
+    def find_by_id(self, habitacion_id: int) -> Habitacion:
+        """Busca una habitación por ID"""
+        with self._connect() as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                """
+                SELECT id, disponibilidad, tipo_habitacion, capacidad
+                FROM HABITACIONES
+                WHERE id = ?
+                """,
+                (habitacion_id,),
+            )
+            row = cursor.fetchone()
+            if row is None:
+                return None
+            return Habitacion(*row)
+    def find_all_by_paciente(self, paciente_id: int) -> List[Habitacion]:
+        """Obtiene todas las habitaciones de un paciente"""
+        with self._connect() as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                """
+                SELECT id, disponibilidad, tipo_habitacion, capacidad
+                FROM HABITACIONES
+                WHERE paciente_id = ?
+                """,
+                (paciente_id,),
+            )
+            return [Habitacion(*row) for row in cursor.fetchall()]
+    def delete(self, habitacion_id: int) -> None:
+        """Elimina una habitación"""
+        with self._connect() as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                """
+                DELETE FROM HABITACIONES
+                WHERE id = ?
+                """,
+                (habitacion_id,),
+            )
+            conn.commit()

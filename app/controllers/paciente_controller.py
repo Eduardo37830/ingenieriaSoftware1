@@ -30,5 +30,5 @@ def registrar_paciente():
 def obtener_paciente(id):
     paciente = service.obtener_paciente_por_id(id)
     if paciente:
-        return jsonify(paciente.to_entity()), 200
+        return jsonify(paciente.to_dict()), 200
     return jsonify({"error": "Paciente no encontrado"}), 404

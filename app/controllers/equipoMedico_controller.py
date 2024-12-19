@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify
 
 from application.dtos.equipo_medico_dto import EquipoMedicoDTO
 from application.services.equipo_medico_service import EquipoMedicoApplicationService
-from domain.entities.equipo_medico import EquipoMedico
+from domain.entities.equipoMedico import EquipoMedico
 
 equipo_bp = Blueprint('equipo_bp', __name__)
 service = EquipoMedicoApplicationService("hospital.db")

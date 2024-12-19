@@ -40,3 +40,15 @@ class PacienteDTO:
             tipoDocumento=self.tipoDocumento,
             numeroDocumento=self.numeroDocumento
         )
+    def to_dict (self):
+        return {
+            "id_usuario": self.id_usuario,
+            "nombre": self.nombre,
+            "correo": self.correo,
+            "contrasena": self.contrasena,
+            "rol": self.rol,
+            "direccion": self.direccion,
+            "telefono": self.telefono,
+            "tipoDocumento": self.tipoDocumento,
+            "numeroDocumento": self.numeroDocumento
+        }

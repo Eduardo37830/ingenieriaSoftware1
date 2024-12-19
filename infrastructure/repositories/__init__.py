@@ -9,4 +9,4 @@ from .sqlite_proveedor_repository import SQLiteProveedorRepository
 from .sqlite_equipoMedico_repository import SQLiteEquipoMedicoRepository
 from .sqlite_medicamento_repository import SQLiteMedicamentoRepository
 from .sqlite_user_repository import SqliteUserRepository
-from .sqlite_historialMedico_repository import SqliteHistorialMedicoRepository
+from .sqlite_historialMedico_repository import SQLiteHistorialMedicoRepository
