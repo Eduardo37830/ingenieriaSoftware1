@@ -25,8 +25,19 @@ def registrar_personal_medico():
 
 @personal_medico_bp.route('/', methods=['GET'])
 def listar_personal_medico():
-    personal_medico = service.listar_personal_medico()
-    return jsonify([p.to_dict() for p in personal_medico]), 200
+    """Devuelve una lista de personal médico renderizado en la plantilla."""
+    try:
+        # Llamada al servicio para obtener el personal médico
+        personal_medico = service.listar_personal_medico()
+
+        # Convertimos los datos a diccionarios para el HTML
+        personal = [p.to_dict() for p in personal_medico]
+
+        # Renderizamos la plantilla con la información
+        return render_template('personal.html', personal_medico=personal)
+    except Exception as e:
+        return jsonify({"error": "Error al listar personal médico", "detalle": str(e)}), 500
+
 
 @personal_medico_bp.route('/personal/<int:id>', methods=['GET'])
 def obtener_personal_medico(id):

@@ -4,8 +4,7 @@
 
 {% block content %}
 <head>
-    <link rel="stylesheet"
-        href="{{ url_for('static', filename='styles/tablas.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/tablas.css') }}">
     <title>Personal Médico</title>
 </head>
 <div class="contenedor">
@@ -13,35 +12,35 @@
     <table class="tabla">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Nombre</th>
-                <th>Departamento</th>
-                <th>Profesión</th>
+                <th>Especialización</th>
+                <th>Disponibilidad</th>
                 <th>Horario Entrada</th>
                 <th>Horario Salida</th>
-                <th>Disponibilidad</th>
                 <th>Seleccionar</th>
             </tr>
         </thead>
         <tbody>
             {% for personal in personal_medico %}
             <tr>
-                <td>{{ personal.Nombre }}</td>
-                <td>{{ personal.Departamento }}</td>
-                <td>{{ personal.Profesion }}</td>
-                <td>{{ personal.HorarioEntrada }}</td>
-                <td>{{ personal.HorarioSalida }}</td>
-                <td>{{ personal.Disponibilidad }}</td>
+                <td>{{ personal.id }}</td>
+                <td>{{ personal.nombre }}</td>
+                <td>{{ personal.especializacion }}</td>
+                <td>{{ personal.disponibilidad }}</td>
+                <td>{{ personal.horaInicioTurno }}</td>
+                <td>{{ personal.horaFinTurno }}</td>
                 <td>
-                    <input type="radio" name="seleccionar_personal" value="{{ personal.Nombre }}" onclick="seleccionarPersonal(this)">
+                    <input type="radio" name="seleccionar_personal" value="{{ personal.id }}" onclick="seleccionarPersonal(this)">
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
     <div class="button-container">
-        <div class="button-container"><button onclick="eliminar()" class="custom-btn custom-btn-1">Eliminar</button></div>
-        <div class="button-container"><button onclick="editar()" class="custom-btn custom-btn-2">Editar</button></div>
-        <div class="button-container"><button onclick="agregar()" class="custom-btn custom-btn-3">Agregar</button></div>
+        <button onclick="eliminar()" class="custom-btn custom-btn-1">Eliminar</button>
+        <button onclick="editar()" class="custom-btn custom-btn-2">Editar</button>
+        <button onclick="agregar()" class="custom-btn custom-btn-3">Agregar</button>
     </div>
 </div>
 

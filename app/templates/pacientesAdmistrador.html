@@ -4,8 +4,7 @@
 
 {% block content %}
 <head>
-    <link rel="stylesheet"
-        href="{{ url_for('static', filename='styles/tablas.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/tablas.css') }}">
     <title>Paciente</title>
 </head>
 <div class="contenedor">
@@ -13,22 +12,32 @@
     <table class="tabla">
         <thead>
             <tr>
+                <th>ID Usuario</th>
                 <th>Nombre</th>
-                <th>Teléfono</th>
+                <th>Correo</th>
+                <th>Contraseña</th>
+                <th>Rol</th>
                 <th>Dirección</th>
-                <th>Historial médico</th>
+                <th>Teléfono</th>
+                <th>Tipo Documento</th>
+                <th>Número Documento</th>
                 <th>Seleccionar</th>
             </tr>
         </thead>
         <tbody>
             {% for paciente in pacientes %}
             <tr>
-                <td>{{ paciente.Nombre }}</td>
-                <td>{{ paciente.Telefono }}</td>
-                <td>{{ paciente.Direccion }}</td>
-                <td>{{ paciente.HistorialMedico }}</td>
+                <td>{{ paciente.id_usuario }}</td>
+                <td>{{ paciente.nombre }}</td>
+                <td>{{ paciente.correo }}</td>
+                <td>{{ paciente.contrasena }}</td>
+                <td>{{ paciente.rol }}</td>
+                <td>{{ paciente.direccion }}</td>
+                <td>{{ paciente.telefono }}</td>
+                <td>{{ paciente.tipoDocumento }}</td>
+                <td>{{ paciente.numeroDocumento }}</td>
                 <td>
-                    <input type="radio" name="seleccionar_paciente" value="{{ paciente.Nombre }}">
+                    <input type="radio" name="seleccionar_paciente" value="{{ paciente.id_usuario }}">
                 </td>
             </tr>
             {% endfor %}
@@ -57,4 +66,3 @@
 </script>
 
 {% endblock %}
-

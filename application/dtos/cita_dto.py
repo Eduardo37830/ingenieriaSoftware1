@@ -57,6 +57,8 @@ class CitaDTO:
         """Convierte el DTO a un diccionario."""
         return {
             "id": self.id,
+            "paciente_id": self.paciente_id,
+            "personalMedico_id": self.personalMedico_id,
             "motivoConsulta": self.motivoConsulta,
             "fechaConsulta": self.fechaConsulta.strftime("%Y-%m-%d") if isinstance(self.fechaConsulta,
                                                                                    datetime) else self.fechaConsulta,
@@ -64,10 +66,10 @@ class CitaDTO:
                 self.horaConsulta.strftime("%H:%M") if isinstance(self.horaConsulta, time)
                 else self.horaConsulta
             ),
-            "paciente_id": self.paciente_id,
-            "personalMedico_id": self.personalMedico_id,
+
+            "habitacion_id": self.habitacion_id,
             "costoTotal": self.costoTotal,
-            "habitacion_id": self.habitacion_id
+
         }
 
 

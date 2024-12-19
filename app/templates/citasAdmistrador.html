@@ -4,8 +4,7 @@
 
 {% block content %}
 <head>
-    <link rel="stylesheet"
-        href="{{ url_for('static', filename='styles/tablas.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/tablas.css') }}">
     <title>Citas</title>
 </head>
 <div class="contenedor">
@@ -13,29 +12,30 @@
     <table class="tabla">
         <thead>
             <tr>
-                <th>Nombre del paciente</th>
-                <th>Hora consulta</th>
+                <th>ID</th>
+                <th>Paciente ID</th>
+                <th>Personal Médico ID</th>
+                <th>Motivo de la consulta</th>
                 <th>Fecha consulta</th>
-                <th>Movito de la consulta</th>
-                <th>tipo</th>
-                <th>Nombre del medico</th>
-                
+                <th>Hora consulta</th>
+                <th>Habitación ID</th>
+                <th>Costo Total</th>
             </tr>
         </thead>
         <tbody>
             {% for cita in citas %}
                 <tr class="citas-row">
-                    <td class="citas-data">{{ cita.Nombre }}</td>
-                    <td class="citas-data">{{ cita['Hora consulta'] }}</td>
-                    <td class="citas-data">{{ cita['Fecha consulta'] }}</td>
-                    <td class="citas-data">{{ cita['Motivo de la consulta'] }}</td>
-                    <td class="citas-data">{{ cita.tipo }}</td>
-                    <td class="citas-data">{{ cita['Nombre del medico'] }}</td>
+                    <td class="citas-data">{{ cita.id }}</td>
+                    <td class="citas-data">{{ cita.paciente_id }}</td>
+                    <td class="citas-data">{{ cita.personalMedico_id }}</td>
+                    <td class="citas-data">{{ cita.motivoConsulta }}</td>
+                    <td class="citas-data">{{ cita.fechaConsulta }}</td>
+                    <td class="citas-data">{{ cita.horaConsulta }}</td>
+                    <td class="citas-data">{{ cita.habitacion_id }}</td>
+                    <td class="citas-data">${{ cita.costoTotal }}</td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
 </div>
-
 {% endblock %}
-

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Personal Médico{% endblock %}
+
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/tablas.css') }}">
+    <title>Personal Médico</title>
+</head>
+<div class="contenedor">
+    <h2>Personal Médico</h2>
+    <table class="tabla">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Especialización</th>
+                <th>Disponibilidad</th>
+                <th>Hora Inicio Turno</th>
+                <th>Hora Fin Turno</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for personal in personal_medico %}
+                <tr class="personal-row">
+                    <td class="personal-data">{{ personal.id }}</td>
+                    <td class="personal-data">{{ personal.nombre }}</td>
+                    <td class="personal-data">{{ personal.especializacion }}</td>
+                    <td class="personal-data">{{ personal.disponibilidad }}</td>
+                    <td class="personal-data">{{ personal.hora_inicio_turno }}</td>
+                    <td class="personal-data">{{ personal.hora_fin_turno }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -45,15 +45,18 @@ def agendar_cita():
 @cita_bp.route('/', methods=['GET'])
 def listar_citas():
     try:
-        # Obtener todas las citas a través del servicio
+        # Obtener todas las citas del servicio (suponiendo que devuelve DTOs)
         citas_dto = service.listar_citas()
 
-        # Convertir los DTOs a un formato adecuado para JSON
+        # Convertir cada DTO a un diccionario para usarlo en la plantilla
         citas = [cita.to_dict() for cita in citas_dto]
 
-        return jsonify(citas), 200
+        # Renderizar la plantilla con las citas
+        return render_template('citasAdmistrador.html', citas=citas)
     except Exception as e:
+        # En caso de error, devuelve un JSON con el detalle del problema
         return jsonify({"error": "Error al listar las citas", "detalle": str(e)}), 500
+
 
 @cita_bp.route('/agendar_cita', methods=["GET", "POST"])
 def agendar_cita_get():

@@ -3,7 +3,7 @@ from datetime import datetime
 
 class PersonalMedicoDTO:
     def __init__(self, id: int, nombre: str, especializacion: str, disponibilidad: bool,
-                 horaInicioTurno: datetime, horaFinTurno: datetime):
+                 hora_inicio_turno, hora_fin_turno):
         """
         DTO para transferir la información del personal médico.
         :param id: Identificador único del personal médico.
@@ -18,8 +18,8 @@ class PersonalMedicoDTO:
         self.nombre = nombre
         self.especializacion = especializacion
         self.disponibilidad = disponibilidad
-        self.horaInicioTurno = horaInicioTurno
-        self.horaFinTurno = horaFinTurno
+        self.hora_inicio_turno = hora_inicio_turno
+        self.hora_fin_turno = hora_fin_turno
 
     def __repr__(self):
         """
@@ -31,14 +31,14 @@ class PersonalMedicoDTO:
                 f"horaFinTurno='{self.horaFinTurno.strftime('%H:%M')}')")
 
     def to_dict(self):
-        """Convierte el DTO a un diccionario para facilitar la transferencia de datos."""
+        """Convierte el objeto en un diccionario para facilitar la transferencia de datos."""
         return {
             "id": self.id,
             "nombre": self.nombre,
             "especializacion": self.especializacion,
             "disponibilidad": self.disponibilidad,
-            "horaInicioTurno": self.horaInicioTurno.strftime('%H:%M'),
-            "horaFinTurno": self.horaFinTurno.strftime('%H:%M'),
+            "hora_inicio_turno": self.hora_inicio_turno,
+            "hora_fin_turno": self.hora_fin_turno,
         }
 
     @staticmethod
