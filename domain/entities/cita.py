@@ -3,7 +3,7 @@ from typing import Optional
 
 
 class Cita:
-    def __init__(self, id: int, motivoConsulta: str, fechaConsulta: datetime, horaConsulta: time,
+    def __init__(self, id: int, motivoConsulta: str, fechaConsulta, horaConsulta,
                  paciente_id: int, personalMedico_id: int, costoTotal: float, habitacion_id: Optional[int] = None):
         """
         Clase para representar una cita médica.
@@ -18,8 +18,8 @@ class Cita:
         """
         self.id = id
         self.motivoConsulta = motivoConsulta
-        self.fechaConsulta = fechaConsulta.date() if isinstance(fechaConsulta, datetime) else fechaConsulta
-        self.horaConsulta = horaConsulta if isinstance(horaConsulta, time) else horaConsulta
+        self.fechaConsulta = fechaConsulta
+        self.horaConsulta = horaConsulta
         self.paciente_id = paciente_id
         self.personalMedico_id = personalMedico_id
         self.costoTotal = costoTotal

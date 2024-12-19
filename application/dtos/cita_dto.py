@@ -4,7 +4,7 @@ from domain.entities.cita import Cita
 
 class CitaDTO:
     def __init__(self, id, motivoConsulta: str = "", fechaConsulta: datetime = None,
-                 horaConsulta: time = None, paciente_id: int = None, personalMedico_id: int = None,
+                 horaConsulta: time = "", paciente_id: int = None, personalMedico_id: int = None,
                  costoTotal: float = 0.0, habitacion_id: Optional[int] = None):
         self.id = id
         self.motivoConsulta = motivoConsulta
@@ -23,11 +23,17 @@ class CitaDTO:
     @staticmethod
     def from_entity(cita: Cita) -> 'CitaDTO':
         """Convierte una entidad Cita en un CitaDTO."""
+        hora_consulta = (
+            datetime.strptime(cita.horaConsulta, "%H:%M").time()
+            if isinstance(cita.horaConsulta, str) else
+            cita.horaConsulta  # Si ya es un objeto time
+        )
+
         return CitaDTO(
             id=cita.id,
             motivoConsulta=cita.motivoConsulta,
             fechaConsulta=cita.fechaConsulta,
-            horaConsulta=cita.horaConsulta.time() if cita.horaConsulta else None,  # Si es datetime, extraemos la hora
+            horaConsulta=hora_consulta,  # Usamos el objeto time procesado
             paciente_id=cita.paciente_id,
             personalMedico_id=cita.personalMedico_id,
             costoTotal=cita.costoTotal,
@@ -52,10 +58,16 @@ class CitaDTO:
         return {
             "id": self.id,
             "motivoConsulta": self.motivoConsulta,
-            "fechaConsulta": self.fechaConsulta.strftime("%Y-%m-%d") if self.fechaConsulta else None,
-            "horaConsulta": self.horaConsulta.strftime("%H:%M") if self.horaConsulta else None,
+            "fechaConsulta": self.fechaConsulta.strftime("%Y-%m-%d") if isinstance(self.fechaConsulta,
+                                                                                   datetime) else self.fechaConsulta,
+            "horaConsulta": (
+                self.horaConsulta.strftime("%H:%M") if isinstance(self.horaConsulta, time)
+                else self.horaConsulta
+            ),
             "paciente_id": self.paciente_id,
             "personalMedico_id": self.personalMedico_id,
             "costoTotal": self.costoTotal,
             "habitacion_id": self.habitacion_id
         }
+
+

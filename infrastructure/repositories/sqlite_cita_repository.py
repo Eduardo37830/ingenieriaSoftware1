@@ -1,7 +1,10 @@
 import sqlite3
+from datetime import time, datetime
+
 from domain.entities.cita import Cita
 from domain.repositories.i_cita_repository import ICitaRepository
 from typing import List
+
 
 class SQLiteCitaRepository(ICitaRepository):
     def __init__(self, db_path: str):
@@ -14,7 +17,13 @@ class SQLiteCitaRepository(ICitaRepository):
         """Inserta o actualiza una cita"""
         with self._connect() as conn:
             cursor = conn.cursor()
+            # Convertimos horaConsulta a string si es un objeto datetime.time
+            horaConsulta_str = (
+                cita.horaConsulta.strftime("%H:%M") if isinstance(cita.horaConsulta, time) else cita.horaConsulta
+            )
+
             if cita.id is None:
+                # Inserción
                 cursor.execute(
                     """
                     INSERT INTO CITAS (motivoConsulta, fechaConsulta, horaConsulta, costoTotal, paciente_id, personalMedico_id, habitacion_id)
@@ -23,7 +32,7 @@ class SQLiteCitaRepository(ICitaRepository):
                     (
                         cita.motivoConsulta,
                         cita.fechaConsulta,
-                        cita.horaConsulta,
+                        horaConsulta_str,  # Usamos la conversión
                         cita.costoTotal,
                         cita.paciente_id,
                         cita.personalMedico_id,
@@ -31,6 +40,7 @@ class SQLiteCitaRepository(ICitaRepository):
                     ),
                 )
             else:
+                # Actualización
                 cursor.execute(
                     """
                     UPDATE CITAS SET motivoConsulta = ?, fechaConsulta = ?, horaConsulta = ?, costoTotal = ?, paciente_id = ?, personalMedico_id = ?, habitacion_id = ?
@@ -39,7 +49,7 @@ class SQLiteCitaRepository(ICitaRepository):
                     (
                         cita.motivoConsulta,
                         cita.fechaConsulta,
-                        cita.horaConsulta,
+                        horaConsulta_str,  # Usamos la conversión
                         cita.costoTotal,
                         cita.paciente_id,
                         cita.personalMedico_id,
@@ -77,7 +87,19 @@ class SQLiteCitaRepository(ICitaRepository):
                 """
             )
             rows = cursor.fetchall()
-            return [Cita(*row) for row in rows]
+            return [
+                Cita(
+                    id=row[0],
+                    motivoConsulta=row[1],
+                    fechaConsulta=row[2],
+                    horaConsulta=row[3],
+                    costoTotal=row[4],
+                    paciente_id=row[5],
+                    personalMedico_id=row[6],
+                    habitacion_id=row[7],
+                )
+                for row in rows
+            ]
 
     def delete(self, cita_id: int) -> None:
         """Elimina una cita por ID"""
@@ -85,7 +107,8 @@ class SQLiteCitaRepository(ICitaRepository):
             cursor = conn.cursor()
             cursor.execute("DELETE FROM CITAS WHERE id = ?", (cita_id,))
             conn.commit()
-    def find_all_by_paciente (self, paciente_id: int) -> List[Cita]:
+
+    def find_all_by_paciente(self, paciente_id: int) -> List[Cita]:
         """Devuelve todas las citas de un paciente"""
         with self._connect() as conn:
             cursor = conn.cursor()

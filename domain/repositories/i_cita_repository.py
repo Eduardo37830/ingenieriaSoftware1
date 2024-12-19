@@ -24,7 +24,7 @@ class ICitaRepository(ABC):
         """Elimina una cita."""
         pass
 
-    def find_all(self):
+    def find_all(self) -> List[Cita]:
         """Obtiene todas las citas."""
         pass
 
