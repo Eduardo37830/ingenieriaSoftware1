@@ -18,6 +18,7 @@ from controllers.historialMedico_controller import historial_bp
 from controllers.equipoMedico_controller import equipo_bp
 from controllers.personalMedico_controller import personal_medico_bp
 from controllers.user_controller import usuario_bp
+from controllers.transaction_controller import *
 
 
 app = Flask(__name__)
@@ -33,6 +34,18 @@ app.register_blueprint(historial_bp, url_prefix='/historiales')
 app.register_blueprint(equipo_bp, url_prefix='/equipos')
 app.register_blueprint(personal_medico_bp, url_prefix='/personal')
 app.register_blueprint(usuario_bp, url_prefix='/usuarios')
+app.register_blueprint(transaction_blueprint)
+app.register_blueprint(admission_blueprint)
+app.register_blueprint(personalAdmistraccion)
+app.register_blueprint(proveedoresAdmistraccion)
+app.register_blueprint(almacenAdmistraccion)
+app.register_blueprint(medicamentoAdmistraccion)
+app.register_blueprint(equipoMedicoAdmistraccion)
+app.register_blueprint(pacientesAdmistraccion)
+app.register_blueprint(habitacionesAdmistraccion)
+app.register_blueprint(cirugiaAdmistraccion)
+app.register_blueprint(citasAdmindistraccion)
+
 # ---------------------------------------------------------------------------
 # Home
 # ---------------------------------------------------------------------------
