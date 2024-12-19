@@ -93,6 +93,6 @@ def citas_agendadas():
 
     return render_template("citas_agendadas.html")
 
-@cita_bp.route('/citas_medicas')
-def citas_medicas():
+@cita_bp.route('/citas_medicas', methods=["GET"])
+def citas_medicas(): #obtener_citas_medicas del personal
     return render_template('citas_medicas.html')
