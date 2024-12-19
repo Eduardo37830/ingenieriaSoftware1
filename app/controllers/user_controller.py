@@ -18,8 +18,8 @@ def iniciar_sesion():
             session['user_id'] = user.id
             session['user_role'] = user.rol
             # Redirigir según el rol del usuariov
-            if user.rol == 'Medico':
-                return redirect(url_for('inicio_medico'))
+            if user.rol == 'Médico':
+                return redirect(url_for('personal_medico_bp.inicio_medico'))
             elif user.rol == 'Paciente':
                 return redirect(url_for('paciente_bp.inicio_cliente'))
             elif user.rol == 'Administrador':

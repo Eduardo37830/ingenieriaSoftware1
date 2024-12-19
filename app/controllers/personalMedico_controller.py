@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, render_template
 
 from application.dtos.personal_medico_dto import PersonalMedicoDTO
 from application.services.personalMedico_service import PersonalMedicoService
@@ -39,3 +39,8 @@ def obtener_personal_medico(id):
 def eliminar_personal_medico(id):
     service.eliminar_personal_medico(id)
     return jsonify({"mensaje": "Personal médico eliminado exitosamente"}), 200
+
+@personal_medico_bp.route('/inicio_cliente', methods=['GET'])
+def inicio_medico():
+    return render_template('inicio_medico.html')
+

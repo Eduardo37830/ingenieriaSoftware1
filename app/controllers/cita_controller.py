@@ -92,3 +92,7 @@ def citas_agendadas():
         return jsonify([cita.to_dict() for cita in citas]), 200
 
     return render_template("citas_agendadas.html")
+
+@cita_bp.route('/citas_medicas')
+def citas_medicas():
+    return render_template('citas_medicas.html')

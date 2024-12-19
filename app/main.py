@@ -85,9 +85,6 @@ def cerrar_sesion():
 # Inicio Cliente
 # ---------------------------------------------------------------------------
 
-def inicio_medico():
-    return render_template('inicio_medico.html')
-
 @app.route('/rutas')
 def listar_rutas():
     rutas = [str(rule) for rule in app.url_map.iter_rules()]
