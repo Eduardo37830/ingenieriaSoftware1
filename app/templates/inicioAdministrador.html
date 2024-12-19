@@ -1,85 +1,45 @@
-
 {% extends "base.html" %}
 
-{% block title %}Inicio Admistrador{% endblock %}
+{% block title %}Inicio Administrador{% endblock %}
 
 {% block content %}
 <head>
-    <link rel="stylesheet"
-        href="{{ url_for('static', filename='styles/admistrador.css') }}">
-    <title>Inicio Admistrador</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/admistrador.css') }}">
+    <title>Inicio Administrador</title>
 </head>
 <h1>Bienvenido Administrador</h1>
 <div class="button-container">
-    <div class="button-container"><bottom id="citas"
-            class="custom-btn custom-btn-1">Citas</bottom></div>
-    <div class="button-container"><bottom id="cirugia"
-            class="custom-btn custom-btn-2">Cirugias</bottom></div>
-    <div class="button-container"><bottom id="personalmedico"
-            class="custom-btn custom-btn-3">Personal Medico</bottom></div>
-    <div class="button-container"><bottom id="proveedores"
-            class="custom-btn custom-btn-4">Proveedores</bottom></div>
+    <div class="button-container"><button id="citas" class="custom-btn custom-btn-1">Citas</button></div>
+    <div class="button-container"><button id="cirugia" class="custom-btn custom-btn-2">Cirugías</button></div>
+    <div class="button-container"><button id="personalmedico" class="custom-btn custom-btn-3">Personal Médico</button></div>
+    <div class="button-container"><button id="proveedores" class="custom-btn custom-btn-4">Proveedores</button></div>
 </div>
 <div class="button-container">
-    <div class="button-container"><bottom id="almacen"
-            class="custom-btn custom-btn-4">Almacen</bottom></div>
-    <div class="button-container"><bottom id="pacientes"
-            class="custom-btn custom-btn-3">Pacientes</bottom></div>
-    <div class="button-container"><bottom id="habitaciones"
-            class="custom-btn custom-btn-2">Habitaciones</bottom></div>
-    <div class="button-container"><bottom id="departamentos"
-            class="custom-btn custom-btn-1">Departamentos</bottom></div>
+    <div class="button-container"><button id="almacen" class="custom-btn custom-btn-4">Almacén</button></div>
+    <div class="button-container"><button id="pacientes" class="custom-btn custom-btn-3">Pacientes</button></div>
+    <div class="button-container"><button id="habitaciones" class="custom-btn custom-btn-2">Habitaciones</button></div>
 </div>
 <script>
-        document.getElementById("personalmedico").addEventListener("click", function () {
-            const body = document.body;
-            body.classList.add("fade-out");
-            setTimeout(() => {
-                window.location.href = "/Administrador/personalmedico";
-            }, 1000);
-        });
-        document.getElementById("proveedores").addEventListener("click", function () {
-            const body = document.body;
-            body.classList.add("fade-out");
-            setTimeout(() => {
-                window.location.href = "/Administrador/proveedores";
-            }, 1000);
-        });
-        document.getElementById("almacen").addEventListener("click", function () {
-            const body = document.body;
-            body.classList.add("fade-out");
-            setTimeout(() => {
-                window.location.href = "/Administrador/almacen";
-            }, 1000);
-        });
-        document.getElementById("pacientes").addEventListener("click", function () {
-            const body = document.body;
-            body.classList.add("fade-out");
-            setTimeout(() => {
-                window.location.href = "/Administrador/pacientes";
-            }, 1000);
-        });
-        document.getElementById("habitaciones").addEventListener("click", function () {
-            const body = document.body;
-            body.classList.add("fade-out");
-            setTimeout(() => {
-                window.location.href = "/Administrador/habitaciones";
-            }, 1000);
-        });
-        document.getElementById("citas").addEventListener("click", function () {
-            const body = document.body;
-            body.classList.add("fade-out");
-            setTimeout(() => {
-                window.location.href = "/Administrador/citas";
-            }, 1000);
-        });
-        document.getElementById("cirugia").addEventListener("click", function () {
-            const body = document.body;
-            body.classList.add("fade-out");
-            setTimeout(() => {
-                window.location.href = "/Administrador/cirugias";
-            }, 1000);
-        });
-    </script>
-
+    document.getElementById("personalmedico").addEventListener("click", function () {
+        window.location.href = "/Administrador/personalmedico";
+    });
+    document.getElementById("proveedores").addEventListener("click", function () {
+        window.location.href = "/Administrador/proveedores";
+    });
+    document.getElementById("almacen").addEventListener("click", function () {
+        window.location.href = "/Administrador/almacen";
+    });
+    document.getElementById("pacientes").addEventListener("click", function () {
+        window.location.href = "/Administrador/pacientes";
+    });
+    document.getElementById("habitaciones").addEventListener("click", function () {
+        window.location.href = "/Administrador/habitaciones";
+    });
+    document.getElementById("citas").addEventListener("click", function () {
+        window.location.href = "/Administrador/citas";
+    });
+    document.getElementById("cirugia").addEventListener("click", function () {
+        window.location.href = "/Administrador/cirugias";
+    });
+</script>
 {% endblock %}

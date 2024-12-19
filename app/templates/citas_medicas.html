@@ -4,13 +4,13 @@
 
 {% block content %}
 <link rel="stylesheet"
-    href="{{ url_for('static', filename='styles/citas_medicas.css') }}">
+    href="{{ url_for('static', filename='styles/tablas.css') }}">
 
 <h1>Citas Médicas</h1>
 
-<div class="citas-container">
+<div class="contenedor">
     {% if citas %}
-    <table class="tabla-citas">
+    <table class="tabla">
         <thead>
             <tr class="tabla-encabezado">
                 <th>Nombre del Paciente</th>
@@ -30,16 +30,15 @@
                 <td>{{ cita.fecha }}</td>
                 <td>{{ cita.motivo }}</td>
                 <td class="tabla-botones">
-                    <a class="boton-seleccionar"
-                        href="{{ url_for('historial_medico', cedula=cita.cedula_paciente) }}"
-                        class="custom-btn custom-btn-cita">
-                        Historial
-                    </a>
-                    <a class="boton-seleccionar"
-                        href="{{ url_for('formula') }}"
-                        class="custom-btn custom-btn-cita">
-                        Formula
-                    </a>
+                    <div class="button-container">
+                        <a class="custom-btn custom-btn-4"
+                            href="{{ url_for('historial_medico', cedula=cita.cedula_paciente) }}"
+                            >
+                            Historial
+                        </a>
+                        <button onclick="formula('{{ cita.nombre }}', '{{ cita.fecha }}')" class=" custom-btn-1 custom-btn">Formula</button>
+                    </div>
+                        
                 </td>
             </tr>
             {% endfor %}
@@ -49,4 +48,106 @@
     <p class="mensaje-sin-citas">No hay citas médicas asociadas a tu cédula.</p>
     {% endif %}
 </div>
+
+<!-- Modal de edición -->
+<div id="modal-editar" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="cerrarModal()">&times;</span>
+        <h3 id="titulo">Editar Cita Médica</h3>
+        <form id="form-editar-cita" class="custom-form">
+            <div class="form-group">
+                <label for="nombrePaciente" class="form-label">Nombre del Paciente:</label>
+                <input type="text" id="nombrePaciente" name="nombrePaciente" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="fechaCita" class="form-label">Fecha de la Cita:</label>
+                <input type="date" id="fechaCita" name="fechaCita" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="medicamento" class="form-label">Nombre del Medicamento:</label>
+                <input type="text" id="medicamento" name="medicamento" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="descripcion" class="form-label">descripcion:</label>
+                <input type="text" id="descripcion" name="descripcion" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="cantidad" class="form-label">Cantidad:</label>
+                <input type="number" id="cantidad" name="cantidad" class="form-input" required>
+            </div>
+            
+            <button type="submit" class="custom-btn custom-btn-3">Hacer formula </button>
+        </form>
+    </div>
+</div>
+
+<script>
+    let citaSeleccionada = null;
+
+    function formula(nombre, fecha) {
+        // Llenar el formulario con los datos de la cita seleccionada
+        document.getElementById('titulo').innerText = 'Editar Cita Médica: ' + nombre;
+        document.getElementById('nombrePaciente').value = nombre;
+        document.getElementById('fechaCita').value = fecha;
+        // Asumimos que el medicamento y descripcion están vacíos, pero puedes agregar lógica para obtener estos datos si es necesario.
+        document.getElementById('medicamento').value = '';  // Si ya tienes un medicamento en la base de datos, añádelo aquí
+        document.getElementById('cantidad').value = '';  // Igual con la descripcion
+        document.getElementById('descripcion').value = '';  // Igual con la descripcion
+
+        // Mostrar el modal de edición
+        document.getElementById('modal-editar').style.display = 'block';
+    }
+
+    function cerrarModal() {
+        // Cerrar el modal de edición
+        document.getElementById('modal-editar').style.display = 'none';
+    }
+
+    document.getElementById('form-editar-cita')?.addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        // Aquí puedes agregar lógica para actualizar la cita en la base de datos
+
+        alert('Cita actualizada correctamente');
+        cerrarModal();
+    });
+</script>
+
+<style>
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 500px;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+
 {% endblock %}
