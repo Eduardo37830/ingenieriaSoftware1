@@ -42,7 +42,7 @@ def agendar_cita():
         return jsonify({"error": "Error al agendar la cita", "detalle": str(e)}), 500
 
 
-@cita_bp.route('/citas', methods=['GET'])
+@cita_bp.route('/', methods=['GET'])
 def listar_citas():
     try:
         # Obtener todas las citas a través del servicio

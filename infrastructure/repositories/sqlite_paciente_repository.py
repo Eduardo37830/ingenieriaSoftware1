@@ -71,18 +71,19 @@ class SQLitePacienteRepository(IPacienteRepository):
                 return Paciente(*row)
             return None
 
-    def find_all(self) -> List[Paciente]:
-        """Devuelve todos los pacientes"""
+    def find_all(self):
+        """Obtiene todos los pacientes de la base de datos."""
         with self._connect() as conn:
             cursor = conn.cursor()
             cursor.execute(
                 """
-                SELECT u.id, u.nombre, u.correo, u.direccion, u.telefono, u.tipo_documento, u.numero_documento
-                FROM PACIENTES p
-                JOIN USUARIOS u ON p.usuario_id = u.id
+                SELECT id, nombre, correo, contrasena, rol, direccion, telefono, tipo_documento, numero_documento
+                FROM USUARIOS
+                WHERE rol = 'Paciente'
                 """
             )
             rows = cursor.fetchall()
+            # Mapea cada fila a una instancia de Paciente
             return [Paciente(*row) for row in rows]
 
     def delete(self, paciente_id: int) -> None:
