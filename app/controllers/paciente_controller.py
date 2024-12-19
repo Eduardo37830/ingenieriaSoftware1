@@ -44,3 +44,7 @@ def obtener_paciente(id):
 @paciente_bp.route('/inicio_cliente', methods=['GET'])
 def inicio_cliente():
     return render_template('inicio_cliente.html')
+
+@paciente_bp.route('/historial_medico')
+def historial_medico():
+    return render_template('historial_medico.html')
