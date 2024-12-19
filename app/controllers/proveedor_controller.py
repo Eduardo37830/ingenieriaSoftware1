@@ -1,4 +1,6 @@
 from flask import Blueprint, request, jsonify
+
+from application.dtos.proveedor_dto import ProveedorDTO
 from application.services.proveedor_service import ProveedorApplicationService
 from domain.entities.proveedor import Proveedor
 
@@ -8,7 +10,7 @@ service = ProveedorApplicationService("hospital.db")
 @proveedor_bp.route('/proveedores', methods=['POST'])
 def registrar_proveedor():
     data = request.get_json()
-    proveedor = Proveedor(
+    proveedor = ProveedorDTO(
         id=None,
         nombre=data.get("nombre"),
         fecha_entrega=data.get("fecha_entrega"),

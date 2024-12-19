@@ -1,7 +1,7 @@
 from domain.entities.paciente import Paciente
 
 class PacienteDTO:
-    def __init__(self, id_usuario, nombre, correo, contrasena, rol, direccion, telefono, tipoDocumento, numeroDocumento):
+    def __init__(self, id_usuario, nombre, correo, contrasena, rol, direccion, telefono, tipo_documento, numero_documento):
         self.id_usuario = id_usuario
         self.nombre = nombre
         self.correo = correo
@@ -9,8 +9,8 @@ class PacienteDTO:
         self.rol = rol
         self.direccion = direccion
         self.telefono = telefono
-        self.tipoDocumento = tipoDocumento
-        self.numeroDocumento = numeroDocumento
+        self.tipo_documento = tipo_documento
+        self.numero_documento = numero_documento
 
     @staticmethod
     def from_entity(paciente: Paciente) -> 'PacienteDTO':
@@ -23,8 +23,8 @@ class PacienteDTO:
             rol=paciente.rol,
             direccion=paciente.direccion,
             telefono=paciente.telefono,
-            tipoDocumento=paciente.tipo_documento,
-            numeroDocumento=paciente.numero_documento
+            tipo_documento=paciente.tipo_documento,
+            numero_documento=paciente.numero_documento
         )
 
     def to_entity(self) -> Paciente:
@@ -37,8 +37,8 @@ class PacienteDTO:
             rol=self.rol,
             direccion=self.direccion,
             telefono=self.telefono,
-            tipoDocumento=self.tipoDocumento,
-            numeroDocumento=self.numeroDocumento
+            tipo_documento=self.tipo_documento,
+            numero_documento=self.numero_documento
         )
     def to_dict (self):
         return {
@@ -49,6 +49,6 @@ class PacienteDTO:
             "rol": self.rol,
             "direccion": self.direccion,
             "telefono": self.telefono,
-            "tipoDocumento": self.tipoDocumento,
-            "numeroDocumento": self.numeroDocumento
+            "tipo_documento": self.tipo_documento,
+            "numero_documento": self.numero_documento
         }

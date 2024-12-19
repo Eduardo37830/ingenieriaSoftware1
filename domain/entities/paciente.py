@@ -10,8 +10,8 @@ class Paciente(Usuario):
         historial_medico (list): Lista de entradas del historial médico (instancias de HistorialMedico).
     """
 
-    def __init__(self, id_usuario, nombre, correo, contrasena, rol, direccion, telefono, tipoDocumento, numeroDocumento):
-        super().__init__(id_usuario, nombre, correo, contrasena, rol, direccion, telefono, tipoDocumento, numeroDocumento)
+    def __init__(self, id_usuario, nombre, correo, contrasena, rol, direccion, telefono, tipo_documento, numero_documento):
+        super().__init__(id_usuario, nombre, correo, contrasena, rol, direccion, telefono, tipo_documento, numero_documento)
         self.historial_medico = []
         self.citas = []
         self.formulas = []

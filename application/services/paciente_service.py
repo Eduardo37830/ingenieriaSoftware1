@@ -70,3 +70,7 @@ class PacienteApplicationService:
             raise NotFoundError(f"No se encontró un paciente con el ID {paciente_id}")
         paciente.formulas.append(formula)
         self.paciente_repository.update(paciente)
+
+    def lista_pacientes(self):
+        """Lista todos los pacientes."""
+        return [PacienteDTO.from_entity(paciente) for paciente in self.paciente_repository.find_all()]
