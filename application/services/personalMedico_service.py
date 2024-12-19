@@ -1,13 +1,13 @@
 from datetime import datetime
 from application.dtos.personal_medico_dto import PersonalMedicoDTO
-
+from domain.repositories.i_personalMedico_repository import IPersonalMedicoRepository
 class PersonalMedicoService:
-    def __init__(self, repository):
+    def __init__(self, personal_repository: IPersonalMedicoRepository):
         """
         Inicializa el servicio con el repositorio que gestionará el acceso a los datos.
         :param repository: Repositorio para interactuar con la base de datos.
         """
-        self.repository = repository
+        self.personal_repository = personal_repository
 
     def verificar_disponibilidad(self, medico_id, fecha_hora):
         """
@@ -16,7 +16,7 @@ class PersonalMedicoService:
         :param fecha_hora: Fecha y hora para verificar la disponibilidad.
         :return: Verdadero si el médico está disponible, falso en caso contrario.
         """
-        medico = self.repository.obtener_por_id(medico_id)
+        medico = self.personal_repository.obtener_por_id(medico_id)
         if medico:
             return medico.esta_disponible(fecha_hora)
         return False
@@ -67,3 +67,5 @@ class PersonalMedicoService:
                 departamento_id=medico.departamento_id
             )
 
+    def listar_personal_medico(self):
+        return [PersonalMedicoDTO.from_entity(personal_medico) for personal_medico in self.personal_repository.find_all()]

@@ -1,4 +1,4 @@
-    # domain/repositories/i_personal_medico_repository.py
+# domain/repositories/i_personal_medico_repository.py
 from abc import ABC, abstractmethod
 from typing import List
 from domain.entities.personalMedico import PersonalMedico
@@ -18,4 +18,9 @@ class IPersonalMedicoRepository(ABC):
     @abstractmethod
     def find_available(self, start_time: str, end_time: str) -> List[PersonalMedico]:
         """Obtiene personal médico disponible en un rango de horarios."""
+        pass
+
+    @abstractmethod
+    def find_all(self) -> List[PersonalMedico]:
+        """Obtiene todos los pacientes."""
         pass

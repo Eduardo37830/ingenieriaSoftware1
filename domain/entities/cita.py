@@ -1,4 +1,6 @@
 from datetime import datetime, date, time
+from typing import Optional
+
 
 class Cita:
     def __init__(self, id: int, motivoConsulta: str, fechaConsulta: datetime, horaConsulta: time,
