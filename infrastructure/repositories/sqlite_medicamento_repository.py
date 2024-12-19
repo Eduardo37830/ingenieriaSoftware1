@@ -83,3 +83,18 @@ class SQLiteMedicamentoRepository(IMedicamentoRepository):
             cursor = conn.cursor()
             cursor.execute("DELETE FROM MEDICAMENTOS WHERE id = ?", (medicamento_id,))
             conn.commit()
+
+    def find_low_stock(self, threshold: int) -> List[Medicamento]:
+        """Devuelve los medicamentos con stock bajo"""
+        with self._connect() as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                """
+                SELECT id, nombre, tipoMedicamento, fechaFabricacion, fechaVencimiento, cantidad, proveedor_id
+                FROM MEDICAMENTOS
+                WHERE cantidad <= ?
+                """,
+                (threshold,),
+            )
+            rows = cursor.fetchall()
+            return [Medicamento(*row) for row in rows]

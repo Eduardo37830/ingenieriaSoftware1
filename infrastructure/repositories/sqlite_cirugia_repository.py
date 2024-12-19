@@ -75,6 +75,21 @@ class SQLiteCirugiaRepository(ICirugiaRepository):
             rows = cursor.fetchall()
             return [Cirugia(*row) for row in rows]
 
+    def find_all_by_paciente (self, paciente_id: int) -> List[Cirugia]:
+        """Devuelve todas las cirugías de un paciente"""
+        with self._connect() as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                """
+                SELECT id, fechaCirugia, tipoCirugia, id_paciente, id_habitacion, horaCirugia
+                FROM CIRUGIAS
+                WHERE id_paciente = ?
+                """,
+                (paciente_id,),
+            )
+            rows = cursor.fetchall()
+            return [Cirugia(*row) for row in rows]
+
     def delete(self, cirugia_id: int) -> None:
         """Elimina una cirugía por ID"""
         with self._connect() as conn:
